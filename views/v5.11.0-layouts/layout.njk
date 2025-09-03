@@ -29,21 +29,7 @@
 
 {% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
 
-{% if useAutoStoreData %}
-  {% block footer %}
-    {{ govukFooter({
-      rebrand: true,
-      meta: {
-        items: [
-          {
-            href: "/survey",
-            text: "Survey"
-          }
-        ]
-      }
-    }) }}
-  {% endblock %}
-{% endif %}
+
 
 {% block bodyEnd %}
   {% block scripts %}
