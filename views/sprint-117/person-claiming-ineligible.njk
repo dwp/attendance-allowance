@@ -13,13 +13,13 @@
         <p class="govuk-body">If you are a
         {{ data['best-describe']
         | replace("deputy", "property and financial affairs deputy")
-        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Department of Justice")
+        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Office of Care and Protection")
         }}, you will need to use the <a class="govuk-link govuk-link" href="https://www.nidirect.gov.uk/publications/attendance-allowance-claim-form-and-guidance-notes">paper claim form</a>.</p>
         {% else %}
         <p class="govuk-body">If you are a
         {{ data['best-describe']
         | replace("deputy", "property and financial affairs deputy")
-        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Department of Justice")
+        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Office of Care and Protection")
         }}, you will need to use the <a class="govuk-link govuk-link" href="https://www.gov.uk/attendance-allowance/how-to-claim#apply-by-post">paper claim form</a>.</p>
     {% endif %}
 

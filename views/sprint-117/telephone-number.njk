@@ -22,7 +22,7 @@
     {{ data['best-describe'] 
     | replace("appointed", "appointee") 
     | replace("appointee", "appointee" ) 
-    | replace("powerOfAttorney", "power of attorney") }}'s 
+    | replace("powerOfAttorney", "power of attorney" if locale != 'NI' else "Enduring Power of Attorney") }}'s 
     contact details later.
   </div>
 

@@ -44,10 +44,17 @@
     </div>
   {% else %}
     <div class="govuk-inset-text">
+      {% if locale == 'NI' %}
+      <p class="govuk-body">
+        As you have Enduring Power of Attorney (EPA), we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% else %}
       <p class="govuk-body">
         As you have power of attorney, we will need additional information about you to process this claim.
         We will ask for this at the end of the application.
       </p>
+      {% endif %}
     </div>
   {% endif %}
 

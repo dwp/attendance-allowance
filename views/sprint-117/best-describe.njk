@@ -42,17 +42,17 @@
       } if data['applying-someone-else'] == 'individual',
       {
         value: "powerOfAttorney",
-        text: "I have power of attorney (property and finance)",
+        text: "I have power of attorney (property and finance)" if locale != 'NI' else "I have Enduring Power of Attorney (EPA)",
         checked: true if data["best-describe"] and data["best-describe"].includes("powerOfAttorney")
       } if data['applying-someone-else'] == 'individual',
       {
         value: "deputy",
         text: "I am a property and financial affairs deputy",
         checked: true if data["best-describe"] and data["best-describe"].includes("deputy")
-      } if data['applying-someone-else'] == 'individual',
+      } if data['applying-someone-else'] == 'individual' and locale !== 'NI',
       {
         value: "curator",
-        text: "I am a curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "I am a Controller, appointed by the Department of Justice",
+        text: "I am a curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "I am a Controller, appointed by the Office of Care and Protection",
         checked: true if data["best-describe"] and data["best-describe"].includes("curator")
       } if data['applying-someone-else'] == 'individual'
     ]

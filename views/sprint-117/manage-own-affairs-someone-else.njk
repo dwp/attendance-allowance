@@ -8,10 +8,17 @@
       You cannot help someone to apply if someone else has authority over their benefits or financial affairs
     </h1>
 
+    {% if locale == 'NI' %}
+    <p class="govuk-body">
+      If someone has been appointed to make decisions for the person you are helping, for example an Enduring Power of Attorney (EPA),
+      that person will need to complete the application for Attendance Allowance.
+    </p>
+    {% else %}
     <p class="govuk-body">
       If someone has been appointed to make decisions for the person you are helping, for example a power of attorney,
       that person will need to complete the application for Attendance Allowance.
     </p>
+    {% endif %}
 
     <p class="govuk-body">
       This is because we need additional information about them. This claim will be delayed if we do not have this information.
