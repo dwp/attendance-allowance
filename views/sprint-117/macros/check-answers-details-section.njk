@@ -2,7 +2,7 @@
 {% from "./reword-date.njk" import rewordDate %}
 {% from "./reword-benefit.njk" import rewordBenefit %}
 
-{% macro checkAnswersDetailsSection(data) %}
+{% macro checkAnswersDetailsSection(data, locale) %}
 
 	<section class="who-is-applying">
 		<h2 class="govuk-heading-m">
@@ -83,9 +83,9 @@
             | replace("charity", "I work for a charity or organisation")
             | replace("appointed", "I have been appointed by DWP to manage their benefits" if locale != 'NI' else "I have been appointed by DfC to manage their benefits")
             | replace("appointee", "I want to be appointed by DWP to manage their benefits" if locale != 'NI' else "I want to be appointed by DfC to manage their benefits")
-            | replace("powerOfAttorney", "I have power of attorney (property and finance)")
+            | replace("powerOfAttorney", "I have power of attorney (property and finance)" if locale != 'NI' else "I have Enduring Power of Attorney (EPA)")
             | replace("deputy", "I am a property and financial affairs deputy")
-            | replace("curator", "I am a curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "I am a Controller, appointed by the Department of Justice")
+            | replace("curator", "I am a curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "I am a Controller, appointed by the Office of Care and Protection")
             }}
           </dd>
           <dd class="govuk-summary-list__actions">

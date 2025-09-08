@@ -2,15 +2,21 @@
 {% from "./reword-date.njk" import rewordDate %}
 {% from "./reword-format.njk" import rewordFormat %}
 
-{% macro checkAnswersContactDetailsSection(data) %}
+{% macro checkAnswersContactDetailsSection(data, locale) %}
 
 	{% if data['applying-someone-else'] == 'individual' %}
 		<section class="appointee-details">
 
 			{% if data['best-describe'] == 'powerOfAttorney' %}
+				{% if locale == 'NI' %}
+				<h2 class="govuk-heading-m">
+					Enduring Power of Attorney details
+				</h2>
+				{% else %}
 				<h2 class="govuk-heading-m">
 					Power of attorney details
 				</h2>
+				{% endif %}
 			{% else %}
 				{% if locale == 'NI' %}
 				<h2 class="govuk-heading-m">
@@ -22,7 +28,7 @@
 				</h2>
 				{% endif %}
 			{% endif %}
-
+			
 			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
 				<div class="govuk-summary-list__row representative-first-name">
 					<dt class="govuk-summary-list__key">
