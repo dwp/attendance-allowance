@@ -2,6 +2,22 @@
 
 {% extends "v5.11.0-layouts/prototypeLayout.njk" %}
 
+{% block beforeContent %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        Beta
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <a href="claim-type" class="govuk-back-link">Back</a>
+
+{% endblock %}
 
 {% block form %}
 
@@ -10,10 +26,17 @@
   {% set monthError = ' govuk-input--error ' if data.validation['effective-date'].error.href === '#effective-date-month' %}
   {% set yearError  = ' govuk-input--error ' if data.validation['effective-date'].error.href === '#effective-date-year' %}
 
+
   {% set effectiveDateBody %}
+    {% if locale == 'NI' %}
+    <p class="govuk-body govuk-hint govuk-!-margin-bottom-4">
+      This is shown as 'date received' on the OS1.
+    </p>
+    {% else %}
     <p class="govuk-body govuk-hint govuk-!-margin-bottom-4">
       This is shown as 'date received' on the visiting control sheet.
     </p>
+    {% endif %}
     <p class="govuk-body govuk-hint">
       For example, 23 4 2021.
     </p>
