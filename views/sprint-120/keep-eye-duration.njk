@@ -1,0 +1,80 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Someone to keep an eye on you</span>
+  <h1 class="govuk-heading-l">How often and for how long</h1>
+
+  {{ govukRadios({
+    idPrefix: "keep-eye-duration-left-alone",
+    name: "keep-eye-duration-left-alone",
+    fieldset: {
+      legend: {
+        text: "On a typical day how long can you safely be left alone?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['keep-eye-duration-left-alone'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "less-than-one-hour",
+        text: "Less than an hour",
+        checked: true if data["keep-eye-duration-left-alone"] === "less-than-one-hour"
+      },
+      {
+        value: "more-than-one-hour",
+        text: "More than an hour",
+        checked: true if data["keep-eye-duration-left-alone"] === "more-than-one-hour"
+      },
+      {
+        value: "cannot-left-alone",
+        text: "I can't be left alone",
+        checked: true if data["keep-eye-duration-left-alone"] === "cannot-left-alone"
+      }
+    ]
+  }) }}
+
+  {{ govukRadios({
+    idPrefix: "keep-eye-duration-need-someone",
+    name: "keep-eye-duration-need-someone",
+    fieldset: {
+      legend: {
+        text: "How many days a week do you typically need someone to keep an eye on you?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['keep-eye-duration-need-someone'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["keep-eye-duration-need-someone"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["keep-eye-duration-need-someone"] === "2"
+      },
+      {
+        value: "3-or-more",
+        text: "3 or more",
+        checked: true if data["keep-eye-duration-need-someone"] === "3-or-more"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

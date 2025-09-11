@@ -1,0 +1,58 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Turning over or changing position in bed</span>
+  <h1 class="govuk-heading-l">Approximately, how many times a night do you need help to turn over or change position?</h1>
+
+  {{ govukRadios({
+    id: "night-frequency-1-bed",
+    name: "night-frequency-1-bed",
+    errorMessage: data.validation['night-frequency-1-bed'].error,
+    items: [
+      {
+        value: "once-a-night",
+        text: "Once a night",
+        checked: true if data["night-frequency-1-bed"] === "once-a-night",
+        conditional: {
+          html: conditionalTurningOverTypicallyHowLongHtml
+          }
+      },
+      {
+        value: "2-times-a-night",
+        text: "2 times a night",
+        checked: true if data["night-frequency-1-bed"] === "2-times-a-night"
+      },
+      {
+        value: "3-times-a-night-or-more",
+        text: "3 times a night or more",
+        checked: true if data["night-frequency-1-bed"] === "3-times-a-night-or-more"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% set conditionalTurningOverTypicallyHowLongHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'How long does it take to turn over or change position?'
+    },
+    id: "turning-over-typically-how-long",
+    name: "turning-over-typically-how-long",
+    errorMessage: data.validation['turning-over-typically-how-long'].error,
+    value: data['turning-over-typically-how-long']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

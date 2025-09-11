@@ -1,0 +1,49 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set allErrors  = ' govuk-input--error ' if data.validation['hospital-admission-date'].error.href === '#hospital-admission-date' %}
+  {% set dayError   = ' govuk-input--error ' if data.validation['hospital-admission-date'].error.href === '#hospital-admission-date-day' %}
+  {% set monthError = ' govuk-input--error ' if data.validation['hospital-admission-date'].error.href === '#hospital-dmission-date-month' %}
+  {% set yearError  = ' govuk-input--error ' if data.validation['hospital-admission-date'].error.href === '#hospital-admission-date-year' %}
+
+  {{ govukDateInput({
+    id: "hospital-admission-date",
+    namePrefix: "hospital-admission-date",
+    fieldset: {
+      legend: {
+        text: "What date did you go into hospital?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "For example, 27 3 2023."
+    },
+    errorMessage: data.validation['hospital-admission-date'].error,
+    items: [
+      {
+        classes: 'govuk-input--width-2' + allErrors + dayError,
+        name: 'day',
+        value: data['hospital-admission-date-day']
+      },
+      {
+        classes: 'govuk-input--width-2' + allErrors + monthError,
+        name: 'month',
+        value: data['hospital-admission-date-month']
+      },
+      {
+        classes: 'govuk-input--width-4' + allErrors + yearError,
+        name: 'year',
+        value: data['hospital-admission-date-year']
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

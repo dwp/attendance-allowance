@@ -1,0 +1,85 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Moving around indoors during the day</span>
+  <h1 class="govuk-heading-l">
+    What do you have difficulty with when moving around indoors?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "moving-indoors-day",
+      name: "moving-indoors-day",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['moving-indoors-day'].error,
+      items: [{
+        value: "walking-around",
+        text: "Walking around",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("walking-around")
+      },
+      {
+        value: "chair",
+        text: "Getting in or out of a chair",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("chair")
+      },
+      {
+        value: "wheel",
+        text: "Transferring to or from a wheelchair",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("wheel")
+      },
+      {
+        value: "stairs",
+        text: "Going up or down stairs",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("stairs")
+      },
+      {
+        value: "reminding-motivating",
+        text: "Reminding or motivating myself to move",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("reminding-motivating")
+      },
+      {
+        value: "moving-indoors-something-else",
+        text: "Something else",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("moving-indoors-something-else"),
+        conditional: {
+          html: conditionalSomethingElseHtml
+             }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "I do not have difficulty moving around indoors",
+        behaviour: "exclusive",
+        checked: true if data["moving-indoors-day"] and data["moving-indoors-day"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what you have difficulty with when moving around indoors'
+    },
+    id: "something-else-explain",
+    name: "something-else-explain",
+    errorMessage: data.validation['something-else-explain'].error,
+    value: data['something-else-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

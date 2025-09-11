@@ -1,0 +1,78 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    What treatment are you having for your cancer?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "cancer-treatment-options",
+      name: "cancer-treatment-options",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['cancer-treatment-options'].error,
+      items: [
+        {
+          value: "chemotherapy",
+          text: "Chemotherapy",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("chemotherapy")
+        },
+        {
+          value: "radiotherapy",
+          text: "Radiotherapy",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("radiotherapy")
+        },
+        {
+          value: "palliative treatment",
+          text: "Palliative treatment",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("palliative treatment")
+        },
+        {
+          value: "immunotherapy",
+          text: "Immunotherapy",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("immunotherapy")
+        },
+        {
+          value: "surgery-for-cancer",
+          text: "Surgery for cancer",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("surgery-for-cancer")
+        },
+        {
+          value: "something-else",
+          text: "Something else",
+          checked: true if data["cancer-treatment-options"] and data["cancer-treatment-options"].includes("something-else"),
+          conditional: {
+            html: cancerTreatmentSomethingElse
+          }
+        }
+      ]
+    })
+  }}
+{% endblock %}
+
+{% set cancerTreatmentSomethingElse %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    label: {
+      text: "Tell us what treatment you are having",
+      isPageHeading: true
+    },
+    id: "cancer-treatment-something-else",
+    name: "cancer-treatment-something-else",
+    value: data['cancer-treatment-something-else'],
+    errorMessage: data.validation['cancer-treatment-something-else'].error
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

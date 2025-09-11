@@ -1,0 +1,106 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+    <h1 class="govuk-fieldset__heading">What is your home address?</h1>
+  </legend>
+
+  <p class="govuk-body">
+      We will only use this to send you letters about this Attendance Allowance claim.
+  </p>
+
+  <h2 class="govuk-heading-m">Postcode</h2>
+  <p class="govuk-body">NE25 9NZ&emsp;<a href="representative-address-postcode" class="govuk-link">Change</a></p>
+
+  <div class="govuk-form-group">
+    <label class="govuk-heading-m" for="address">
+      Select an address
+    </label>
+
+      {{ govukSelect({
+        id: "representative-address-select",
+        name: "representative-address-select",
+        items: [
+          {value:"", text : "60 addresses found"},
+          {value:"2 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"2 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"4 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"4 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"6 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"6 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"8 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"8 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"10 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"10 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"12 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"12 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"14 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"14 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"16 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"16 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"18 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"18 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"20 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"20 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"22 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"22 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"24 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"24 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"26 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"26 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"28 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"28 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"30 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"30 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"32 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"32 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"34 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"34 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"36 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"36 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"38 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"38 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"40 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"40 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"42 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"42 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"44 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"44 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"46 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"46 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"48 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"48 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"50 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"50 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"52 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"52 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"54 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"54 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"56 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"56 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"58 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"58 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"60 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"60 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"62 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"62 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"64 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"64 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"66 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"66 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"68 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"68 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"70 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"70 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"72 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"72 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"74 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"74 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"76 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"76 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"78 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"78 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"80 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"80 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"82 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"82 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"84 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"84 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"86 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"86 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"88 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"88 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"90 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"90 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"92 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"92 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"94 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"94 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"96 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"96 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"98 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"98 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"100 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"100 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"102 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"102 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"104 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"104 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"106 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"106 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"108 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"108 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"110 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"110 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"112 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"112 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"114 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"114 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"116 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"116 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"118 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"118 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"},
+          {value:"120 TURNBERRY, RED HOUSE FARM, WHITLEY BAY", text :"120 TURNBERRY, RED HOUSE FARM, WHITLEY BAY"}
+        ]
+      }) }}
+
+    <!-- <select class="govuk-select" id="address" name="address">
+      <option value="47089597">60 addresses found</option>
+      <option value="2 TURNBERRY RED HOUSE FARM, WHITLEY BAY">2 TURNBERRY, RED HOUSE FARM, Cullercoats</option>
+    </select> -->
+  </div>
+  <p class="govuk-body">
+  <a href="representative-address-manual" class="govuk-link">
+  <br>I cannot find my address</a>
+  </p>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

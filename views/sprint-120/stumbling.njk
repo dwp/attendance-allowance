@@ -1,0 +1,52 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<span class="govuk-caption-l">Stumbling or falling during the day</span>
+<h1 class="govuk-heading-l">
+  Approximately, how many times do you stumble on a weekly basis?
+</h1>
+
+  {{ govukRadios({
+    idPrefix: "frequency-stumbling",
+    name: "frequency-stumbling",
+    errorMessage: data.validation['frequency-stumbling'].error,
+    items: [
+      {
+        value: "less-than-once",
+        text: "Less than once a week",
+        checked: true if data["frequency-stumbling"] === "less-than-once"
+      },
+      {
+        value: "one-two",
+        text: "1 or 2 times a week",
+        checked: true if data["frequency-stumbling"] === "one-two"
+      },
+      {
+        value: "three-four",
+        text: "3 or 4 times a week",
+        checked: true if data["frequency-stumbling"] === "three-four"
+      },
+      {
+        value: "five-six",
+        text: "5 or 6 times a week",
+        checked: true if data["frequency-stumbling"] === "five-six"
+      },
+      {
+        value: "less-than-six",
+        text: "More than 6 times a week",
+        checked: true if data["frequency-stumbling"] === "less-than-six"
+      }
+    ]
+  }) }}
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

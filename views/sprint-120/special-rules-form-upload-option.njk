@@ -1,0 +1,48 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set specialRulesFormUploadOptionBody %}
+    <p class="govuk-body">You can upload:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>your digital SR1 form</li>
+      <li>photos or scans of your paper SR1 form</li>
+    </ul>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "special-rules-form-upload-option",
+    name: "special-rules-form-upload-option",
+    classes: "govuk-!-margin-bottom-3",
+    fieldset: {
+      legend: {
+        text: "Do you want to upload your SR1 form?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-4"
+      }
+    },
+    errorMessage: data.validation['special-rules-form-upload-option'].error,
+    hint: {
+      html: specialRulesFormUploadOptionBody
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["special-rules-form-upload-option"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["special-rules-form-upload-option"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

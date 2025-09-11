@@ -1,0 +1,28 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+        <h1 class="govuk-heading-l">You may not get Attendance Allowance if you get other benefits</h1>
+        <p class="govuk-body">You are not eligible for Attendance Allowance if you are already getting:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Personal Independence Payment (PIP)</li>
+          <li>Adult Disability Payment (ADP)</li>
+          <li>the care component of Disability Living Allowance (DLA)</li>
+        </ul>
+
+      <p class="govuk-body">
+        If you <a href="nationality" class="govuk-link">continue to apply for Attendance Allowance</a>,
+        your existing benefits will be reviewed which may result in a change to what you currently get.
+      </p>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

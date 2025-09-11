@@ -1,0 +1,56 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Taking medication or receiving treatment during the night</span>
+
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty when you take medication or receive treatment
+  </h1>
+
+  <p class="govuk-body govuk-!-margin-bottom-2">For example, struggling to handle your medicines and understanding how much to take and when to take them.</p>
+  <p class="govuk-body govuk-!-margin-bottom-8">Or whether you have physical difficulties receiving treatment that you need, during the night.</p>
+
+  {{ govukCheckboxes
+    ({
+      id: "taking-medication-night",
+      name: "taking-medication-night",
+      fieldset: {
+        legend: {
+          text: "If you need to take medication or receive treatment during the night, which difficulties do you have?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['taking-medication-night'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty when I take medication or receive treatment",
+        checked: true if data["taking-medication-night"] and data["taking-medication-night"].includes("physical")
+      },
+      {
+        value: "prompt",
+        text: "I need encouragement or prompting to take medication or receive treatment",
+        checked: true if data["taking-medication-night"] and data["taking-medication-night"].includes("prompt")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["taking-medication-night"] and data["taking-medication-night"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

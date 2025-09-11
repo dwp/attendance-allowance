@@ -1,0 +1,107 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Do you have difficulty or need help with any of these activities during the day?
+  </h1>
+
+  <p class="govuk-hint">
+    Select all that apply.
+  </p>
+
+  {{ govukCheckboxes
+    ({
+      name: "day-difficulties",
+      errorMessage: data.validation['day-difficulties'].error,
+      items: [{
+        value: "daytime-bed",
+        text: "Getting in or out of bed",
+        hint: {
+          text: "This is if you have difficulty or need encouragement to get in or out of bed."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-bed")
+      },{
+        value: "daytime-washing",
+        text: "Washing or bathing",
+        hint: {
+          text: "This is if you have difficulty or need encouragement to wash, have a bath or shower."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-washing")
+      },{
+        value: "daytime-dressing",
+        text: "Dressing or undressing yourself",
+        hint: {
+          text: "This is if you have difficulty or need help putting clothes or shoes on as well as help choosing suitable clothes."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-dressing")
+      },{
+        value: "daytime-moving",
+        text: "Moving around indoors",
+        hint: {
+          text: "This is if you find it hard to get in or out of a chair or wheelchair, using the stairs, or moving around your home."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-moving")
+      },{
+        value: "stumbling-falling",
+        text: "Stumbling or falling",
+        hint: {
+          text: "This is if you have weak muscles, stiff joints, problems with your sight, or you feel faint or dizzy."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("stumbling-falling")
+      },{
+        value: "daytime-toilet",
+        text: "Using the toilet or managing incontinence",
+        hint: {
+          text: "This is if you have difficulty, need help or encouragement getting to or using the toilet or commode."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-toilet")
+      },{
+        value: "daytime-eating",
+        text: "Eating or drinking",
+        hint: {
+          text: "This is if you have difficulty or need help with cutting up your food, getting food or drink into your mouth, or find it hard to chew or swallow."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-eating")
+      },{
+        value: "daytime-medication",
+        text: "Taking medication or receiving treatment",
+        hint: {
+          text: "This is if you have difficulty or need help taking or remembering your medication or treatment."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-medication")
+      },{
+        value: "daytime-hobbies",
+        text: "Social activities or hobbies",
+        hint: {
+          text: "This is if you find it hard or need help to have a hobby or go to a social event."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-hobbies")
+      },{
+        value: "daytime-communication",
+        text: "Communication",
+        hint: {
+          text: "This is if you find it hard or need help to read, write or speak."
+        },
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-communication")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "daytime-none",
+        text: "I do not have difficulties or need help during the day",
+        behaviour: "exclusive",
+        checked: true if data["day-difficulties"] and data["day-difficulties"].includes("daytime-none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

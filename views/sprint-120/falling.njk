@@ -1,0 +1,28 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Stumbling or falling during the day</span>
+
+  <h1 class="govuk-heading-l">
+    Approximately, how many times did you fall down in the last 12 months?
+  </h1>
+
+  {{ govukInput({
+    name: "frequency-falling",
+    type: "frequency-falling",
+    autocomplete: "frequency-falling",
+    classes: "govuk-input--width-4",
+    value: data['frequency-falling'],
+    errorMessage: data.validation['frequency-falling'].error
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

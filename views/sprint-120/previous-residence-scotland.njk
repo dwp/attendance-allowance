@@ -1,0 +1,82 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  {% set currentResidence = data['residence-country'] | capitalize %}
+
+  {% set allErrors  = ' govuk-input--error ' if data.validation['moved-from-scotland-date'].error.href === '#moved-from-scotland-date' %}
+  {% set dayError   = ' govuk-input--error ' if data.validation['moved-from-scotland-date'].error.href === '#moved-from-scotland-date-day' %}
+  {% set monthError = ' govuk-input--error ' if data.validation['moved-from-scotland-date'].error.href === '#moved-from-scotland-date-month' %}
+  {% set yearError  = ' govuk-input--error ' if data.validation['moved-from-scotland-date'].error.href === '#moved-from-scotland-date-year' %}
+
+{% set previousResidenceScotlandHtml %}
+    {{ govukDateInput({
+      id: "moved-from-scotland-date",
+      namePrefix: "moved-from-scotland-date",
+      classes: "govuk-!-margin-bottom-2",
+      fieldset: {
+        legend: {
+          classes: "govuk-body",
+          text: "When did you move from Scotland?"
+        }
+      },
+      hint: {
+        text: "For example, 13 1 2025"
+      },
+      errorMessage: data.validation['moved-from-scotland-date'].error,
+      items: [
+        {
+          classes: 'govuk-input--width-2' + allErrors + dayError,
+          name: 'day',
+          value: data['moved-from-scotland-date-day']
+        },
+        {
+          classes: 'govuk-input--width-2' + allErrors + monthError,
+          name: 'month',
+          value: data['moved-from-scotland-date-month']
+        },
+        {
+          classes: 'govuk-input--width-4' + allErrors + yearError,
+          name: 'year',
+          value: data['moved-from-scotland-date-year']
+        }
+      ]
+    }) }}
+  {% endset -%}
+
+  {{ govukRadios({
+    idPrefix: "previous-residence-scotland",
+    name: "previous-residence-scotland",
+    fieldset: {
+      legend: {
+        text: "Have you moved from Scotland to " + currentResidence + " since 21 October 2024?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['previous-residence-scotland'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["previous-residence-scotland"] === "yes",
+        conditional: {
+            html: previousResidenceScotlandHtml
+          }
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["previous-residence-scotland"] === "no"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

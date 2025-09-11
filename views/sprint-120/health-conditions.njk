@@ -1,0 +1,2870 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block head %}
+  {{super()}}
+  <link rel="stylesheet" type="text/css" href="/accessible-autocomplete.min.css"/>
+  <script src="/accessible-autocomplete2.min.js"></script>
+  <style>
+    .autocomplete__option {
+      font-size: 19px;
+      line-height: 1.31579;
+      font-family: GDS Transport,arial,sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+{% endblock %}
+
+{% block pageTitle %}
+  Your health conditions and disabilities
+{% endblock %}
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading govuk-body">
+      Your health conditions and disabilities
+    </h1>
+  </legend>
+
+  <p class="govuk-body govuk-!-margin-bottom-7">
+    We need to know about the health conditions or disabilities that mean you need extra help or care.
+  </p>
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+    <h2 class="govuk-fieldset__heading govuk-body">
+      {% if data['health-conditions-rows'].length > 0 %}
+        Search for another health condition or disability
+      {% else %}
+        Search for your first health condition or disability
+      {% endif %}
+    </h2>
+  </legend>
+
+  {% set illnesses = [
+      {
+        text: "",
+value: "",
+        code: ""
+      }, {
+
+        text: "Acne vulgaris",
+value: "Acne vulgaris",
+        code: "N15"
+      }, {
+
+        text: "Acute kidney disease (AKD)",
+value: "Acute kidney disease (AKD)",
+        code: "R21"
+      }, {
+
+        text: "Addison's disease",
+value: "Addison's disease",
+        code: "S31"
+      }, {
+
+        text: "Adrenal disease",
+value: "Adrenal disease",
+        code: "S40"
+      }, {
+
+        text: "Age related hearing loss: presbyacusis",
+value: "Age related hearing loss: presbyacusis",
+        code: "I12"
+      }, {
+
+        text: "Agoraphobia",
+value: "Agoraphobia",
+        code: "F24"
+      }, {
+
+        text: "AIDS",
+value: "AIDS",
+        code: "B01"
+      }, {
+
+        text: "Alcohol dependency",
+value: "Alcohol dependency",
+        code: "F71"
+      }, {
+
+        text: "Alcoholic / alcohol addiction",
+value: "Alcoholic / alcohol addiction",
+        code: "F71"
+      }, {
+
+        text: "Allergy - no risk of anaphylaxis",
+value: "Allergy - no risk of anaphylaxis",
+        code: "V04"
+      }, {
+
+        text: "Allergy - risk of anaphylaxis unknown or not fully assessed",
+value: "Allergy - risk of anaphylaxis unknown or not fully assessed",
+        code: "V03"
+      }, {
+
+        text: "Allergy with a risk of anaphylaxis",
+value: "Allergy with a risk of anaphylaxis",
+        code: "V02"
+      }, {
+
+        text: "Alzheimer's disease",
+value: "Alzheimer's disease",
+        code: "F61"
+      }, {
+
+        text: "Amblyopia - lazy eye",
+value: "Amblyopia - lazy eye",
+        code: "H66"
+      }, {
+
+        text: "Amino acid metabolism disorders",
+value: "Amino acid metabolism disorders",
+        code: "E03"
+      }, {
+
+        text: "Amputation - lower limb",
+value: "Amputation - lower limb",
+        code: "P66"
+      }, {
+
+        text: "Amputation - upper limb",
+value: "Amputation - upper limb",
+        code: "P61"
+      }, {
+
+        text: "Amputations - upper and lower limb",
+value: "Amputations - upper and lower limb",
+        code: "P70"
+      }, {
+
+        text: "Amyloidosis",
+value: "Amyloidosis",
+        code: "E11"
+      }, {
+
+        text: "Anaemia - aplastic anaemia",
+value: "Anaemia - aplastic anaemia",
+        code: "A03"
+      }, {
+
+        text: "Anaemia - iron deficiency anaemia",
+value: "Anaemia - iron deficiency anaemia",
+        code: "A01"
+      }, {
+
+        text: "Anaemia - sickle cell anaemia",
+value: "Anaemia - sickle cell anaemia",
+        code: "A13"
+      }, {
+
+        text: "Anaemia - vitamin B12 or folate deficiency anaemia",
+value: "Anaemia - vitamin B12 or folate deficiency anaemia",
+        code: "A02"
+      }, {
+
+        text: "Anaemias ",
+value: "Anaemias ",
+        code: "A10"
+      }, {
+
+        text: "Angina",
+value: "Angina",
+        code: "J46"
+      }, {
+
+        text: "Angiodema",
+value: "Angiodema",
+        code: "V07"
+      }, {
+
+        text: "Angiosarcoma",
+value: "Angiosarcoma",
+        code: "C65"
+      }, {
+
+        text: "Ankle and foot disorders",
+value: "Ankle and foot disorders",
+        code: "P60"
+      }, {
+
+        text: "Ankylosing spondylitis",
+value: "Ankylosing spondylitis",
+        code: "O17"
+      }, {
+
+        text: "Anorectal abscess",
+value: "Anorectal abscess",
+        code: "L41"
+      }, {
+
+        text: "Anorexia nervosa",
+value: "Anorexia nervosa",
+        code: "F66"
+      }, {
+
+        text: "Anterior uveitis (iritis)",
+value: "Anterior uveitis (iritis)",
+        code: "H11"
+      }, {
+
+        text: "Antiphospholipid syndrome",
+value: "Antiphospholipid syndrome",
+        code: "Q02"
+      }, {
+
+        text: "Anxiety and depression",
+value: "Anxiety and depression",
+        code: "F32"
+      }, {
+
+        text: "Anxiety disorders",
+value: "Anxiety disorders",
+        code: "F30"
+      }, {
+
+        text: "Aortic valve disease",
+value: "Aortic valve disease",
+        code: "J61"
+      }, {
+
+        text: "Arterial disease excluding coronary - Other",
+value: "Arterial disease excluding coronary - Other",
+        code: "J75"
+      }, {
+
+        text: "Arthritis - generalised osteoarthritis of 2 or more joints",
+value: "Arthritis - generalised osteoarthritis of 2 or more joints",
+        code: "O10"
+      }, {
+
+        text: "Arthritis - inflammatory arthritis",
+value: "Arthritis - inflammatory arthritis",
+        code: "O25"
+      }, {
+
+        text: "Arthritis - juvenile idiopathic arthritis",
+value: "Arthritis - juvenile idiopathic arthritis",
+        code: "O20"
+      }, {
+
+        text: "Arthritis - osteoarthritis of a single joint",
+value: "Arthritis - osteoarthritis of a single joint",
+        code: "O03"
+      }, {
+
+        text: "Arthritis - osteoarthritis of the hip",
+value: "Arthritis - osteoarthritis of the hip",
+        code: "O01"
+      }, {
+
+        text: "Arthritis - osteoarthritis of the knee",
+value: "Arthritis - osteoarthritis of the knee",
+        code: "O02"
+      }, {
+
+        text: "Arthritis - psoriatic",
+value: "Arthritis - psoriatic",
+        code: "O18"
+      }, {
+
+        text: "Arthritis - reactive",
+value: "Arthritis - reactive",
+        code: "O19"
+      }, {
+
+        text: "Asbestosis",
+value: "Asbestosis",
+        code: "T33"
+      }, {
+
+        text: "Ascites",
+value: "Ascites",
+        code: "M21"
+      }, {
+
+        text: "Asperger syndrome",
+value: "Asperger syndrome",
+        code: "F92"
+      }, {
+
+        text: "Asthma",
+value: "Asthma",
+        code: "T17"
+      }, {
+
+        text: "Astigmatism",
+value: "Astigmatism",
+        code: "H49"
+      }, {
+
+        text: "Ataxia",
+value: "Ataxia",
+        code: "G70"
+      }, {
+
+        text: "Atherosclerosis (peripheral arterial disease)",
+value: "Atherosclerosis (peripheral arterial disease)",
+        code: "J72"
+      },
+      {
+        text: "Atrial fibrillation",
+        value: "Atrial fibrillation",
+        code: "J09"
+      },
+      {
+        text: "Attention deficit hyperactivity disorder (ADHD) / attention deficit disorder (ADD)",
+value: "Attention deficit hyperactivity disorder (ADHD) / attention deficit disorder (ADD)",
+        code: "F95"
+      }, {
+
+        text: "Attention stoma / illeostomy",
+value: "Attention stoma / illeostomy",
+        code: "L98"
+      }, {
+
+        text: "Autism",
+value: "Autism",
+        code: "F91"
+      }, {
+
+        text: "Autoimmune (idiopathic) thrombocytopaenic purpura (ITP)",
+value: "Autoimmune (idiopathic) thrombocytopaenic purpura (ITP)",
+        code: "A51"
+      }, {
+
+        text: "Autoimmune disease",
+value: "Autoimmune disease",
+        code: "Q99"
+      }, {
+
+        text: "Autoimmune hepatitis",
+value: "Autoimmune hepatitis",
+        code: "M03"
+      }, {
+
+        text: "Back pain",
+value: "Back pain",
+        code: "P21"
+      }, {
+
+        text: "Back pain - specific",
+value: "Back pain - specific",
+        code: "P30"
+      }, {
+
+        text: "Bacterial diseases",
+value: "Bacterial diseases",
+        code: "B30"
+      }, {
+
+        text: "Bedwetting (enuresis)",
+value: "Bedwetting (enuresis)",
+        code: "F97"
+      }, {
+
+        text: "Behcet's disease",
+value: "Behcet's disease",
+        code: "Q08"
+      }, {
+
+        text: "Bipolar affective disorder (Hypomania / Mania)",
+value: "Bipolar affective disorder (Hypomania / Mania)",
+        code: "F42"
+      }, {
+
+        text: "Bladder cancer",
+value: "Bladder cancer",
+        code: "C22"
+      }, {
+
+        text: "Bladder, urethra, testes and penis disease or disorder",
+value: "Bladder, urethra, testes and penis disease or disorder",
+        code: "R40"
+      }, {
+
+        text: "Blepharospasm",
+value: "Blepharospasm",
+        code: "G32"
+      }, {
+
+        text: "Blood disorders ",
+value: "Blood disorders ",
+        code: "A99"
+      }, {
+
+        text: "Blood vessels / lymphatics - disease",
+value: "Blood vessels / lymphatics - disease",
+        code: "N40"
+      }, {
+
+        text: "Body dysmorphic disorder (BDD)",
+value: "Body dysmorphic disorder (BDD)",
+        code: "F34"
+      }, {
+
+        text: "Bone cancer",
+value: "Bone cancer",
+        code: "C70"
+      }, {
+
+        text: "Bowel cancer (colon, rectum, anus)",
+value: "Bowel cancer (colon, rectum, anus)",
+        code: "C06"
+      }, {
+
+        text: "Bowel incontinence - faecal soiling (encopresis)",
+value: "Bowel incontinence - faecal soiling (encopresis)",
+        code: "F98"
+      }, {
+
+        text: "Brachial plexus",
+value: "Brachial plexus",
+        code: "G76"
+      }, {
+
+        text: "Brain tumour (benign)",
+value: "Brain tumour (benign)",
+        code: "G40"
+      }, {
+
+        text: "Brain tumour / brain cancer",
+value: "Brain tumour / brain cancer",
+        code: "C51"
+      }, {
+
+        text: "Breast cancer ",
+value: "Breast cancer ",
+        code: "C71"
+      }, {
+
+        text: "Bronchiectasis",
+value: "Bronchiectasis",
+        code: "T11"
+      }, {
+
+        text: "Buerger's disease",
+value: "Buerger's disease",
+        code: "J71"
+      }, {
+
+        text: "Bulimia nervosa",
+value: "Bulimia nervosa",
+        code: "F67"
+      }, {
+
+        text: "Bullous disease",
+value: "Bullous disease",
+        code: "N30"
+      }, {
+
+        text: "Burns",
+value: "Burns",
+        code: "N51"
+      }, {
+
+        text: "Bursitis",
+value: "Bursitis",
+        code: "P47"
+      }, {
+
+        text: "Cancer",
+value: "Cancer",
+        code: "C99"
+      }, {
+
+        text: "Carbohydrate metabolism disorders",
+value: "Carbohydrate metabolism disorders",
+        code: "E02"
+      }, {
+
+        text: "Cardiovascular disease",
+value: "Cardiovascular disease",
+        code: "J99"
+      }, {
+
+        text: "Carpal tunnel syndrome",
+value: "Carpal tunnel syndrome",
+        code: "P12"
+      }, {
+
+        text: "Cataplexy",
+value: "Cataplexy",
+        code: "G11"
+      }, {
+
+        text: "Cataract",
+value: "Cataract",
+        code: "H42"
+      }, {
+
+        text: "Cellulitis",
+value: "Cellulitis",
+        code: "N02"
+      }, {
+
+        text: "Cerebral palsy",
+value: "Cerebral palsy",
+        code: "G65"
+      }, {
+
+        text: "Cerebral palsy - ataxic",
+value: "Cerebral palsy - ataxic",
+        code: "G64"
+      }, {
+
+        text: "Cerebral palsy - athetoid",
+value: "Cerebral palsy - athetoid",
+        code: "G62"
+      }, {
+
+        text: "Cerebral palsy - causing hemiparesis",
+value: "Cerebral palsy - causing hemiparesis",
+        code: "G63"
+      }, {
+
+        text: "Cerebral palsy - diplegia",
+value: "Cerebral palsy - diplegia",
+        code: "G61"
+      }, {
+
+        text: "Cerebral palsy - quadriplegia",
+value: "Cerebral palsy - quadriplegia",
+        code: "G59"
+      }, {
+
+        text: "Cerebrovascular accident (stroke)",
+value: "Cerebrovascular accident (stroke)",
+        code: "G01"
+      }, {
+
+        text: "Cerebrovascular disease",
+value: "Cerebrovascular disease",
+        code: "G05"
+      }, {
+
+        text: "Cervical cancer",
+value: "Cervical cancer",
+        code: "C25"
+      }, {
+
+        text: "Cervical disc lesion",
+value: "Cervical disc lesion",
+        code: "P16"
+      }, {
+
+        text: "Cervical spondylosis",
+value: "Cervical spondylosis",
+        code: "P17"
+      }, {
+
+        text: "Charcot Marie Tooth disease",
+value: "Charcot Marie Tooth disease",
+        code: "G73"
+      }, {
+
+        text: "Chondromalacia patellae",
+value: "Chondromalacia patellae",
+        code: "P46"
+      }, {
+
+        text: "Chondrosarcoma",
+value: "Chondrosarcoma",
+        code: "C62"
+      }, {
+
+        text: "Chorioretinal disorders",
+value: "Chorioretinal disorders",
+        code: "H15"
+      }, {
+
+        text: "Chromosomal syndrome ",
+value: "Chromosomal syndrome ",
+        code: "U03"
+      }, {
+
+        text: "Chronic fatigue syndrome (CFS)",
+value: "Chronic fatigue syndrome (CFS)",
+        code: "O12"
+      }, {
+
+        text: "Chronic kidney failure / renal failure",
+value: "Chronic kidney failure / renal failure",
+        code: "R22"
+      }, {
+
+        text: "Chronic obstructive pulmonary disease (COPD) chronic bronchitis / emphysema",
+value: "Chronic obstructive pulmonary disease (COPD) chronic bronchitis / emphysema",
+        code: "T06"
+      }, {
+
+        text: "Chronic pain syndrome",
+value: "Chronic pain syndrome",
+        code: "O15"
+      }, {
+
+        text: "Chronic secretory otitis media",
+value: "Chronic secretory otitis media",
+        code: "I04"
+      }, {
+
+        text: "Chronic suppurative otitis media",
+value: "Chronic suppurative otitis media",
+        code: "I02"
+      }, {
+
+        text: "Cirrhosis - alcohol induced",
+value: "Cirrhosis - alcohol induced",
+        code: "M11"
+      }, {
+
+        text: "Cirrhosis - autoimmune",
+value: "Cirrhosis - autoimmune",
+        code: "M15"
+      }, {
+
+        text: "Cirrhosis (not alcohol induced)",
+value: "Cirrhosis (not alcohol induced)",
+        code: "M20"
+      }, {
+
+        text: "Claudication",
+value: "Claudication",
+        code: "J72"
+      }, {
+
+        text: "Cleft lip",
+value: "Cleft lip",
+        code: "L81"
+      }, {
+
+        text: "Cleft palate / cleft lip and cleft palate",
+value: "Cleft palate / cleft lip and cleft palate",
+        code: "L82"
+      }, {
+
+        text: "Clotting disorders ",
+value: "Clotting disorders ",
+        code: "A50"
+      }, {
+
+        text: "Club foot (talipes)",
+value: "Club foot (talipes)",
+        code: "P51"
+      }, {
+
+        text: "Coeliac disease",
+value: "Coeliac disease",
+        code: "L16"
+      }, {
+
+        text: "Cognitive disorder due to stroke",
+value: "Cognitive disorder due to stroke",
+        code: "F62"
+      }, {
+
+        text: "Colitis - ischaemic",
+value: "Colitis - ischaemic",
+        code: "L33"
+      }, {
+
+        text: "Collagen and elastic tissue disease",
+value: "Collagen and elastic tissue disease",
+        code: "N50"
+      }, {
+
+        text: "Colon diseases / disorders",
+value: "Colon diseases / disorders",
+        code: "L40"
+      }, {
+
+        text: "Compartment syndrome (volkmann's ischaemia)",
+value: "Compartment syndrome (volkmann's ischaemia)",
+        code: "O61"
+      }, {
+
+        text: "Complications of prematurity",
+value: "Complications of prematurity",
+        code: "U01"
+      }, {
+
+        text: "Conduct disorder including oppositional defiant disorder (ODD)",
+value: "Conduct disorder including oppositional defiant disorder (ODD)",
+        code: "F96"
+      }, {
+
+        text: "Conjunctiva, cornea, eyelids and lacrimal apparatus - other diseases ",
+value: "Conjunctiva, cornea, eyelids and lacrimal apparatus - other diseases ",
+        code: "H10"
+      }, {
+
+        text: "Constipation",
+value: "Constipation",
+        code: "L31"
+      }, {
+
+        text: "Conversion disorder (hysteria)",
+value: "Conversion disorder (hysteria)",
+        code: "F33"
+      }, {
+
+        text: "Corneal ulcer",
+value: "Corneal ulcer",
+        code: "H03"
+      }, {
+
+        text: "Cortical blindness",
+value: "Cortical blindness",
+        code: "H72"
+      }, {
+
+        text: "Creutzfeldt-Jacob disease (CJD)",
+value: "Creutzfeldt-Jacob disease (CJD)",
+        code: "B11"
+      }, {
+
+        text: "Crohns disease",
+value: "Crohns disease",
+        code: "L26"
+      }, {
+
+        text: "Crystal deposition disorder",
+value: "Crystal deposition disorder",
+        code: "O30"
+      }, {
+
+        text: "Cushing's syndrome",
+value: "Cushing's syndrome",
+        code: "S32"
+      }, {
+
+        text: "Cystic fibrosis",
+value: "Cystic fibrosis",
+        code: "T16"
+      }, {
+
+        text: "Deafness - congenital",
+value: "Deafness - congenital",
+        code: "I11"
+      }, {
+
+        text: "Deep vein thrombosis (DVT)",
+value: "Deep vein thrombosis (DVT)",
+        code: "J76"
+      }, {
+
+        text: "Deficits in attention, motor control and perception",
+value: "Deficits in attention, motor control and perception",
+        code: "F95"
+      }, {
+
+        text: "Degenerative neuronal diseases - Other",
+value: "Degenerative neuronal diseases - Other",
+        code: "G60"
+      }, {
+
+        text: "Dementia",
+value: "Dementia",
+        code: "F61"
+      }, {
+
+        text: "Dementia with lewy bodies (DLB)",
+value: "Dementia with lewy bodies (DLB)",
+        code: "F61"
+      }, {
+
+        text: "Depression",
+value: "Depression",
+        code: "F41"
+      }, {
+
+        text: "Dermatitis herpetiformis",
+value: "Dermatitis herpetiformis",
+        code: "N23"
+      }, {
+
+        text: "Dermatomyositis",
+value: "Dermatomyositis",
+        code: "G82"
+      }, {
+
+        text: "Diabetes insipidus",
+value: "Diabetes insipidus",
+        code: "S01"
+      }, {
+
+        text: "Diabetes mellitus (category unknown)",
+value: "Diabetes mellitus (category unknown)",
+        code: "S13"
+      }, {
+
+        text: "Diabetes mellitus T1 (Type 1, insulin dependent)",
+value: "Diabetes mellitus T1 (Type 1, insulin dependent)",
+        code: "S11"
+      }, {
+
+        text: "Diabetes mellitus T2 (Type 2, insulin and non insulin dependent)",
+value: "Diabetes mellitus T2 (Type 2, insulin and non insulin dependent)",
+        code: "S12"
+      }, {
+
+        text: "Diabetic neuropathy",
+value: "Diabetic neuropathy",
+        code: "G71"
+      }, {
+
+        text: "Diabetic retinopathy",
+value: "Diabetic retinopathy",
+        code: "H35"
+      }, {
+
+        text: "Diplopia - double vision",
+value: "Diplopia - double vision",
+        code: "H71"
+      }, {
+
+        text: "Diseases of the lower respiratory tract: includes lungs, trachea and larynx",
+value: "Diseases of the lower respiratory tract: includes lungs, trachea and larynx",
+        code: "T90"
+      }, {
+
+        text: "Diseases of the upper respiratory tract: includes nose and throat above the larynx",
+value: "Diseases of the upper respiratory tract: includes nose and throat above the larynx",
+        code: "T05"
+      }, {
+
+        text: "Dislocation of the hip - congenital including developmental dysplasia of the hip",
+value: "Dislocation of the hip - congenital including developmental dysplasia of the hip",
+        code: "P31"
+      }, {
+
+        text: "Dissociative disorders",
+value: "Dissociative disorders",
+        code: "F35"
+      }, {
+
+        text: "Disturbances of consciousness (non - epileptic)",
+value: "Disturbances of consciousness (non - epileptic)",
+        code: "G25"
+      }, {
+
+        text: "Diverticular disease / diverticulitis",
+value: "Diverticular disease / diverticulitis",
+        code: "L32"
+      }, {
+
+        text: "Dizziness",
+value: "Dizziness",
+        code: "G97"
+      }, {
+
+        text: "Down's syndrome",
+value: "Down's syndrome",
+        code: "F86"
+      }, {
+
+        text: "Drop attacks - sudden falls",
+value: "Drop attacks - sudden falls",
+        code: "G19"
+      }, {
+
+        text: "Drug addiction",
+value: "Drug addiction",
+        code: "F75"
+      }, {
+
+        text: "Dupuytrens contracture",
+value: "Dupuytrens contracture",
+        code: "P13"
+      }, {
+
+        text: "Dyslexia",
+value: "Dyslexia",
+        code: "F03"
+      }, {
+
+        text: "Eating disorders",
+value: "Eating disorders",
+        code: "F70"
+      }, {
+
+        text: "Eczema - varicose",
+value: "Eczema - varicose",
+        code: "N12"
+      }, {
+
+        text: "Eczema (dermatitis)",
+value: "Eczema (dermatitis)",
+        code: "N11"
+      }, {
+
+        text: "Ehlers Danlos syndrome",
+value: "Ehlers Danlos syndrome",
+        code: "N41"
+      }, {
+
+        text: "Elbow disorders",
+value: "Elbow disorders",
+        code: "P10"
+      }, {
+
+        text: "Empyema",
+value: "Empyema",
+        code: "T53"
+      }, {
+
+        text: "Endocrine disease",
+value: "Endocrine disease",
+        code: "S99"
+      }, {
+
+        text: "Endometriosis",
+value: "Endometriosis",
+        code: "R43"
+      }, {
+
+        text: "Entropion - drooping lower eyelid",
+value: "Entropion - drooping lower eyelid",
+        code: "H07"
+      }, {
+
+        text: "Epidemolysis bullosa",
+value: "Epidemolysis bullosa",
+        code: "N24"
+      }, {
+
+        text: "Epilepsy - seizures",
+value: "Epilepsy - seizures",
+        code: "G15"
+      }, {
+
+        text: "Epilepsy: generalised seizures in the last 12 months (with status epilepticus)",
+value: "Epilepsy: generalised seizures in the last 12 months (with status epilepticus)",
+        code: "G07"
+      }, {
+
+        text: "Epilepsy: generalised seizures in the last 12 months (without status epilepticus)",
+value: "Epilepsy: generalised seizures in the last 12 months (without status epilepticus)",
+        code: "G06"
+      }, {
+
+        text: "Epilepsy: partial seizures in the last 12 months (with status epilepticus)",
+value: "Epilepsy: partial seizures in the last 12 months (with status epilepticus)",
+        code: "G09"
+      }, {
+
+        text: "Epilepsy: partial seizures in the last 12 months (without status epilepticus)",
+value: "Epilepsy: partial seizures in the last 12 months (without status epilepticus)",
+        code: "G08"
+      }, {
+
+        text: "Epiphyseal dysplasia - multiple",
+value: "Epiphyseal dysplasia - multiple",
+        code: "O43"
+      }, {
+
+        text: "Essential tremor - benign",
+value: "Essential tremor - benign",
+        code: "G28"
+      }, {
+
+        text: "Ewing's sarcoma",
+value: "Ewing's sarcoma",
+        code: "C64"
+      }, {
+
+        text: "Extrinsic allergic alveolitis",
+value: "Extrinsic allergic alveolitis",
+        code: "T26"
+      }, {
+
+        text: "Eye injury",
+value: "Eye injury",
+        code: "H21"
+      }, {
+
+        text: "Eye movement disorder",
+value: "Eye movement disorder",
+        code: "H65"
+      }, {
+
+        text: "Facioscapulohumeral dystrophy",
+value: "Facioscapulohumeral dystrophy",
+        code: "G89"
+      }, {
+
+        text: "Factitious disorder",
+value: "Factitious disorder",
+        code: "F85"
+      }, {
+
+        text: "Faltering growth",
+value: "Faltering growth",
+        code: "U02"
+      }, {
+
+        text: "Fibroids",
+value: "Fibroids",
+        code: "R44"
+      }, {
+
+        text: "Fibromyalgia",
+value: "Fibromyalgia",
+        code: "O11"
+      }, {
+
+        text: "Fibrosarcoma",
+value: "Fibrosarcoma",
+        code: "C63"
+      }, {
+
+        text: "Fibrosing alveolitis",
+value: "Fibrosing alveolitis",
+        code: "T27"
+      }, {
+
+        text: "Fistula in anus",
+value: "Fistula in anus",
+        code: "L44"
+      }, {
+
+        text: "Food intolerance",
+value: "Food intolerance",
+        code: "V06"
+      }, {
+
+        text: "Fore foot pain (metatarsalgia)",
+value: "Fore foot pain (metatarsalgia)",
+        code: "P55"
+      }, {
+
+        text: "Fracture complications",
+value: "Fracture complications",
+        code: "O65"
+      }, {
+
+        text: "Fragile X syndrome",
+value: "Fragile X syndrome",
+        code: "F87"
+      }, {
+
+        text: "Friedreich's ataxia",
+value: "Friedreich's ataxia",
+        code: "G67"
+      }, {
+
+        text: "Frontotemporal dementia (FTD)",
+value: "Frontotemporal dementia (FTD)",
+        code: "F61"
+      }, {
+
+        text: "Frozen shoulder (adhesive capsulitis)",
+value: "Frozen shoulder (adhesive capsulitis)",
+        code: "P02"
+      }, {
+
+        text: "Gallbladder and biliary tract disease",
+value: "Gallbladder and biliary tract disease",
+        code: "M45"
+      }, {
+
+        text: "Gallstones",
+value: "Gallstones",
+        code: "M36"
+      }, {
+
+        text: "Gastrointestinal tract - other cancers ",
+value: "Gastrointestinal tract - other cancers ",
+        code: "C10"
+      }, {
+
+        text: "Gastrointestinal tract disease or disorder",
+value: "Gastrointestinal tract disease or disorder",
+        code: "L99"
+      }, {
+
+        text: "General learning disability ",
+value: "General learning disability ",
+        code: "F90"
+      }, {
+
+        text: "Generalised anxiety disorder",
+value: "Generalised anxiety disorder",
+        code: "F21"
+      }, {
+
+        text: "Generalised musculoskeletal disease",
+value: "Generalised musculoskeletal disease",
+        code: "O99"
+      }, {
+
+        text: "Generalised seizures in the last 12 months (with status epilepticus)",
+value: "Generalised seizures in the last 12 months (with status epilepticus)",
+        code: "G07"
+      }, {
+
+        text: "Generalised seizures in the last 12 months (without status epilepticus)",
+value: "Generalised seizures in the last 12 months (without status epilepticus)",
+        code: "G06"
+      }, {
+
+        text: "Genetic disorders, dysplasias and malformations",
+value: "Genetic disorders, dysplasias and malformations",
+        code: "O50"
+      }, {
+
+        text: "Genitourinary disease or disorder ",
+value: "Genitourinary disease or disorder ",
+        code: "R99"
+      }, {
+
+        text: "Genitourinary tract cancers",
+value: "Genitourinary tract cancers",
+        code: "C30"
+      }, {
+
+        text: "Giant cell tumour - malignant",
+value: "Giant cell tumour - malignant",
+        code: "C66"
+      }, {
+
+        text: "Glaucoma",
+value: "Glaucoma",
+        code: "H16"
+      }, {
+
+        text: "Glomerulonephritis",
+value: "Glomerulonephritis",
+        code: "R11"
+      }, {
+
+        text: "Glucose 6 phosphate dehydrogenase (G6PD) deficiency",
+value: "Glucose 6 phosphate dehydrogenase (G6PD) deficiency",
+        code: "A21"
+      }, {
+
+        text: "Goitre",
+value: "Goitre",
+        code: "S23"
+      }, {
+
+        text: "Golfers elbow (medial epicondylitis)",
+value: "Golfers elbow (medial epicondylitis)",
+        code: "P07"
+      }, {
+
+        text: "Gout",
+value: "Gout",
+        code: "O26"
+      }, {
+
+        text: "Granulomatous lung disease and pulmonary infiltration",
+value: "Granulomatous lung disease and pulmonary infiltration",
+        code: "T50"
+      }, {
+
+        text: "Growth hormone deficiency",
+value: "Growth hormone deficiency",
+        code: "S02"
+      }, {
+
+        text: "Guillain Barre syndrome",
+value: "Guillain Barre syndrome",
+        code: "G72"
+      }, {
+
+        text: "Haematological system - other cancers",
+value: "Haematological system - other cancers",
+        code: "C40"
+      }, {
+
+        text: "Haemochromatosis",
+value: "Haemochromatosis",
+        code: "M16"
+      }, {
+
+        text: "Haemodialysis",
+value: "Haemodialysis",
+        code: "D99"
+      }, {
+
+        text: "Haemolytic disorders",
+value: "Haemolytic disorders",
+        code: "A20"
+      }, {
+
+        text: "Haemophilia A",
+value: "Haemophilia A",
+        code: "A41"
+      }, {
+
+        text: "Haemophilia B - christmas disease",
+value: "Haemophilia B - christmas disease",
+        code: "A42"
+      }, {
+
+        text: "Haemorrhoids",
+value: "Haemorrhoids",
+        code: "L42"
+      }, {
+
+        text: "Hallux valgus / rigidus",
+value: "Hallux valgus / rigidus",
+        code: "P52"
+      }, {
+
+        text: "Head or brain injury - cognitive and sensorimotor impairment",
+value: "Head or brain injury - cognitive and sensorimotor impairment",
+        code: "G50"
+      }, {
+
+        text: "Head or brain injury - cognitive impairment",
+value: "Head or brain injury - cognitive impairment",
+        code: "G46"
+      }, {
+
+        text: "Head or brain injury - sensorimotor impairment",
+value: "Head or brain injury - sensorimotor impairment",
+        code: "G47"
+      }, {
+
+        text: "Headache",
+value: "Headache",
+        code: "G45"
+      }, {
+
+        text: "Hearing - disease affecting hearing and balance",
+value: "Hearing - disease affecting hearing and balance",
+        code: "I99"
+      }, {
+
+        text: "Hearing - tinnitus",
+value: "Hearing - tinnitus",
+        code: "I99"
+      }, {
+
+        text: "Hearing - vertigo",
+value: "Hearing - vertigo",
+        code: "I99"
+      }, {
+
+        text: "Hearing loss - conductive hearing loss",
+value: "Hearing loss - conductive hearing loss",
+        code: "I10"
+      }, {
+
+        text: "Hearing loss - conductive hearing loss due to trauma",
+value: "Hearing loss - conductive hearing loss due to trauma",
+        code: "I06"
+      }, {
+
+        text: "Hearing loss - mixed",
+value: "Hearing loss - mixed",
+        code: "I21"
+      }, {
+
+        text: "Heart and lung transplantation",
+value: "Heart and lung transplantation",
+        code: "T66"
+      }, {
+
+        text: "Heart attack / myocardial infarction",
+value: "Heart attack / myocardial infarction",
+        code: "J47"
+      }, {
+
+        text: "Hemianopia - visual impairment",
+value: "Hemianopia - visual impairment",
+        code: "H69"
+      }, {
+
+        text: "Hepatic encephalopathy",
+value: "Hepatic encephalopathy",
+        code: "M22"
+      }, {
+
+        text: "Hepatitis - chronic",
+value: "Hepatitis - chronic",
+        code: "M10"
+      }, {
+
+        text: "Hepatitis B and D infection",
+value: "Hepatitis B and D infection",
+        code: "M12"
+      }, {
+
+        text: "Hepatitis C infection",
+value: "Hepatitis C infection",
+        code: "M13"
+      }, {
+
+        text: "Hereditary multiple exostosis (diaphyseal aclasis)",
+value: "Hereditary multiple exostosis (diaphyseal aclasis)",
+        code: "O41"
+      }, {
+
+        text: "Hereditary spherocytosis",
+value: "Hereditary spherocytosis",
+        code: "A11"
+      }, {
+
+        text: "Hernia",
+value: "Hernia",
+        code: "L71"
+      }, {
+
+        text: "Hiatus hernia / gastroesophageal reflux disease / reflux oesophagitis",
+value: "Hiatus hernia / gastroesophageal reflux disease / reflux oesophagitis",
+        code: "L01"
+      }, {
+
+        text: "High blood pressure (HBP)",
+value: "High blood pressure (HBP)",
+        code: "J41"
+      }, {
+
+        text: "Hip disorder",
+value: "Hip disorder",
+        code: "P40"
+      }, {
+
+        text: "HIV",
+value: "HIV",
+        code: "B01"
+      }, {
+
+        text: "HIV and AIDS",
+value: "HIV and AIDS",
+        code: "B01"
+      }, {
+
+        text: "Hodgkin lymphoma",
+value: "Hodgkin lymphoma",
+        code: "C31"
+      }, {
+
+        text: "Huntington's disease",
+value: "Huntington's disease",
+        code: "G29"
+      }, {
+
+        text: "Hydrocephalus",
+value: "Hydrocephalus",
+        code: "G41"
+      }, {
+
+        text: "Hydronephrosis",
+value: "Hydronephrosis",
+        code: "R17"
+      }, {
+
+        text: "Hyperkinetic syndrome / disorder",
+value: "Hyperkinetic syndrome / disorder",
+        code: "F95"
+      }, {
+
+        text: "Hyperlipidaemia",
+value: "Hyperlipidaemia",
+        code: "E01"
+      }, {
+
+        text: "Hypermetropia (long-sighted)",
+value: "Hypermetropia (long-sighted)",
+        code: "H47"
+      }, {
+
+        text: "Hypermobility syndrome",
+value: "Hypermobility syndrome",
+        code: "O46"
+      }, {
+
+        text: "Hyperparathyroidism",
+value: "Hyperparathyroidism",
+        code: "S41"
+      }, {
+
+        text: "Hypersensitivity disease",
+value: "Hypersensitivity disease",
+        code: "V10"
+      }, {
+
+        text: "Hypertension",
+value: "Hypertension",
+        code: "J41"
+      }, {
+
+        text: "Hypertensive retinopathy",
+value: "Hypertensive retinopathy",
+        code: "H36"
+      }, {
+
+        text: "Hypoparathyroidism",
+value: "Hypoparathyroidism",
+        code: "S42"
+      }, {
+
+        text: "Hypothalamic and pituitary diseases",
+value: "Hypothalamic and pituitary diseases",
+        code: "S10"
+      }, {
+
+        text: "Immune system - disease ",
+value: "Immune system - disease ",
+        code: "V99"
+      }, {
+
+        text: "Impetigo",
+value: "Impetigo",
+        code: "N01"
+      }, {
+
+        text: "Inborn errors of metabolism",
+value: "Inborn errors of metabolism",
+        code: "E10"
+      }, {
+
+        text: "Incontinence - stress",
+value: "Incontinence - stress",
+        code: "R02"
+      }, {
+
+        text: "Incontinence - urge",
+value: "Incontinence - urge",
+        code: "R01"
+      }, {
+
+        text: "Incontinence (not enuresis / bedwetting)",
+value: "Incontinence (not enuresis / bedwetting)",
+        code: "R10"
+      }, {
+
+        text: "Infections",
+value: "Infections",
+        code: "G95"
+      }, {
+
+        text: "Infectious diseases ",
+value: "Infectious diseases ",
+        code: "B99"
+      },
+      {
+        text: "Infirmity",
+        value: "Infirmity",
+        code: "U10"
+      },
+      {
+        text: "Interstitial nephritis",
+value: "Interstitial nephritis",
+        code: "R14"
+      }, {
+
+        text: "Irritable bowel syndrome (IBS)",
+value: "Irritable bowel syndrome (IBS)",
+        code: "L51"
+      }, {
+
+        text: "Ischaemic heart disease - Other",
+value: "Ischaemic heart disease - Other",
+        code: "J55"
+      }, {
+
+        text: "Keratitis - inflamed cornea",
+value: "Keratitis - inflamed cornea",
+        code: "H02"
+      }, {
+
+        text: "Keratoconus",
+value: "Keratoconus",
+        code: "H05"
+      }, {
+
+        text: "Kidney cancer",
+value: "Kidney cancer",
+        code: "C21"
+      }, {
+
+        text: "Kidney disease or disorder",
+value: "Kidney disease or disorder",
+        code: "R20"
+      }, {
+
+        text: "Kidney transplantation / renal",
+value: "Kidney transplantation / renal",
+        code: "R23"
+      }, {
+
+        text: "Knee disorder",
+value: "Knee disorder",
+        code: "P50"
+      }, {
+
+        text: "Kyphosis",
+value: "Kyphosis",
+        code: "P23"
+      }, {
+
+        text: "Labyrinthitis",
+value: "Labyrinthitis",
+        code: "I13"
+      }, {
+
+        text: "Laryngeal (larynx) cancer",
+value: "Laryngeal (larynx) cancer",
+        code: "C11"
+      }, {
+
+        text: "Leg ulcers (arterial)",
+value: "Leg ulcers (arterial)",
+        code: "N33"
+      }, {
+
+        text: "Leg ulcers (venous)",
+value: "Leg ulcers (venous)",
+        code: "N31"
+      }, {
+
+        text: "Leukaemia - lymphoblastic - acute",
+value: "Leukaemia - lymphoblastic - acute",
+        code: "C35"
+      }, {
+
+        text: "Leukaemia - lymphocytic - chronic",
+value: "Leukaemia - lymphocytic - chronic",
+        code: "C37"
+      }, {
+
+        text: "Leukaemia - myelogenous (myeloid) acute",
+value: "Leukaemia - myelogenous (myeloid) acute",
+        code: "C34"
+      }, {
+
+        text: "Leukaemia - myeloid - chronic",
+value: "Leukaemia - myeloid - chronic",
+        code: "C36"
+      }, {
+
+        text: "Leukaemias - other",
+value: "Leukaemias - other",
+        code: "C38"
+      }, {
+
+        text: "Ligamentous instability of knee",
+value: "Ligamentous instability of knee",
+        code: "P42"
+      }, {
+
+        text: "Liver cancer",
+value: "Liver cancer",
+        code: "C05"
+      }, {
+
+        text: "Liver failure",
+value: "Liver failure",
+        code: "M30"
+      }, {
+
+        text: "Liver transplantation",
+value: "Liver transplantation",
+        code: "M31"
+      }, {
+
+        text: "Long COVID: long term effects of coronavirus (post COVID syndrome)",
+value: "Long COVID: long term effects of coronavirus (post COVID syndrome)",
+        code: "B04"
+      }, {
+
+        text: "Lower limb - injury, fracture or dislocation",
+value: "Lower limb - injury, fracture or dislocation",
+        code: "P80"
+      }, {
+
+        text: "Lumbar disc lesion",
+value: "Lumbar disc lesion",
+        code: "P25"
+      }, {
+
+        text: "Lumbar spondylosis, osteoarthritis of the spine, spondylitis ",
+value: "Lumbar spondylosis, osteoarthritis of the spine, spondylitis ",
+        code: "P28"
+      }, {
+
+        text: "Lung cancer",
+value: "Lung cancer",
+        code: "C14"
+      }, {
+
+        text: "Lung cancer (bronchus)",
+value: "Lung cancer (bronchus)",
+        code: "C12"
+      }, {
+
+        text: "Lung transplantation",
+value: "Lung transplantation",
+        code: "T61"
+      }, {
+
+        text: "Lymphoedema",
+value: "Lymphoedema",
+        code: "N35"
+      }, {
+
+        text: "Macular degeneration",
+value: "Macular degeneration",
+        code: "H34"
+      }, {
+
+        text: "Malaria",
+value: "Malaria",
+        code: "B31"
+      }, {
+
+        text: "Malformations of the heart - congenital",
+value: "Malformations of the heart - congenital",
+        code: "J70"
+      }, {
+
+        text: "Manic depression",
+value: "Manic depression",
+        code: "F42"
+      }, {
+
+        text: "Marfan's syndrome",
+value: "Marfan's syndrome",
+        code: "O45"
+      }, {
+
+        text: "Mastoiditis",
+value: "Mastoiditis",
+        code: "I03"
+      }, {
+
+        text: "Melanoma",
+value: "Melanoma",
+        code: "C41"
+      }, {
+
+        text: "Memory loss, short or long term",
+value: "Memory loss, short or long term",
+        code: "F65"
+      }, {
+
+        text: "Menieres disease",
+value: "Menieres disease",
+        code: "I14"
+      }, {
+
+        text: "Meniscal lesions",
+value: "Meniscal lesions",
+        code: "P41"
+      }, {
+
+        text: "Mesenteric ischaemia",
+value: "Mesenteric ischaemia",
+        code: "L56"
+      }, {
+
+        text: "Mesothelioma",
+value: "Mesothelioma",
+        code: "C13"
+      }, {
+
+        text: "Metabolic and endocrine disorder of musculoskeletal system",
+value: "Metabolic and endocrine disorder of musculoskeletal system",
+        code: "O40"
+      }, {
+
+        text: "Metabolic diseases",
+value: "Metabolic diseases",
+        code: "E99"
+      }, {
+
+        text: "Metabolic red cell disorders ",
+value: "Metabolic red cell disorders ",
+        code: "A30"
+      }, {
+
+        text: "Migraine",
+value: "Migraine",
+        code: "G42"
+      }, {
+
+        text: "Mini stroke / mini strokes",
+value: "Mini stroke / mini strokes",
+        code: "G02"
+      }, {
+
+        text: "Mitral valve",
+value: "Mitral valve",
+        code: "J63"
+      },
+      {
+        text: "Mobility issues",
+        value: "Mobility issues",
+        code: "No code"
+      },
+      {
+        text: "Mood disorder",
+value: "Mood disorder",
+        code: "F50"
+      }, {
+
+        text: "Motor neurone disease (MND)",
+value: "Motor neurone disease (MND)",
+        code: "G56"
+      }, {
+
+        text: "Mouth cancer (oral cancer or tongue cancer)",
+value: "Mouth cancer (oral cancer or tongue cancer)",
+        code: "C01"
+      }, {
+
+        text: "Movement disorders",
+value: "Movement disorders",
+        code: "G35"
+      }, {
+
+        text: "Multiple - injury, fracture or dislocation",
+value: "Multiple - injury, fracture or dislocation",
+        code: "P76"
+      }, {
+
+        text: "Multiple sclerosis (MS)",
+value: "Multiple sclerosis (MS)",
+        code: "G36"
+      }, {
+
+        text: "Munchausen syndrome",
+value: "Munchausen syndrome",
+        code: "F81"
+      }, {
+
+        text: "Muscle - other diseases ",
+value: "Muscle - other diseases ",
+        code: "G85"
+      }, {
+
+        text: "Muscular dystrophy",
+value: "Muscular dystrophy",
+        code: "G90"
+      }, {
+
+        text: "Muscular dystrophy - becker type",
+value: "Muscular dystrophy - becker type",
+        code: "G87"
+      }, {
+
+        text: "Muscular dystrophy - duchenne",
+value: "Muscular dystrophy - duchenne",
+        code: "G86"
+      }, {
+
+        text: "Muscular dystrophy - dystrophia myotonica (myotonic dystrophy)",
+value: "Muscular dystrophy - dystrophia myotonica (myotonic dystrophy)",
+        code: "G84"
+      }, {
+
+        text: "Muscular dystrophy - limb girdle",
+value: "Muscular dystrophy - limb girdle",
+        code: "G88"
+      }, {
+
+        text: "Musculoskeletal disease - regional or localised",
+value: "Musculoskeletal disease - regional or localised",
+        code: "P99"
+      },
+      {
+        text: "Myalgic Encephalomyelitis (ME)",
+        value: "Myalgic Encephalomyelitis (ME)",
+        code: "O12"
+      },
+      {
+        text: "Myasthenia gravis",
+value: "Myasthenia gravis",
+        code: "G83"
+      }, {
+
+        text: "Myeloma - bone marrow cancer",
+value: "Myeloma - bone marrow cancer",
+        code: "C33"
+      }, {
+
+        text: "Myopia (short-sighted)",
+value: "Myopia (short-sighted)",
+        code: "H46"
+      }, {
+
+        text: "Narcolepsy",
+value: "Narcolepsy",
+        code: "G10"
+      }, {
+
+        text: "Neck disorder",
+value: "Neck disorder",
+        code: "P20"
+      }, {
+
+        text: "Nephrotic syndrome",
+value: "Nephrotic syndrome",
+        code: "R12"
+      }, {
+
+        text: "Neuroblastoma",
+value: "Neuroblastoma",
+        code: "C74"
+      }, {
+
+        text: "Neurofibromatosis",
+value: "Neurofibromatosis",
+        code: "G37"
+      }, {
+
+        text: "Neurological disorders",
+value: "Neurological disorders",
+        code: "G99"
+      }, {
+
+        text: "Neuropathy - including peripheral",
+value: "Neuropathy - including peripheral",
+        code: "G75"
+      }, {
+
+        text: "Non-epileptic attack disorder - pseudoseizures",
+value: "Non-epileptic attack disorder - pseudoseizures",
+        code: "G18"
+      }, {
+
+        text: "Non-Hodgkin lymphoma",
+value: "Non-Hodgkin lymphoma",
+        code: "C32"
+      }, {
+
+        text: "Nystagmus",
+value: "Nystagmus",
+        code: "H57"
+      }, {
+
+        text: "Obesity",
+value: "Obesity",
+        code: "E14"
+      }, {
+
+        text: "Obsessive compulsive disorder (OCD)",
+value: "Obsessive compulsive disorder (OCD)",
+        code: "F31"
+      }, {
+
+        text: "Oesophageal cancer",
+value: "Oesophageal cancer",
+        code: "C02"
+      }, {
+
+        text: "Oesophageal varices",
+value: "Oesophageal varices",
+        code: "L02"
+      }, {
+
+        text: "Oesophagus, stomach and duodenum disease or disorder",
+value: "Oesophagus, stomach and duodenum disease or disorder",
+        code: "L10"
+      }, {
+
+        text: "Old age or frail",
+value: "Old age or frail",
+        code: "U10"
+      }, {
+
+        text: "Optic atrophy",
+value: "Optic atrophy",
+        code: "H39"
+      }, {
+
+        text: "Optic neuritis",
+value: "Optic neuritis",
+        code: "H38"
+      }, {
+
+        text: "Oral allergy syndrome",
+value: "Oral allergy syndrome",
+        code: "V05"
+      }, {
+
+        text: "Orbital cellulitis - eye infection",
+value: "Orbital cellulitis - eye infection",
+        code: "H06"
+      }, {
+
+        text: "Osgood schlatters disease",
+value: "Osgood schlatters disease",
+        code: "P43"
+      }, {
+
+        text: "Osteochondritis",
+value: "Osteochondritis",
+        code: "O35"
+      }, {
+
+        text: "Osteochondritis dissecans",
+value: "Osteochondritis dissecans",
+        code: "P44"
+      }, {
+
+        text: "Osteogenesis imperfecta",
+value: "Osteogenesis imperfecta",
+        code: "O44"
+      }, {
+
+        text: "Osteomalacia",
+value: "Osteomalacia",
+        code: "O37"
+      }, {
+
+        text: "Osteonecrosis",
+value: "Osteonecrosis",
+        code: "O31"
+      }, {
+
+        text: "Osteoporosis",
+value: "Osteoporosis",
+        code: "O38"
+      }, {
+
+        text: "Osteosarcoma",
+value: "Osteosarcoma",
+        code: "C61"
+      }, {
+
+        text: "Otitis externa - chronic",
+value: "Otitis externa - chronic",
+        code: "I01"
+      }, {
+
+        text: "Otosclerosis",
+value: "Otosclerosis",
+        code: "I05"
+      }, {
+
+        text: "Ovarian cancer",
+value: "Ovarian cancer",
+        code: "C24"
+      }, {
+
+        text: "Ovarian cyst (benign)",
+value: "Ovarian cyst (benign)",
+        code: "R41"
+      }, {
+
+        text: "Ovary, uterus, cervix, vagina and vulva disease or disorder",
+value: "Ovary, uterus, cervix, vagina and vulva disease or disorder",
+        code: "R50"
+      }, {
+
+        text: "Overactive thyroid / hyperthyroidism (thyrotoxicosis), including graves disease",
+value: "Overactive thyroid / hyperthyroidism (thyrotoxicosis), including graves disease",
+        code: "S22"
+      }, {
+
+        text: "Paget's disease",
+value: "Paget's disease",
+        code: "O39"
+      }, {
+
+        text: "Pancreas disease",
+value: "Pancreas disease",
+        code: "M55"
+      }, {
+
+        text: "Pancreatic cancer",
+value: "Pancreatic cancer",
+        code: "C04"
+      }, {
+
+        text: "Pancreatitis - chronic",
+value: "Pancreatitis - chronic",
+        code: "M46"
+      }, {
+
+        text: "Panic disorder",
+value: "Panic disorder",
+        code: "F25"
+      }, {
+
+        text: "Papulosquamous and inflammatory rashes",
+value: "Papulosquamous and inflammatory rashes",
+        code: "N20"
+      }, {
+
+        text: "Paraplegia (traumatic)",
+value: "Paraplegia (traumatic)",
+        code: "G51"
+      }, {
+
+        text: "Paraplegia from birth",
+value: "Paraplegia from birth",
+        code: "G51"
+      }, {
+
+        text: "Parathyroid disease",
+value: "Parathyroid disease",
+        code: "S50"
+      }, {
+
+        text: "Parkinson's disease",
+value: "Parkinson's disease",
+        code: "G26"
+      }, {
+
+        text: "Parkinson's syndrome / Parkinsonism",
+value: "Parkinson's syndrome / Parkinsonism",
+        code: "G27"
+      }, {
+
+        text: "Partial seizures in the last 12 months (with status epilepticus)",
+value: "Partial seizures in the last 12 months (with status epilepticus)",
+        code: "G09"
+      }, {
+
+        text: "Partial seizures in the last 12 months (without status epilepticus)",
+value: "Partial seizures in the last 12 months (without status epilepticus)",
+        code: "G08"
+      }, {
+
+        text: "Patellar dislocation - recurrent",
+value: "Patellar dislocation - recurrent",
+        code: "P45"
+      }, {
+
+        text: "Pelvic inflammatory disease",
+value: "Pelvic inflammatory disease",
+        code: "R42"
+      }, {
+
+        text: "Pelvis - injury, fracture or dislocation",
+value: "Pelvis - injury, fracture or dislocation",
+        code: "P74"
+      }, {
+
+        text: "Pemphigoid",
+value: "Pemphigoid",
+        code: "N22"
+      }, {
+
+        text: "Pemphigus vulgaris",
+value: "Pemphigus vulgaris",
+        code: "N21"
+      }, {
+
+        text: "Peptic ulcer (gastric and duodenal) / gastritis",
+value: "Peptic ulcer (gastric and duodenal) / gastritis",
+        code: "L03"
+      }, {
+
+        text: "Pericarditis",
+value: "Pericarditis",
+        code: "J56"
+      }, {
+
+        text: "Peripheral nerve injury",
+value: "Peripheral nerve injury",
+        code: "G80"
+      }, {
+
+        text: "Peripheral vascular disease (PVD)",
+value: "Peripheral vascular disease (PVD)",
+        code: "J72"
+      }, {
+
+        text: "Peripheral venous disease",
+value: "Peripheral venous disease",
+        code: "J80"
+      }, {
+
+        text: "Peritonitis",
+value: "Peritonitis",
+        code: "M23"
+      }, {
+
+        text: "Personality disorder",
+value: "Personality disorder",
+        code: "F01"
+      }, {
+
+        text: "Perthes disease",
+value: "Perthes disease",
+        code: "P32"
+      }, {
+
+        text: "Phobia",
+value: "Phobia",
+        code: "F22"
+      }, {
+
+        text: "Plantar fasciitis",
+value: "Plantar fasciitis",
+        code: "P60"
+      }, {
+
+        text: "Platelet disorders",
+value: "Platelet disorders",
+        code: "A60"
+      }, {
+
+        text: "Pleura",
+value: "Pleura",
+        code: "T60"
+      }, {
+
+        text: "Pleural effusion",
+value: "Pleural effusion",
+        code: "T51"
+      }, {
+
+        text: "Pneumoconiosis",
+value: "Pneumoconiosis",
+        code: "T40"
+      }, {
+
+        text: "Pneumoconiosis - coalworkers lung",
+value: "Pneumoconiosis - coalworkers lung",
+        code: "T31"
+      }, {
+
+        text: "Pneumonia",
+value: "Pneumonia",
+        code: "T21"
+      }, {
+
+        text: "Pneumothorax",
+value: "Pneumothorax",
+        code: "T52"
+      }, {
+
+        text: "Poliomyelitis and post polio syndrome",
+value: "Poliomyelitis and post polio syndrome",
+        code: "G91"
+      }, {
+
+        text: "Polyarteritis nodosa",
+value: "Polyarteritis nodosa",
+        code: "Q07"
+      }, {
+
+        text: "Polycythaemia",
+value: "Polycythaemia",
+        code: "A40"
+      }, {
+
+        text: "Polymyalgia rheumatica",
+value: "Polymyalgia rheumatica",
+        code: "Q05"
+      }, {
+
+        text: "Polymyositis",
+value: "Polymyositis",
+        code: "G81"
+      }, {
+
+        text: "Porphyria",
+value: "Porphyria",
+        code: "E12"
+      }, {
+
+        text: "Post traumatic stress disorder (PTSD)",
+value: "Post traumatic stress disorder (PTSD)",
+        code: "F11"
+      }, {
+
+        text: "Posterior (choroiditis)",
+value: "Posterior (choroiditis)",
+        code: "H13"
+      }, {
+
+        text: "Posterior vitreous detachment",
+value: "Posterior vitreous detachment",
+        code: "H26"
+      }, {
+
+        text: "Presbyopia",
+value: "Presbyopia",
+        code: "H48"
+      }, {
+
+        text: "Pressure sores",
+value: "Pressure sores",
+        code: "N34"
+      }, {
+
+        text: "Primary Biliary cirrhosis",
+value: "Primary Biliary cirrhosis",
+        code: "M14"
+      }, {
+
+        text: "Primary cancer - site not known",
+value: "Primary cancer - site not known",
+        code: "C72"
+      }, {
+
+        text: "Prion diseases",
+value: "Prion diseases",
+        code: "B20"
+      }, {
+
+        text: "Prostate cancer ",
+value: "Prostate cancer ",
+        code: "C23"
+      }, {
+
+        text: "Prostate problems such as enlarged prostate or prostatic disease",
+value: "Prostate problems such as enlarged prostate or prostatic disease",
+        code: "R31"
+      }, {
+
+        text: "Protozoal diseases",
+value: "Protozoal diseases",
+        code: "B40"
+      }, {
+
+        text: "Pseudogout",
+value: "Pseudogout",
+        code: "O27"
+      }, {
+
+        text: "Psoriasis",
+value: "Psoriasis",
+        code: "N13"
+      }, {
+
+        text: "Psychotic disorder",
+value: "Psychotic disorder",
+        code: "F60"
+      }, {
+
+        text: "Ptosis - drooping upper eyelid",
+value: "Ptosis - drooping upper eyelid",
+        code: "H08"
+      }, {
+
+        text: "Pulmonary embolus",
+value: "Pulmonary embolus",
+        code: "T71"
+      }, {
+
+        text: "Pulmonary fibrosis",
+value: "Pulmonary fibrosis",
+        code: "T30"
+      }, {
+
+        text: "Pulmonary valve disease",
+value: "Pulmonary valve disease",
+        code: "J62"
+      }, {
+
+        text: "Quadrantanopia - visual impairment",
+value: "Quadrantanopia - visual impairment",
+        code: "H70"
+      }, {
+
+        text: "Quadriplegia (traumatic)",
+value: "Quadriplegia (traumatic)",
+        code: "G52"
+      }, {
+
+        text: "Quadriplegia from birth",
+value: "Quadriplegia from birth",
+        code: "G52"
+      }, {
+
+        text: "Raynaud's disease / phenomenon",
+value: "Raynaud's disease / phenomenon",
+        code: "J73"
+      }, {
+
+        text: "Rectal prolapse",
+value: "Rectal prolapse",
+        code: "L43"
+      }, {
+
+        text: "Rectum or anus disease or disorder",
+value: "Rectum or anus disease or disorder",
+        code: "L50"
+      }, {
+
+        text: "Refractive errors",
+value: "Refractive errors",
+        code: "H55"
+      }, {
+
+        text: "Renal calculi",
+value: "Renal calculi",
+        code: "R16"
+      }, {
+
+        text: "Renal failure - acute",
+value: "Renal failure - acute",
+        code: "R21"
+      }, {
+
+        text: "Respiratory tract cancer (other than lung cancer)",
+value: "Respiratory tract cancer (other than lung cancer)",
+        code: "C20"
+      }, {
+
+        text: "Retina and optic nerve disease ",
+value: "Retina and optic nerve disease ",
+        code: "H41"
+      }, {
+
+        text: "Retinal artery occlusion",
+value: "Retinal artery occlusion",
+        code: "H32"
+      }, {
+
+        text: "Retinal detachment",
+value: "Retinal detachment",
+        code: "H31"
+      }, {
+
+        text: "Retinal vein occlusion",
+value: "Retinal vein occlusion",
+        code: "H33"
+      }, {
+
+        text: "Retinitis Pigmentosa",
+value: "Retinitis Pigmentosa",
+        code: "H40"
+      }, {
+
+        text: "Retinopathy",
+value: "Retinopathy",
+        code: "H37"
+      }, {
+
+        text: "Retts disorder",
+value: "Retts disorder",
+        code: "F94"
+      }, {
+
+        text: "Rheumatoid arthritis",
+value: "Rheumatoid arthritis",
+        code: "O16"
+      }, {
+
+        text: "Rickets",
+value: "Rickets",
+        code: "O36"
+      }, {
+
+        text: "Rosacea",
+value: "Rosacea",
+        code: "N16"
+      }, {
+
+        text: "Rotator cuff disorder",
+value: "Rotator cuff disorder",
+        code: "P01"
+      }, {
+
+        text: "Sarcoidosis",
+value: "Sarcoidosis",
+        code: "T41"
+      }, {
+
+        text: "Sarcoma",
+value: "Sarcoma",
+        code: "C98"
+      }, {
+
+        text: "Schizoaffective disorder",
+value: "Schizoaffective disorder",
+        code: "F52"
+      }, {
+
+        text: "Schizophrenia",
+value: "Schizophrenia",
+        code: "F51"
+      }, {
+
+        text: "Schuermann's disease",
+value: "Schuermann's disease",
+        code: "P24"
+      },
+      {
+        text: "Sciatica",
+        value: "Sciatica",
+        code: "P30"
+      },
+      {
+        text: "Scleritis",
+value: "Scleritis",
+        code: "H01"
+      }, {
+
+        text: "Scoliosis",
+value: "Scoliosis",
+        code: "P22"
+      }, {
+
+        text: "Scotoma - visual impairment",
+value: "Scotoma - visual impairment",
+        code: "H68"
+      }, {
+
+        text: "Seizures - unclassified",
+value: "Seizures - unclassified",
+        code: "G15"
+      }, {
+
+        text: "Sensorineural hearing loss",
+value: "Sensorineural hearing loss",
+        code: "I20"
+      }, {
+
+        text: "Sensorineural hearing loss due to trauma",
+value: "Sensorineural hearing loss due to trauma",
+        code: "I15"
+      }, {
+
+        text: "Shingles - herpes zoster ophthalmicus",
+value: "Shingles - herpes zoster ophthalmicus",
+        code: "H04"
+      }, {
+
+        text: "Shoulder disorder",
+value: "Shoulder disorder",
+        code: "P05"
+      }, {
+
+        text: "Shoulder instability",
+value: "Shoulder instability",
+        code: "P03"
+      }, {
+
+        text: "Silicosis",
+value: "Silicosis",
+        code: "T32"
+      }, {
+
+        text: "Sjogren's syndrome",
+value: "Sjogren's syndrome",
+        code: "Q04"
+      }, {
+
+        text: "Skin cancer",
+value: "Skin cancer",
+        code: "C50"
+      }, {
+
+        text: "Skin disease",
+value: "Skin disease",
+        code: "N99"
+      }, {
+
+        text: "Skin infection",
+value: "Skin infection",
+        code: "N10"
+      }, {
+
+        text: "Sleep apnoea - obstructive",
+value: "Sleep apnoea - obstructive",
+        code: "T01"
+      }, {
+
+        text: "Slipped upper (capital) femoral epiphysis",
+value: "Slipped upper (capital) femoral epiphysis",
+        code: "P33"
+      }, {
+
+        text: "Small bowel disease or disorder ",
+value: "Small bowel disease or disorder ",
+        code: "L25"
+      }, {
+
+        text: "Social phobia / social anxiety",
+value: "Social phobia / social anxiety",
+        code: "F23"
+      }, {
+
+        text: "Somatoform disorders",
+value: "Somatoform disorders",
+        code: "F40"
+      }, {
+
+        text: "Specific childhood learning disorder",
+value: "Specific childhood learning disorder",
+        code: "F05"
+      }, {
+
+        text: "Speech or language disorders",
+value: "Speech or language disorders",
+        code: "F02"
+      }, {
+
+        text: "Speech, language and phonological disorders",
+value: "Speech, language and phonological disorders",
+        code: "G96"
+      }, {
+
+        text: "Spina bifida",
+value: "Spina bifida",
+        code: "G66"
+      }, {
+
+        text: "Spinal cord compression",
+value: "Spinal cord compression",
+        code: "G55"
+      }, {
+
+        text: "Spinal cord tumours / spinal cancer",
+value: "Spinal cord tumours / spinal cancer",
+        code: "C51"
+      }, {
+
+        text: "Spinal stenosis",
+value: "Spinal stenosis",
+        code: "P26"
+      }, {
+
+        text: "Spine - injury, fracture or dislocation",
+value: "Spine - injury, fracture or dislocation",
+        code: "P71"
+      }, {
+
+        text: "Spondylolisthesis",
+value: "Spondylolisthesis",
+        code: "P27"
+      }, {
+
+        text: "Steatohepatitis - non-alcoholic",
+value: "Steatohepatitis - non-alcoholic",
+        code: "M04"
+      }, {
+
+        text: "Stokes adams attacks - cardiovascular syncope (fainting or passing out)",
+value: "Stokes adams attacks - cardiovascular syncope (fainting or passing out)",
+        code: "G16"
+      }, {
+
+        text: "Stomach cancer",
+value: "Stomach cancer",
+        code: "C03"
+      }, {
+
+        text: "Strabismus (squint)",
+value: "Strabismus (squint)",
+        code: "H56"
+      }, {
+
+        text: "Stress reaction disorders",
+value: "Stress reaction disorders",
+        code: "F20"
+      }, {
+
+        text: "Sudek's atrophy",
+value: "Sudek's atrophy",
+        code: "O62"
+      }, {
+
+        text: "Syncope - fainting, passing out, blacking out",
+value: "Syncope - fainting, passing out, blacking out",
+        code: "G17"
+      }, {
+
+        text: "Syringomyelia / syringobulbia",
+value: "Syringomyelia / syringobulbia",
+        code: "G53"
+      }, {
+
+        text: "Systemic lupus erythematosus (SLE)",
+value: "Systemic lupus erythematosus (SLE)",
+        code: "Q01"
+      }, {
+
+        text: "Systemic sclerosis (scleroderma)",
+value: "Systemic sclerosis (scleroderma)",
+        code: "Q03"
+      }, {
+
+        text: "Temporal (giant cell) arteritis (Headache)",
+value: "Temporal (giant cell) arteritis (Headache)",
+        code: "Q06"
+      }, {
+
+        text: "Tendon lesions",
+value: "Tendon lesions",
+        code: "P14"
+      }, {
+
+        text: "Tennis elbow (lateral epicondylitis)",
+value: "Tennis elbow (lateral epicondylitis)",
+        code: "P06"
+      }, {
+
+        text: "Tenosynovitis",
+value: "Tenosynovitis",
+        code: "P11"
+      }, {
+
+        text: "Testicular cancer ",
+value: "Testicular cancer ",
+        code: "C27"
+      }, {
+
+        text: "Tetraplegia (traumatic)",
+value: "Tetraplegia (traumatic)",
+        code: "G52"
+      }, {
+
+        text: "Tetraplegia from birth",
+value: "Tetraplegia from birth",
+        code: "G52"
+      }, {
+
+        text: "Thalassaemia",
+value: "Thalassaemia",
+        code: "A12"
+      }, {
+
+        text: "Thorax - injury, fracture or dislocation",
+value: "Thorax - injury, fracture or dislocation",
+        code: "P72"
+      }, {
+
+        text: "Thyroid disease",
+value: "Thyroid disease",
+        code: "S30"
+      }, {
+
+        text: "Torticollis",
+value: "Torticollis",
+        code: "G31"
+      }, {
+
+        text: "Tourette's syndrome",
+value: "Tourette's syndrome",
+        code: "G30"
+      }, {
+
+        text: "Transient ischaemic attacks (TIAs)",
+value: "Transient ischaemic attacks (TIAs)",
+        code: "G02"
+      }, {
+
+        text: "Transplant rejection - kidney / renal",
+value: "Transplant rejection - kidney / renal",
+        code: "R30"
+      }, {
+
+        text: "Tremor (not essential tremor)",
+value: "Tremor (not essential tremor)",
+        code: "G35"
+      }, {
+
+        text: "Tricuspid valve disease",
+value: "Tricuspid valve disease",
+        code: "J64"
+      }, {
+
+        text: "Tuberculosis",
+value: "Tuberculosis",
+        code: "B21"
+      }, {
+
+        text: "Tumour - benign",
+value: "Tumour - benign",
+        code: "G40"
+      }, {
+
+        text: "Tumour of the gastrointestinal tract - benign",
+value: "Tumour of the gastrointestinal tract - benign",
+        code: "L61"
+      }, {
+
+        text: "Tumours of bone - benign",
+value: "Tumours of bone - benign",
+        code: "O51"
+      }, {
+
+        text: "Tunnel vision",
+value: "Tunnel vision",
+        code: "H67"
+      }, {
+
+        text: "Ulcerative colitis",
+value: "Ulcerative colitis",
+        code: "L30"
+      }, {
+
+        text: "Underactive thyroid / hypothyroidism (myxoedema)",
+value: "Underactive thyroid / hypothyroidism (myxoedema)",
+        code: "S21"
+      }, {
+
+        text: "Upper limb - injury, fracture or dislocation",
+value: "Upper limb - injury, fracture or dislocation",
+        code: "P75"
+      }, {
+
+        text: "Urinary overflow",
+value: "Urinary overflow",
+        code: "R03"
+      }, {
+
+        text: "Urinary tract infection",
+value: "Urinary tract infection",
+        code: "R13"
+      }, {
+
+        text: "Urticaria",
+value: "Urticaria",
+        code: "N14"
+      }, {
+
+        text: "Uterine prolapse",
+value: "Uterine prolapse",
+        code: "R45"
+      }, {
+
+        text: "Vascular dementia",
+value: "Vascular dementia",
+        code: "F61"
+      }, {
+
+        text: "Vasculitis",
+value: "Vasculitis",
+        code: "Q15"
+      }, {
+
+        text: "Venous insufficiency - chronic",
+value: "Venous insufficiency - chronic",
+        code: "N32"
+      }, {
+
+        text: "Viral diseases excluding hepatitis and poliomyelitis",
+value: "Viral diseases excluding hepatitis and poliomyelitis",
+        code: "B10"
+      }, {
+
+        text: "Vision - Other diseases ",
+value: "Vision - Other diseases ",
+        code: "H99"
+      }, {
+
+        text: "Visual field defects",
+value: "Visual field defects",
+        code: "H75"
+      }, {
+
+        text: "Visually impaired - severe",
+value: "Visually impaired - severe",
+        code: "D95"
+      }, {
+
+        text: "Vitreous disease",
+value: "Vitreous disease",
+        code: "H30"
+      }, {
+
+        text: "Vitreous haemorrhage",
+value: "Vitreous haemorrhage",
+        code: "H27"
+      }, {
+
+        text: "Von Willebrand's disease",
+value: "Von Willebrand's disease",
+        code: "A43"
+      }, {
+
+        text: "Whiplash injury",
+value: "Whiplash injury",
+        code: "P18"
+      }, {
+
+        text: "Wilms tumour",
+value: "Wilms tumour",
+        code: "C28"
+      }, {
+
+        text: "Wilson's disease",
+value: "Wilson's disease",
+        code: "M17"
+      }, {
+
+        text: "Womb (uterus) cancer",
+value: "Womb (uterus) cancer",
+        code: "C26"
+      }, {
+
+        text: "Wrist and hand disorders",
+value: "Wrist and hand disorders",
+        code: "P15"
+      }, {
+
+        text: "Writer's cramp",
+value: "Writer's cramp",
+        code: "G33"
+      }
+
+
+    ] %}
+  {{ govukSelect({
+      id: "health-conditions",
+      name: "health-conditions",
+      value: data['health-conditions'],
+      items: illnesses,
+      errorMessage: {
+        text:  data.validation['health-conditions'].error.text
+      } if  data.validation['health-conditions'].error
+    }) }}
+
+  <p class="govuk-body govuk-!-margin-bottom-8">
+    <a href="health-conditions-manual" class="govuk-link">
+      I cannot find my health condition or disability
+    </a>
+  </p>
+
+  {{ govukInput({
+      errorMessage: data.validation['health-conditions-start-date'].error,
+      classes: "govuk-!-width-two-thirds",
+      id: "health-conditions-start-date",
+      name: "health-conditions-start-date",
+      value: data["health-conditions-start-date"],
+      label: {
+        text: "Approximate date this health condition or disability started",
+        value: "Approximate date this health condition or disability started",
+        isPageHeading: false,
+        classes: "govuk-label--m"
+      },
+      hint: {
+        text: "For example, 04/21 or 1992"
+      }
+    }) }}
+
+  {% block formButton %}{% endblock %}
+
+  <div class="govuk-button-group">
+    {{ phaseButton(data, "Continue") }}
+    {% if data['health-conditions-rows'].length > 0 %}
+      {{ govukButton({
+        text: "Skip",
+        value: "Skip",
+        classes: "govuk-button--secondary",
+        href: "health-conditions-added"
+      }) }}
+    {% endif %}
+  </div>
+
+  <script>
+     accessibleAutocomplete.enhanceSelectElement({
+      selectElement: document.querySelector('#health-conditions')
+    })
+  </script>
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

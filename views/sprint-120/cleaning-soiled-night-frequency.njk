@@ -1,0 +1,60 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Incontinence or if you soil yourself during the night</span>
+  <h1 class="govuk-heading-l">How often and for how long</h1>
+
+  {{ govukRadios({
+    id: "night-frequency-3-wash",
+    name: "night-frequency-3-wash",
+    fieldset: {
+      legend: {
+        text: "How many times a night do you have difficulties managing your incontinence or if you soil yourself?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['night-frequency-3-wash'].error,
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["night-frequency-3-wash"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["night-frequency-3-wash"] === "2"
+      },
+      {
+        value: "3+",
+        text: "3 or more",
+        checked: true if data["night-frequency-3-wash"] === "3+"
+      }
+    ]
+  }) }}
+
+  {{ govukInput({
+    id: "night-length-3-wash",
+    name: "night-length-3-wash",
+    errorMessage: data.validation['night-length-3-wash'].error,
+    label: {
+      text: "Typically, how long do the occasions take when you need to deal with your incontinence or if you soil yourself?",
+      classes: "govuk-label--m",
+      isPageHeading: true
+    },
+    hint: {
+      text: "For example,  approximately 20 minutes or 1 hour"
+    }
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

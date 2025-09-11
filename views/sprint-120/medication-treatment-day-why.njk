@@ -1,0 +1,74 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Taking medication or receiving treatment during the day</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage to take your medication or get treatment?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "medication-treatment-day-why",
+      name: "medication-treatment-day-why",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['medication-treatment-day-why'].error,
+      items: [{
+        value: "long-time",
+        text: "I do not have help but I struggle and it takes me a long time",
+        checked: true if data["medication-treatment-day-why"] and data["medication-treatment-day-why"].includes("long-time")
+      },
+      {
+        value: "someone-prepare",
+        text: "Someone has to prepare my medication or treatment for me",
+        checked: true if data["medication-treatment-day-why"] and data["medication-treatment-day-why"].includes("someone-prepare")
+      },
+      {
+        value: "remind-encourage",
+        text: "Someone has to remind or encourage me to take my medication or treatment",
+        checked: true if data["medication-treatment-day-why"] and data["medication-treatment-day-why"].includes("remind-encourage")
+      },
+      {
+        value: "help",
+        text: "Someone has to physically help me take my medication or treatment",
+        checked: true if data["medication-treatment-day-why"] and data["medication-treatment-day-why"].includes("help")
+      },
+      {
+        value: "medication-treatment-day-why-something-else",
+        text: "Something else",
+        checked: true if data["medication-treatment-day-why"] and data["medication-treatment-day-why"].includes("medication-treatment-day-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseMedicationTreatmentWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseMedicationTreatmentWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to take your medication or get treatment'
+    },
+    id: "something-else-medication-treatment-day-why-explain",
+    name: "something-else-medication-treatment-day-why-explain",
+    errorMessage: data.validation['something-else-medication-treatment-day-why-explain'].error,
+    value: data['something-else-medication-treatment-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

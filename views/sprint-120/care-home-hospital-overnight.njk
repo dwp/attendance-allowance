@@ -1,0 +1,41 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "./macros/reword-date.njk" import rewordDate %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set admissionDate = rewordDate(data["care-home-hospital-admission-date-day"],
+           data["care-home-hospital-admission-date-month"],
+           data["care-home-hospital-admission-date-year"]) if data["care-home-hospital-admission-date-day"] else "[today's date]" %}
+
+  {{ govukRadios({
+    idPrefix: "care-home-hospital-overnight",
+    name: "care-home-hospital-overnight",
+    fieldset: {
+      legend: {
+        text: "Have you stayed overnight in a care home, hospital or hospice between [6 weeks ago] and " + admissionDate + "?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['care-home-hospital-overnight'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["care-home-hospital-overnight"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["care-home-hospital-overnight"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

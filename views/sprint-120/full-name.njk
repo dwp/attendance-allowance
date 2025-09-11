@@ -1,0 +1,56 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% if data['applying-someone-else'] == 'helping-someone' %}
+    <h1 class="govuk-heading-l">What is the full name of the person you are helping to apply?</h1>
+  {% elif data['applying-someone-else'] == 'individual' %}
+    <h1 class="govuk-heading-l">What is the full name of the person you are applying on behalf of?</h1>
+  {% else %}
+    <h1 class="govuk-heading-l">What is your full name?</h1>
+  {% endif %}
+
+  {{ govukInput({
+    label: {
+      text: "First name",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['first-name'].error,
+    id: "first-name",
+    name: "first-name",
+    value: data["first-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Middle name (optional)",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['middle-name'].error,
+    id: "middle-name",
+    name: "middle-name",
+    value: data["middle-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Last name",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['last-name'].error,
+    id: "last-name",
+    name: "last-name",
+    value: data["last-name"]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

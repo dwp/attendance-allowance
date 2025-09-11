@@ -1,0 +1,35 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading govuk-body govuk-!-margin-bottom-4">
+      Your application took longer than 6 weeks
+    </h1>
+  </legend>
+
+  <p class="govuk-body">
+    If your claim is approved we may not be able to consider your claim as starting from [token date].
+  </p>
+
+  <p class="govuk-body">
+    Please explain why it took longer, and we will consider the reason during the decision making process.
+  </p>
+
+  <div class="govuk-!-margin-bottom-8">
+    {{ govukInput({
+      errorMessage: data.validation['serco-late-application'].error,
+      id: "serco-late-application",
+      name:  "serco-late-application"
+    }) }}
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

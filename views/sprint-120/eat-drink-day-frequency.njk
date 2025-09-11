@@ -1,0 +1,47 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<span class="govuk-caption-l">Eating or drinking during the day</span>
+
+<h1 class="govuk-heading-l">
+  Approximately, how often do you have difficulty when eating or drinking?
+</h1>
+
+  {{ govukRadios({
+    idPrefix: "eat-drink-day-frequency",
+    name: "eat-drink-day-frequency",
+    errorMessage: data.validation['eat-drink-day-frequency'].error,
+    items: [
+      {
+        value: "few",
+        text: "A few times a week",
+        checked: true if data["eat-drink-day-frequency"] === "few"
+      },
+      {
+        value: "1-or-2",
+        text: "1 or 2 times every day",
+        checked: true if data["eat-drink-day-frequency"] === "1-or-2"
+      },
+      {
+        value: "3-or-4",
+        text: "3 or 4 times every day",
+        checked: true if data["eat-drink-day-frequency"] === "3-or-4"
+      },
+      {
+        value: "5",
+        text: "5 or more times every day",
+        checked: true if data["eat-drink-day-frequency"] === "5"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

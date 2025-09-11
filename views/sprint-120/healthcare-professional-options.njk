@@ -1,0 +1,70 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+ {% set otherHealthcareProfessionalHtml %}
+  {{ govukInput({
+    id: "other-healthcare-professional-who",
+    name: "other-healthcare-professional-who",
+    errorMessage: data.validation['other-healthcare-professional-who'].error,
+    value:  data['other-healthcare-professional-who'],
+    classes: "govuk-input",
+    label: {
+      text: "Their profession or job title"
+    }
+  }) }}
+
+{% endset -%}
+
+ {{ govukRadios({
+  idPrefix: "healthcare-professional-options",
+  name: "healthcare-professional-options",
+  fieldset: {
+    legend: {
+      text: "Do you want to add contact details for another healthcare professional?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  errorMessage: data.validation['healthcare-professional-options'].error,
+  items: [
+    {
+      value: "consultant",
+      text: "Consultant",
+      checked: true if data["healthcare-professional-options"] === "consultant"
+    },
+    {
+      value: "specialist-doctor",
+      text: "Specialist doctor",
+      checked: true if data["healthcare-professional-options"] === "specialist-doctor"
+    },
+    {
+      value: "district-specialist-nurse",
+      text: "District or specialist nurse",
+      checked: true if data["healthcare-professional-options"] === "district-specialist-nurse"
+    },
+    {
+      value: "other-healthcare-professional",
+      text: "Other healthcare professional",
+      checked: true if data["healthcare-professional-options"] === "other-healthcare-professional",
+        conditional: {
+          html: otherHealthcareProfessionalHtml
+        }
+    },
+    {
+        divider: "or"
+      },
+      {
+        value: "i-do-not-want-to",
+        text: "No, none of these",
+        checked: true if data["healthcare-professional-options"] === "i-do-not-want-to"
+      }
+  ]
+ }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

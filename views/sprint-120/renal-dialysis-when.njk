@@ -1,0 +1,41 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Kidney conditions</span>
+
+  {{ govukRadios({
+    idPrefix: "renal-dialysis-when",
+    name: "renal-dialysis-when",
+    fieldset: {
+      legend: {
+        text: "When do you have your dialysis?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['renal-dialysis-when'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "day",
+        text: "I receive my treatment during the day",
+        checked: true if data["renal-dialysis-when"] === "day"
+      },
+      {
+        value: "night",
+        text: "I receive my treatment during the night",
+        checked: true if data["renal-dialysis-when"] === "night"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

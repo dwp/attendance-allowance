@@ -1,0 +1,57 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    You have 14 days to post your supporting documents to us
+  </h1>
+
+  <p class="govuk-body">
+    Include your National Insurance number with anything you send.
+  </p>
+
+  <p class="govuk-body">
+    Send your supporting documents to:
+  </p>
+
+  {% if locale == 'NI' %}
+    <div class="govuk-inset-text">
+      Attendance Allowance<br/>
+      Disability and Carers Service<br/>
+      Mail Opening Unit<br/>
+      PO Box 42<br/>
+      Limavady<br/>
+      BT49 4AN
+    </div>
+
+    <p class="govuk-body">
+      You will need to put a stamp on the envelope.
+    </p>
+
+  {% else %}
+
+    <div class="govuk-inset-text">
+      Freepost<br/>
+      DWP Attendance Allowance
+    </div>
+
+    <p class="govuk-body">
+      To avoid delaying this claim, do not write anything except the freepost address on the envelope.
+      You do not need a postcode or a stamp.
+    </p>
+
+  {% endif %}
+
+  <p class="govuk-body">
+    Send copies as original documents cannot be sent back to you.
+  </p>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

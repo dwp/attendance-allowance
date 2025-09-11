@@ -1,0 +1,48 @@
+{% from "govuk/components/checkboxes/macro.njk"    import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% set careNeedsCauses = [] %}
+
+{%- for name, date in data['health-conditions-rows'] %}
+  {{  careNeedsCauses.push({
+        value: name.text,
+        text: name.text
+        })  }}
+  {% endfor %}
+    {{ careNeedsCauses.push({
+      divider: "or"
+      }) }}
+    {{ careNeedsCauses.push({
+        value: "none-of-these",
+        text: "None of these",
+        behaviour: "exclusive",
+        checked: true if data["care-needs-cause"] and data["care-needs-cause"].includes("none-of-these")
+    })}}
+
+{% block form %}
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "care-needs-cause",
+      name: "care-needs-cause",
+      fieldset: {
+        legend: {
+          text: "Which health condition or disability causes the difficulties you have told us about?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l govuk-!-padding-top-4"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['care-needs-cause'].error,
+      items: careNeedsCauses
+    })
+  }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

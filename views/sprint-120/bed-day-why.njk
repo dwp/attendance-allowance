@@ -1,0 +1,84 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Getting in or out of bed during the day</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage to get in or out of bed?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "bed-day-why",
+      name: "bed-day-why",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['bed-day-why'].error,
+      items: [{
+        value: "restricted-movement",
+        text: "I have restricted movement due to my pain or disability",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("restricted-movement")
+      },
+      {
+        value: "hold-on-to-things",
+        text: "I hold on to things to get in or out of bed",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("hold-on-to-things")
+      },
+      {
+        value: "get-in-out-bed-safely",
+        text: "I cannot get in or out of bed safely",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("get-in-out-bed-safely")
+      },
+      {
+        value: "encouragement",
+        text: "I need to be encouraged to get in or out of bed",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("encouragement")
+      },
+      {
+        value: "help-bed",
+        text: "Someone has to physically help me get in or out of bed",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("help-bed")
+      },
+      {
+        value: "sleep-chair",
+        text: "I sleep in a chair at night instead of going to bed",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("sleep-chair")
+      },
+      {
+        value: "bed-day-why-something-else",
+        text: "Something else",
+        checked: true if data["bed-day-why"] and data["bed-day-why"].includes("bed-day-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseBedDayWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseBedDayWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to get in or out of bed'
+    },
+    id: "something-else-bed-day-why-explain",
+    name: "something-else-bed-day-why-explain",
+    errorMessage: data.validation['something-else-bed-day-why-explain'].error,
+    value: data['something-else-bed-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

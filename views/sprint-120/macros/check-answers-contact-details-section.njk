@@ -1,0 +1,339 @@
+{% from "./change-link.njk" import changeLink %}
+{% from "./reword-date.njk" import rewordDate %}
+{% from "./reword-format.njk" import rewordFormat %}
+
+{% macro checkAnswersContactDetailsSection(data, locale) %}
+
+	{% if data['applying-someone-else'] == 'individual' %}
+		<section class="appointee-details">
+
+			{% if data['best-describe'] == 'powerOfAttorney' %}
+				{% if locale == 'NI' %}
+				<h2 class="govuk-heading-m">
+					Enduring Power of Attorney details
+				</h2>
+				{% else %}
+				<h2 class="govuk-heading-m">
+					Power of attorney details
+				</h2>
+				{% endif %}
+			{% else %}
+				{% if locale == 'NI' %}
+				<h2 class="govuk-heading-m">
+					DfC appointee details
+				</h2>
+				{% else %}
+				<h2 class="govuk-heading-m">
+					DWP appointee details
+				</h2>
+				{% endif %}
+			{% endif %}
+			
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row representative-first-name">
+					<dt class="govuk-summary-list__key">
+					First name
+					</dt>
+					<dd class="govuk-summary-list__value">
+					{{ data['representative-first-name'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+					{{ changeLink('representative-name') }}
+					</dd>
+				</div>
+				{% if data['representative-middle-name'] %}
+					<div class="govuk-summary-list__row representative-middle-name">
+						<dt class="govuk-summary-list__key">
+							Middle name
+						</dt>
+						<dd class="govuk-summary-list__value">
+						{{ data['representative-middle-name'] }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('representative-name') }}
+						</dd>
+					</div>
+				{% endif %}
+				<div class="govuk-summary-list__row representative-last-name">
+					<dt class="govuk-summary-list__key">
+					Last name
+					</dt>
+					<dd class="govuk-summary-list__value">
+					{{ data['representative-last-name'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+					{{ changeLink('representative-name') }}
+					</dd>
+				</div>
+
+				{% if data['representative-national-insurance'] %}
+				<div class="govuk-summary-list__row representative-national-insurance">
+					<dt class="govuk-summary-list__key">
+						National Insurance number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['representative-national-insurance'].replaceAll(' ','').toUpperCase() }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-national-insurance') }}
+					</dd>
+				</div>
+				{% endif %}
+
+				{% if data['representative-birth-date-day'] %}
+				<div class="govuk-summary-list__row representative-birth-date">
+					<dt class="govuk-summary-list__key">
+						Date of birth
+					</dt>
+					<dd class="govuk-summary-list__value">
+					{{ rewordDate(data['representative-birth-date-day'], data['representative-birth-date-month'], data['representative-birth-date-year']) }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+					{{ changeLink('representative-birth-date') }}
+					</dd>
+				</div>
+				{% endif %}
+
+				{% if data['representative-address'] %}
+				<div class="govuk-summary-list__row representative-address">
+					<dt class="govuk-summary-list__key">
+						Do you live at the same address as the person you are applying on behalf of?
+					</dt>
+					<dd class="govuk-summary-list__value">
+					{{ data['representative-address']
+					| replace("yes", "Yes")
+					| replace("no", "No") }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-address') }}
+					</dd>
+				</div>
+				{% endif %}
+
+				{% if data['representative-address-select'] %}
+					<div class="govuk-summary-list__row address">
+					<dt class="govuk-summary-list__key">
+						Home address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['representative-address-select'] | replace(",", "<br>") | safe }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-address-select') }}
+					</dd>
+					</div>
+				{% elseif data['representative-address-manual-line-one'] %}
+					<div class="govuk-summary-list__row address">
+					<dt class="govuk-summary-list__key">
+						Home address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['representative-address-manual-line-one'] }} <br/>
+						{% if data['representative-address-manual-line-two'] %}
+						{{ data['representative-address-manual-line-two'] }} <br/>
+						{% endif %}
+						{{ data['representative-address-manual-town'] }} <br/>
+						{% if data['representative-address-manual-county'] %}
+						{{ data['representative-address-manual-county'] }}<br/>
+						{% endif %}
+						{{ data['representative-address-manual-postcode'] }} <br/>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-address-manual') }}
+					</dd>
+					</div>
+				{% elseif data['representative-address-international-line-one'] %}
+					<div class="govuk-summary-list__row international-address">
+					<dt class="govuk-summary-list__key">
+						Home address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['representative-address-international-line-one'] }} <br/>
+						{{ data['representative-address-international-line-two'] }} <br/>
+						{{ data['representative-address-international-line-three'] }} <br/>
+						{% if data['representative-address-international-line-four'] %}
+						{{ data['representative-address-international-line-four'] }} <br/>
+						{% endif %}
+						{{ data['representative-address-international-country'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-address-international') }}
+					</dd>
+					</div>
+				{% endif %}
+
+				{% if data['representative-telephone-number'] %}
+				<div class="govuk-summary-list__row representative-telephone-number">
+					<dt class="govuk-summary-list__key">
+						Telephone number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['representative-telephone-number'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('representative-telephone-number') }}
+					</dd>
+				</div>
+				{% endif %}
+			</dl>
+		</section>
+	{% endif %}
+
+	<section class="contact-preferences">
+		<h2 class="govuk-heading-m">
+			Contact preferences
+		</h2>
+
+		<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+
+			{% if data['who-is-applying'] == 'myself' or data['applying-someone-else'] == 'helping-someone' %}
+				<div class="govuk-summary-list__row telephone-number">
+					<dt class="govuk-summary-list__key">
+						Your telephone number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['main-contact-number'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('telephone-number') }}
+					</dd>
+				</div>
+			{% endif %}
+
+			<div class="govuk-summary-list__row add-contact-details">
+				<dt class="govuk-summary-list__key">
+				Do you want to add contact details for someone else?
+				</dt>
+				<dd class="govuk-summary-list__value">
+				{{ data['add-contact-details']
+				| replace("yes", "Yes")
+				| replace("no", "No")| capitalize
+				}}
+				</dd>
+				<dd class="govuk-summary-list__actions">
+				{{ changeLink('add-contact-details') }}
+				</dd>
+		</div>
+			{% if data['add-contact-details'] == 'yes' %}
+				<div class="govuk-summary-list__row add-contact-details">
+					<dt class="govuk-summary-list__key">
+						Their full name
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['someone-else-name'] | capitalize }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('telephone-number-other') }}
+					</dd>
+				</div>
+
+				<div class="govuk-summary-list__row telephone-number-other">
+					<dt class="govuk-summary-list__key">
+						Their telephone number
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['someone-else-number'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('telephone-number-other') }}
+					</dd>
+				</div>
+
+				<div class="govuk-summary-list__row preference-contact">
+					<dt class="govuk-summary-list__key">
+						Who should we contact first if we have questions?
+					</dt>
+					<dd class="govuk-summary-list__value">
+					{{ data['preference-contact']
+					| replace("prefer-claimant", "Call me first")
+					| replace("prefer-person-helping", "Call the other person first")
+					| replace("no-preference", "I don’t mind")
+					}}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('preference-contact') }}
+					</dd>
+				</div>
+			{% endif %}
+
+			{% if data['welsh-language-speak'] %}
+			<div class="govuk-summary-list__row formats">
+				<dt class="govuk-summary-list__key">
+					What language do you want us to speak to you in?
+				</dt>
+				<dd class="govuk-summary-list__value">
+					{{ data['welsh-language-speak']
+					| replace("english", "English")
+					| replace("welsh", "Welsh")
+					}}
+					</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('welsh-language-speak') }}
+				</dd>
+			</div>
+			{% endif %}
+
+			{% if data['welsh-language-write'] %}
+			<div class="govuk-summary-list__row formats">
+				<dt class="govuk-summary-list__key">
+					What language do you want us to write to you in?
+				</dt>
+				<dd class="govuk-summary-list__value">
+					{{ data['welsh-language-write']
+					| replace("english", "English")
+					| replace("welsh", "Welsh")
+					}}
+					</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('welsh-language-write') }}
+				</dd>
+			</div>
+			{% endif %}
+
+			<div class="govuk-summary-list__row formats">
+				<dt class="govuk-summary-list__key">
+					Do you need us to use a different format when we contact you?
+				</dt>
+				<dd class="govuk-summary-list__value">
+				<ul class="govuk-list">
+					{% for format in data['alternative-formats'] %}
+					<li>
+						{{ rewordFormat(format) }}
+					</li>
+					{% endfor %}
+				</ul>
+				</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('alternative-formats') }}
+				</dd>
+			</div>
+
+			<div class="govuk-summary-list__row email-confirm">
+				<dt class="govuk-summary-list__key">
+					Should we send an email confirmation?
+				</dt>
+				<dd class="govuk-summary-list__value">
+					{{ data['email-submit'] | capitalize }}
+				</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('email-submit') }}
+				</dd>
+			</div>
+
+			{% if data['email-submit']== "yes" %}
+				<div class="govuk-summary-list__row email-confirm">
+					<dt class="govuk-summary-list__key">
+						Email address
+					</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['contact-by-email'] }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('email-confirm') }}
+					</dd>
+				</div>
+			{% endif %}
+		</dl>
+	</section>
+
+{% endmacro %}

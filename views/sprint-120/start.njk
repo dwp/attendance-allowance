@@ -1,0 +1,63 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <h1 class="govuk-heading-l">Apply for Attendance Allowance</h1>
+  <p class="govuk-body">Attendance Allowance is for help with extra costs if you have a health condition or disability that makes it hard for you to look after yourself.</p>
+
+  <h2 class="govuk-heading-m">To qualify you need to:</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>be State Pension age or older</li>
+    <li>have had or needed help or support for at least 6 months</li>
+  </ul>
+
+  <p class="govuk-body">Attendance Allowance is not means-tested so your income and savings are not taken into account.</p>
+
+  <p class="govuk-body">Claiming Attendance Allowance will not reduce any other income you get. You may be entitled to get an increase on benefits, such as
+
+  {% if locale == 'NI' %}
+    <a href="https://www.nidirect.gov.uk/information-and-services/state-pension/pension-credit" class="govuk-link">Pension Credit</a>,
+    <a href="https://www.nihe.gov.uk/housing-help/housing-benefit/making-a-claim-for-housing-benefit" class="govuk-link">Housing Benefit</a> or
+    <a href="https://www.nidirect.gov.uk/rates-help" class="govuk-link">Council Tax Reduction</a>.</p>
+    {% else %}
+    <a href="https://www.gov.uk/pension-credit" class="govuk-link">Pension Credit</a>,
+    <a href="https://www.gov.uk/housing-benefit" class="govuk-link">Housing Benefit</a> or
+    <a href="https://www.gov.uk/apply-council-tax-reduction" class="govuk-link">Council Tax Reduction</a>.</p>
+  {% endif %}
+
+  <h2 class="govuk-heading-m">What you will get</h2>
+  <p class="govuk-body">There are 2 different rates depending on what level of support you need.</p>
+  <table class="govuk-table">
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header govuk-!-width-one-quarter" scope="col">Rate</th>
+        <th class="govuk-table__header" scope="col">Level of help you need</th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <tr class="govuk-table__row ">
+        <td class="govuk-table__cell">Lower rate - £68.10</td>
+        <td class="govuk-table__cell">Frequent help or constant supervision during the day, or supervision at night</td>
+      </tr>
+      <tr class="govuk-table__row ">
+        <td class="govuk-table__cell">Higher rate - £101.75</td>
+        <td class="govuk-table__cell">Help or supervision throughout both day and night, or a medical professional has said you might have 12 months or less to live</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="govuk-body">This is a new digital service and it has been designed to be quicker and easier to complete.</p>
+  <p class="govuk-body"></p>
+
+{% endblock %}
+{% block formButton %}
+  <button class="govuk-button govuk-button--start" data-module="govuk-button">
+    Apply now<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+  </svg>
+  </button>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

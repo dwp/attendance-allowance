@@ -1,0 +1,46 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Getting into the right position in bed during the night</span>
+
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty getting into a comfortable position in bed
+  </h1>
+  <p class="govuk-body govuk-!-margin-bottom-8">
+    For example, getting comfortably settled, or needing to be propped up in bed so that you can breathe easily or putting your bedclothes back on the bed if they fall off.
+  </p>
+
+  {{ govukRadios({
+    classes: "govuk-radios",
+    idPrefix: "getting-in-out-bed-night",
+    name: "getting-in-out-bed-night",
+    fieldset: {
+      legend: {
+        text: "Do you have physical difficulty getting into a comfortable position in bed?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation["getting-in-out-bed-night"].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["getting-in-out-bed-night"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["getting-in-out-bed-night"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

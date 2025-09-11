@@ -1,0 +1,71 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ {% set otherReasonHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    label: {
+        text: "Tell us why you do not use any adaptations, equipment or aids",
+        classes: "govuk-label",
+        isPageHeading: false
+    },
+    name: "aids-adaptations-reason-other",
+    id: "aids-adaptations-reason-other",
+    value: data['aids-adaptations-reason-other'],
+    errorMessage: data.validation['aids-adaptations-reason-other'].error
+    })
+  }}
+{% endset -%}
+
+ {{ govukRadios({
+  idPrefix: "aids-adaptations-reason",
+  name: "aids-adaptations-reason",
+  fieldset: {
+    legend: {
+      text: "Why do you not use any adaptations, equipment or aids?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  errorMessage: data.validation['aids-adaptations-reason'].error,
+  items: [
+    {
+      value: "not-need",
+      text: "I do not need them",
+      checked: true if data["aids-adaptations-reason"] === "not-need"
+    },
+    {
+      value: "assessment",
+      text: "I am waiting for an assessment",
+      checked: true if data["aids-adaptations-reason"] === "assessment"
+    },
+    {
+      value: "fitted",
+      text: "They can not be fitted in my home",
+      checked: true if data["aids-adaptations-reason"] === "fitted"
+    },
+    {
+      value: "difficult",
+      text: "I find them difficult to use",
+      checked: true if data["aids-adaptations-reason"] === "difficult"
+    },
+    {
+      value: "other",
+      text: "Something else",
+      checked: true if data["aids-adaptations-reason"] === "other",
+        conditional: {
+          html: otherReasonHtml
+        }
+    }
+  ]
+ }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

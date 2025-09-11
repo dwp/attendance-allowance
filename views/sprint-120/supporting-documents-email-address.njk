@@ -1,0 +1,61 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">We will email you a link to upload your supporting documents once you have submitted your application</h1>
+  </legend>
+
+  {{ govukInput({
+    id: "supporting-documents-email",
+    name: "supporting-documents-email",
+    errorMessage: data.validation['supporting-documents-email'].error,
+    autocomplete: "yes",
+    spellcheck: false,
+    value: data['supporting-documents-email'],
+    classes: "govuk-input",
+    label: {
+      text: "Enter email address"
+    }
+  }) }}
+
+{{ govukInput({
+    id: "supporting-documents-email-confirm",
+    name: "supporting-documents-email-confirm",
+    errorMessage: data.validation['supporting-documents-email-confirm'].error,
+    autocomplete: "yes",
+    spellcheck: false,
+    value: data['supporting-documents-email-confirm'],
+    classes: "govuk-input",
+    label: {
+      text: "Confirm email address"
+    }
+  }) }}
+
+{% endblock %}
+
+{% block formButton %}
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+
+  {#
+  {{ govukButton({
+    text: "Return to options",
+    classes: "govuk-button--secondary",
+    href: "supporting-documents-options"
+  }) }}
+  #}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+  <script>
+    const selfServeConfirmEmailAddressField = document.getElementById('contact-by-email-confirm');
+    selfServeConfirmEmailAddressField.addEventListener('paste', function (event) { event.preventDefault(); });
+  </script>
+{% endblock %}

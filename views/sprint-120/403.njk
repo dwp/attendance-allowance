@@ -1,0 +1,42 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/layout.njk" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        The information was not entered correctly
+      </h1>
+
+      <p class="govuk-body">
+        Enter the information in the correct format.
+      </p>
+
+      {{ govukButton({
+        text: "Go back and try again",
+        href: "#",
+        isStartButton: false
+      }) }}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l govuk-!-margin-top-7">
+        Ni chafodd y wybodaeth ei roi yn gywir
+      </h1>
+
+      <p class="govuk-body">
+        Rhowch y wybodaeth yn y ffurf cywir.
+      </p>
+
+      {{ govukButton({
+        text: "Ewch yn ôl a rhoi cynnig arall",
+        href: "#",
+        isStartButton: false
+      }) }}
+    </div>
+  </div>
+
+{% endblock %}

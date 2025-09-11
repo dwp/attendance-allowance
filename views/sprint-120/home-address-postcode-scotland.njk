@@ -1,0 +1,22 @@
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+      <h1 class="govuk-heading-l">You cannot apply for Attendance Allowance if you live in Scotland</h1>
+
+      <p class="govuk-body">
+        Attendance Allowance has been replaced by Pension Age Disability Payment (PADP) in Scotland.
+      </p>
+
+      <p class="govuk-body">
+        You told us you live in Scotland. You should
+        <a class="govuk-link govuk-link" href="https://www.mygov.scot/pension-age-disability-payment">apply for PADP</a> instead.
+      </p>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

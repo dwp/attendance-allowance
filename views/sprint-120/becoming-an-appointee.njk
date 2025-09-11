@@ -1,0 +1,53 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Become an appointee for the person who wants to claim Attendance Allowance
+  </h1>
+
+  <p class="govuk-body">
+    You can apply for the right to deal with someone's benefits if they cannot manage their own affairs.
+    This could be because they are severely disabled or do not have the mental capacity.
+  </p>
+
+  {% if locale == 'NI' %}
+  <p class="govuk-body">
+    If you  continue to submit an application, a DfC Outreach Officer will contact you to arrange an appointment to assess:
+  </p>
+  {% else %}
+  <p class="govuk-body">
+    If you  continue to submit an application, DWP's Visiting Service will contact you to arrange an appointment to assess:
+  </p>
+  {% endif %}
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>if an appointee is needed</li>
+    <li>your suitability as an appointee</li>
+  </ul>
+
+  {% if locale == 'NI' %}
+  <p class="govuk-body">
+    <a class="govuk-link" target=”_blank” href="https://www.nidirect.gov.uk/articles/becoming-appointee-social-security-benefits" class="govuk-link">Find out more about becoming a DfC appointee</a>
+  </p>
+  {% else %}
+  <p class="govuk-body">
+    <a class="govuk-link" target=”_blank” href="https://www.gov.uk/become-appointee-for-someone-claiming-benefits" class="govuk-link">Find out more about becoming a DWP appointee</a>
+  </p>
+  {% endif %}
+
+  
+
+  
+
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

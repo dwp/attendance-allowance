@@ -1,0 +1,39 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Kidney conditions</span>
+
+  {{ govukRadios({
+    classes: "govuk-radios",
+    idPrefix: "renal-dialysis-help",
+    name: "renal-dialysis-help",
+    fieldset: {
+      legend: {
+        text: "Do you require help from someone else during your dialysis?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['renal-dialysis-help'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["renal-dialysis-help"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["renal-dialysis-help"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+      What is your full name?
+  </h1>
+
+  {{ govukInput({
+    label: {
+      text: "First name",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-first-name'].error,
+    id: "representative-first-name",
+    name: "representative-first-name",
+    value: data["representative-first-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Middle name (optional)",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-middle-name'].error,
+    id: "representative-middle-name",
+    name: "representative-middle-name",
+    value: data["representative-middle-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Last name",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-last-name'].error,
+    id: "representative-last-name",
+    name: "representative-last-name",
+    value: data["representative-last-name"]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

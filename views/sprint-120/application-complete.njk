@@ -1,0 +1,271 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block form %}
+
+  {% if data['applying-someone-else'] == 'individual' %}
+
+    <div class="govuk-panel govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">Application complete</h1>
+      <div class="govuk-panel__body">The claim reference is the claimant's National Insurance number</div>
+    </div>
+
+    <h2 class="govuk-heading-m">What happens next</h2>
+
+      {% if data['special-rules-declaration'] == 'yes' %}
+        <p class="govuk-body">You will be contacted by phone or letter within 3 weeks.</p>
+        <p class="govuk-body">This could be for more information or to explain when you can expect a decision.</p>
+      {% else %}
+        <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
+        <p class="govuk-body">If we need more information we will ask for this by phone or letter.</p>
+      {% endif %}
+
+    <p class="govuk-body">
+      If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.
+    </p>
+
+    <p class="govuk-body">
+      You will be able to change this to a different account once they get Attendance Allowance.
+    </p>
+
+      {% if data['supporting-documents-options'] == 'post' %}
+
+        <h2 class="govuk-heading-m">What you need to do next</h2>
+
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            You have 14 days to post your supporting documents to us
+          </strong>
+        </div>
+
+        <p class="govuk-body">
+          Include the claimant's National Insurance number with anything you send.
+        </p>
+
+        <p class="govuk-body">
+          Send your supporting documents to:
+        </p>
+
+        {% if locale == 'NI' %}
+          <div class="govuk-inset-text">
+            Attendance Allowance<br/>
+            Disability and Carers Service<br/>
+            Mail Opening Unit<br/>
+            PO Box 42<br/>
+            Limavady<br/>
+            BT49 4AN
+          </div>
+
+          <p class="govuk-body">
+            You will need to put a stamp on the envelope.
+          </p>
+
+        {% else %}
+
+          <div class="govuk-inset-text">
+            Freepost<br/>
+            DWP Attendance Allowance
+          </div>
+
+          <p class="govuk-body">
+            To avoid delaying this claim, do not write anything except the freepost address on the envelope.
+            You do not need a postcode or a stamp.
+          </p>
+
+        {% endif %}
+
+        <p class="govuk-body">
+          Send copies as original documents cannot be sent back to you.
+        </p>
+
+      {% endif %}
+
+      {% if data['best-describe'] == 'appointee' %}
+
+        <h2 class="govuk-heading-m">Becoming an appointee</h2>
+
+        {% if locale == 'NI' %}
+        <p class="govuk-body">
+          A DfC Outreach Officer will arrange an appointment at the claimant's address to assess:
+        </p>
+        {% else %}
+        <p class="govuk-body">
+          DWP's Visiting Service will arrange an appointment at the claimant's address to assess:
+        </p>
+        {% endif %}
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>if an appointee is needed</li>
+          <li>your suitability as an appointee</li>
+        </ul>
+
+        {% if locale == 'NI' %}
+          <p class="govuk-body">
+            <a class="govuk-link" target=”_blank” href="https://www.nidirect.gov.uk/articles/becoming-appointee-social-security-benefits">Find out more about becoming a DfC appointee (opens in new tab)</a>.
+          </p>
+        {% else %}
+          <p class="govuk-body">
+            <a class="govuk-link" target=”_blank” href="https://www.gov.uk/become-appointee-for-someone-claiming-benefits">Find out more about becoming a DWP appointee (opens in new tab)</a>.
+          </p>
+        {% endif %}
+
+    {% endif %}
+
+    <h2 class="govuk-heading-m">Other financial support</h2>
+
+    {% if locale == 'NI' %}
+      <p class="govuk-body">They may be eligible for
+      <a href="https://www.nidirect.gov.uk/information-and-services/state-pension/pension-credit" class="govuk-link">Pension Credit</a>,
+      <a href="https://www.nihe.gov.uk/housing-help/housing-benefit/making-a-claim-for-housing-benefit" class="govuk-link">Housing Benefit</a>
+      or
+      <a href="https://www.nidirect.gov.uk/rates-help" class="govuk-link">help with paying their rates</a>.</p>
+
+      <p class="govuk-body">If someone cares for them for at least 35 hours a week, their carer may be able to claim
+      <a href="https://www.nidirect.gov.uk/articles/carers-allowance" class="govuk-link">Carer's Allowance</a>.</p>
+      {% else %}
+      <p class="govuk-body">They may be eligible for
+      <a href="https://www.gov.uk/pension-credit" class="govuk-link">Pension Credit</a>,
+      <a href="https://www.gov.uk/housing-benefit" class="govuk-link">Housing Benefit</a>
+      or
+      <a href="https://www.gov.uk/apply-council-tax-reduction" class="govuk-link">Council Tax Reduction</a>.</p>
+
+      <p class="govuk-body">If someone cares for them for at least 35 hours a week, their carer may be able to claim
+      <a href="https://www.gov.uk/carers-allowance/how-to-claim" class="govuk-link">Carer's Allowance</a>.</p>
+    {% endif %}
+
+    <p class="govuk-body">The carer can only apply for it after they start to get Attendance Allowance.</p>
+
+    <p class="govuk-body"><a href="/survey" class="govuk-link">Tell us what you think of this service</a> (opens in a new tab)</p>
+
+{% else %}
+
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">Application complete</h1>
+    <div class="govuk-panel__body">Your reference is your National Insurance number</div>
+  </div>
+
+  <h2 class="govuk-heading-m">What happens next</h2>
+    {% if data['special-rules-declaration'] == 'yes' %}
+      <p class="govuk-body">You will be contacted by phone or letter within 3 weeks.</p>
+      <p class="govuk-body">This could be for more information or to explain when you can expect a decision.</p>
+    {% else %}
+      <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
+      <p class="govuk-body">We will contact you by phone or letter if we need more information.</p>
+    {% endif %}
+
+  <p class="govuk-body">If your application is successful, we will pay your Attendance Allowance into the same account as your State Pension.</p>
+  <p class="govuk-body">You will be able to change this to a different account once you get Attendance Allowance.</p>
+
+  {% if data['supporting-documents-options'] == 'upload-later' %}
+    <h2 class="govuk-heading-m">What you need to do next</h2>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+       <strong class="govuk-warning-text__text">
+         <span class="govuk-visually-hidden">Warning</span>
+         Upload your supporting documents
+      </strong>
+    </div>
+
+    <p class="govuk-body">
+      We have emailed you a link to upload your supporting documents.
+    </p>
+
+    <p class="govuk-body">
+      You should upload these as soon as possible.
+    </p>
+
+  {% endif %}
+
+  {% if data['supporting-documents-options'] == 'post' %}
+
+    <h2 class="govuk-heading-m">What you need to do next</h2>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        You have 14 days to post your supporting documents to us
+      </strong>
+    </div>
+
+    <p class="govuk-body">
+      Include the claimant's National Insurance number with anything you send.
+    </p>
+
+    <p class="govuk-body">
+      Send your supporting documents to:
+    </p>
+
+    {% if locale == 'NI' %}
+      <div class="govuk-inset-text">
+        Attendance Allowance<br/>
+        Disability and Carers Service<br/>
+        Mail Opening Unit<br/>
+        PO Box 42<br/>
+        Limavady<br/>
+        BT49 4AN
+      </div>
+
+      <p class="govuk-body">
+        You will need to put a stamp on the envelope.
+      </p>
+
+    {% else %}
+
+      <div class="govuk-inset-text">
+        Freepost<br/>
+        DWP Attendance Allowance
+      </div>
+
+      <p class="govuk-body">
+        To avoid delaying this claim, do not write anything except the freepost address on the envelope.
+        You do not need a postcode or a stamp.
+      </p>
+
+    {% endif %}
+
+    <p class="govuk-body">
+      Send copies as original documents cannot be sent back to you.
+    </p>
+
+  {% endif %}
+
+  <h2 class="govuk-heading-m">Other financial support</h2>
+
+  {% if locale == 'NI' %}
+    <p class="govuk-body">You may be eligible for
+    <a href="https://www.nidirect.gov.uk/information-and-services/state-pension/pension-credit" class="govuk-link">Pension Credit</a>,
+    <a href="https://www.nihe.gov.uk/housing-help/housing-benefit/making-a-claim-for-housing-benefit" class="govuk-link">Housing Benefit</a>
+    or
+    <a href="https://www.nidirect.gov.uk/rates-help" class="govuk-link">help with paying your rates</a>.</p>
+
+    <p class="govuk-body">If someone cares for you for at least 35 hours a week, they may be able to claim
+    <a href="https://www.nidirect.gov.uk/articles/carers-allowance" class="govuk-link">Carer's Allowance</a>.</p>
+    {% else %}
+    <p class="govuk-body">You may be eligible for
+    <a href="https://www.gov.uk/pension-credit" class="govuk-link">Pension Credit</a>,
+    <a href="https://www.gov.uk/housing-benefit" class="govuk-link">Housing Benefit</a>
+    or
+    <a href="https://www.gov.uk/apply-council-tax-reduction" class="govuk-link">Council Tax Reduction</a>.</p>
+
+    <p class="govuk-body">If someone cares for you for at least 35 hours a week, they may be able to claim
+    <a href="https://www.gov.uk/carers-allowance/how-to-claim" class="govuk-link">Carer's Allowance</a>.</p>
+  {% endif %}
+
+  <p class="govuk-body">They can only apply for it after you start to get Attendance Allowance.</p>
+
+  <p class="govuk-body"><a href="/survey" class="govuk-link">Tell us what you think of this service</a> (opens in a new tab)</p>
+
+{% endif %}
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

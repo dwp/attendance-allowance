@@ -1,0 +1,49 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set allErrors  = ' govuk-input--error ' if data.validation['birth-date'].error.href === '#birth-date' %}
+  {% set dayError   = ' govuk-input--error ' if data.validation['birth-date'].error.href === '#birth-date-day' %}
+  {% set monthError = ' govuk-input--error ' if data.validation['birth-date'].error.href === '#birth-date-month' %}
+  {% set yearError  = ' govuk-input--error ' if data.validation['birth-date'].error.href === '#birth-date-year' %}
+
+  {{ govukDateInput({
+    id: "birth-date",
+    namePrefix: "birth-date",
+    fieldset: {
+      legend: {
+        text: "What is your date of birth?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "For example, 27 3 1948."
+    },
+    errorMessage: data.validation['birth-date'].error,
+    items: [
+      {
+        classes: 'govuk-input--width-2' + allErrors + dayError,
+        name: 'day',
+        value: data['birth-date-day']
+      },
+      {
+        classes: 'govuk-input--width-2' + allErrors + monthError,
+        name: 'month',
+        value: data['birth-date-month']
+      },
+      {
+        classes: 'govuk-input--width-4' + allErrors + yearError,
+        name: 'year',
+        value: data['birth-date-year']
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

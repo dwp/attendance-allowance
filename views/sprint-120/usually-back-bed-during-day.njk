@@ -1,0 +1,59 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ <p class="govuk-hint govuk-!-margin-bottom-1">Getting in and out of bed during the day</p>
+  {{ govukRadios({
+    idPrefix: "usually-back-bed-during-day",
+    name: "usually-back-bed-during-day",
+    fieldset: {
+      legend: {
+        text: "Do you usually need to go back to bed during the day?",
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+        text: "This means if you have to return to bed after you've got up in the morning."
+    },
+    errorMessage: data.validation['usually-back-bed-during-day'].error,
+    items: [
+     {
+       value: "yes",
+       text: "Yes",
+       checked: true if data["usually-back-bed-during-day"] === "yes",
+       conditional: {
+               html: frequencyDayHtml
+             }
+     },
+     {
+       value: "no",
+       text: "No",
+       checked: true if data["usually-back-bed-during-day"] === "no"
+     }
+    ]
+  }) }}
+{% endblock %}
+
+{% set frequencyDayHtml %}
+   {{ govukInput({
+    classes: "govuk-input--width-4",
+    isPageHeading: true,
+    label: {
+      text: 'On a typical day how many times do you need to get in and out of bed?'
+      },
+    hint: {
+      text: 'This means the number of times you go back to the bed after you have got up to the start of the day.The number you give should not include getting up in the morning and going to bed at the end of the day.'
+    },
+    id: "frequency",
+    name: "frequency",
+    errorMessage: data.validation['frequency'].error,
+    value: data['frequency']
+    }) }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

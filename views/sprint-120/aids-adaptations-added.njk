@@ -1,0 +1,82 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block pageTitle %}
+    You have added an adaptation, equipment or aid
+{% endblock %}
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+   {% if data['aids-adaptations-rows-2'].length > 1 %}
+      <h1 class="govuk-fieldset__heading govuk-body govuk-!-margin-bottom-4">
+          You have added {{ data['aids-adaptations-rows-2'].length }} adaptations, equipment or aids
+        </h1>
+      {% else %}
+        <h1 class="govuk-fieldset__heading govuk-body govuk-!-margin-bottom-4">
+          You have added {{ data['aids-adaptations-rows-2'].length }} adaptation, equipment or aid
+        </h1>
+      {% endif %}
+  </legend>
+
+    {{ govukTable({
+      head: [
+        {
+          text: "Aid or adaptation"
+        },
+        {
+          text: "Difficult to use"
+        },
+        {
+          text: ""
+        },
+        {
+          text: ""
+        }
+      ],
+      rows:data["aids-adaptations-rows-2"]
+    }) }}
+
+  {% set aidsAdaptationsLimit %}
+    <p class="govuk-body">
+      You can add up to 20.
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "aids-adaptations-added",
+    name: "aids-adaptations-added",
+    fieldset: {
+      legend: {
+        text: "Do you use any other adaptations, equipment or aids?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    hint: {
+    html: aidsAdaptationsLimit
+    },
+    errorMessage: data.validation['aids-adaptations-added'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes"
+      },
+      {
+        value: "no",
+        text: "No"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

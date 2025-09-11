@@ -1,0 +1,83 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    {% if data['who-is-applying'] == 'myself' or data['best-describe'] == 'appointed' or data['best-describe'] == 'appointee' %}
+      <h1 class="govuk-fieldset__heading">Do you have everything you need to apply for Attendance Allowance?</h1>
+    {% else %}
+      <h1 class="govuk-fieldset__heading">Do you have everything you need to help them apply for Attendance Allowance?</h1>
+    {% endif %}
+  </legend>
+
+  {% if data['who-is-applying'] == 'myself' %}
+
+    <p class="govuk-body govuk-!-margin-bottom-4">You will need:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>your National Insurance number</li>
+      <li>your address and contact details</li>
+      <li>details of the health conditions or disabilities that you need extra help for, including any supporting documents if you have them</li>
+      <li>details of your GP surgery or medical centre</li>
+      <li>care home, hospital or hospice details if you are currently staying in one</li>
+    </ul>
+
+  {% elif data['best-describe'] == 'appointed' or data['best-describe'] == 'appointee' or data['best-describe'] == 'powerOfAttorney' %}
+
+    <p class="govuk-body govuk-!-margin-bottom-4">You will need the following details about yourself:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>your National Insurance number</li>
+      <li>your address and contact details</li>
+    </ul>
+
+    <p class="govuk-body govuk-!-margin-bottom-4">You will need the following details about the person you are applying on behalf of:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>their National Insurance number</li>
+      <li>their address and contact details</li>
+      <li>details of the health conditions or disabilities that they need extra help for, including any supporting documents if they have them</li>
+      <li>details of their GP surgery or medical centre</li>
+      <li>care home, hospital or hospice details if they are currently staying in one</li>
+    </ul>
+
+  {% else %}
+
+    <p class="govuk-body govuk-!-margin-bottom-4">You will need:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>their National Insurance number</li>
+      <li>their address and contact details</li>
+      <li>details of the health conditions or disabilities that they need extra help for, including any supporting documents if they have them</li>
+      <li>details of their GP surgery or medical centre</li>
+      <li>care home, hospital or hospice details if they are currently staying in one</li>
+    </ul>
+
+  {% endif %}
+
+
+  {{ govukRadios({
+    idPrefix: "before-you-start",
+    name: "before-you-start",
+    errorMessage: data.validation['before-you-start'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["before-you-start"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["before-you-start"] === "no"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

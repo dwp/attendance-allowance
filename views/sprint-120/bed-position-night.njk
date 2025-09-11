@@ -1,0 +1,73 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Getting settled</span>
+
+  <h1 class="govuk-heading-l">
+    What difficulty do you have getting settled in bed during the night?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "bed-position-night",
+      name: "bed-position-night",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['bed-position-night'].error,
+      items: [{
+        value: "bed-covers",
+        text: "Getting my bed covers back on the bed if they fall off",
+        checked: true if data["bed-position-night"] and data["bed-position-night"].includes("bed-covers")
+      },
+      {
+        value: "propped-up",
+        text: "Getting propped up in bed",
+        checked: true if data["bed-position-night"] and data["bed-position-night"].includes("propped-up")
+      },
+      {
+        value: "something-else-bed",
+        text: "Something else",
+        checked: true if data["bed-position-night"] and data["bed-position-night"].includes("something-else-bed"),
+        conditional: {
+          html: conditionalSomethingElseBedNightHtml
+        }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "I do not have difficulty getting settled in bed during the night",
+        behaviour: "exclusive",
+        checked: true if data["bed-position-night"] and data["bed-position-night"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseBedNightHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what difficulty you have getting settled in bed'
+    },
+    id: "something-else-explain-bed-night",
+    name: "something-else-explain-bed-night",
+    errorMessage: data.validation['something-else-explain-bed-night'].error,
+    value: data['something-else-explain-bed-night']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

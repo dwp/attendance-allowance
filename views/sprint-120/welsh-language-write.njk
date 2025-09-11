@@ -1,0 +1,49 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set welshLanguageWriteBody %}
+    <p class="govuk-body">
+      If you live in Wales you can choose to communicate with us in Welsh.
+    </p>
+    <p class="govuk-body govuk-hint">
+      This includes letters and other written communications.
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "welsh-language-write",
+    name: "welsh-language-write",
+    classes: "govuk-!-margin-bottom-4",
+    fieldset: {
+      legend: {
+        text: "What language do you want us to write to you in?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['welsh-language-write'].error,
+    hint: {
+      html: welshLanguageWriteBody
+    },
+    items: [
+      {
+        value: "english",
+        text: "English",
+        checked: true if data["welsh-language-write"] === "english"
+      },
+      {
+        value: "welsh",
+        text: "Welsh",
+        checked: true if data["welsh-language-write"] === "welsh"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

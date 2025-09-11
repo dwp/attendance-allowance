@@ -1,0 +1,84 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Eating or drinking during the day</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage to eat or drink?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "eat-drink-day-why",
+      name: "eat-drink-day-why",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['eat-drink-day-why'].error,
+      items: [{
+        value: "hold",
+        text: "I cannot hold cutlery or a cup",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("hold")
+      },
+      {
+        value: "spill",
+        text: "I spill food and drink",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("spill")
+      },
+      {
+        value: "help",
+        text: "Someone has to physically help me eat or drink",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("help")
+      },
+      {
+        value: "safety",
+        text: "I cannot eat or drink safely",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("safety")
+      },
+      {
+        value: "confused",
+        text: "I get confused when eating",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("confused")
+      },
+      {
+        value: "tube",
+        text: "I am tube fed",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("tube")
+      },
+      {
+        value: "eat-drink-why-something-else",
+        text: "Something else",
+        checked: true if data["eat-drink-day-why"] and data["eat-drink-day-why"].includes("eat-drink-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseEatDrinkWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseEatDrinkWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to eat or drink'
+    },
+    id: "something-else-eating-drinking-day-why-explain",
+    name: "something-else-eating-drinking-day-why-explain",
+    errorMessage: data.validation['something-else-eating-drinking-day-why-explain'].error,
+    value: data['something-else-eating-drinking-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

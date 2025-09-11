@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "serco-care-home-hospital",
+    name: "serco-care-home-hospital",
+    fieldset: {
+      legend: {
+        text: "Have you stayed in a care home or hospital at any point since [token date]?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "This includes similar institutions, such as a nursing home or hospice."
+    },
+    errorMessage: data.validation['care-home-hospital'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["care-home-hospital"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["care-home-hospital"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

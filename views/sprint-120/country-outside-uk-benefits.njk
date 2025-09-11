@@ -1,0 +1,50 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  {% set LivingInUkBody %}
+    <p class="govuk-body">
+      <a href="https://www.gov.uk/eu-eea" class="govuk-link" target=”_blank”>See a list of EEA states (opens in a new tab)</a>
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "country-outside-uk-benefits",
+    name: "country-outside-uk-benefits",
+    fieldset: {
+      legend: {
+        text: "Are you, your wife, husband or civil partner getting any pension
+        or benefits from a European Economic Area (EEA) state or Switzerland?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['country-outside-uk-benefits'].error,
+    hint: {
+      html: LivingInUkBody
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["country-outside-uk-benefits"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["country-outside-uk-benefits"] === "no"
+      },
+      {
+        value: "unsure",
+        text: "I do not know",
+        checked: true if data["country-outside-uk-benefits"] === "unsure"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

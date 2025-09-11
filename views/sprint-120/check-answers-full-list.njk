@@ -1,0 +1,62 @@
+{% from "./macros/check-answers-details-section.njk" import checkAnswersDetailsSection %}
+{% from "./macros/check-answers-day-section.njk" import checkAnswersDaySection %}
+{% from "./macros/check-answers-night-section.njk" import checkAnswersNightSection %}
+{% from "./macros/check-answers-contact-details-section.njk" import checkAnswersContactDetailsSection %}
+{% from "./macros/check-answers-start-date-section.njk" import checkAnswersStartDateSection %}
+
+{% extends "v5.9.0-layouts/prototypeLayout.njk" %}
+
+{% block beforeContent %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        Beta
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <a href="declaration" class="govuk-back-link">Back</a>
+
+{% endblock %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Check your answers before sending your application
+  </h1>
+
+  <p class="govuk-body">
+    If you want to keep a copy of your application, you can print this page once you’ve finished checking your answers.
+  </p>
+
+  <div class="govuk-!-padding-bottom-5"></div>
+
+    {{ checkAnswersDetailsSection(data) }}
+    {% if data['special-rules-declaration'] != 'yes' %}
+    {{ checkAnswersDaySection(data) }}
+    {{ checkAnswersNightSection(data) }}
+    {{ checkAnswersStartDateSection(data) }}
+    {% endif %}
+
+    {{ checkAnswersContactDetailsSection(data) }}
+
+{% endblock %}
+
+{% block formButton %}
+  <a href="claim-submission" class="govuk-button">
+    Accept and continue
+  </a>
+  <a href="#">
+    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+      Print a copy
+    </button>
+  </a>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

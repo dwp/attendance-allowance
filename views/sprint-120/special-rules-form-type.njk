@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {{ govukRadios({
+    idPrefix: "special-rules-form-type",
+    name: "special-rules-form-type",
+    classes: "govuk-!-margin-bottom-3",
+    fieldset: {
+      legend: {
+        text: "What type of SR1 form do you have?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-4"
+      }
+    },
+    errorMessage: data.validation['special-rules-form-type'].error,
+
+    items: [
+      {
+        value: "digtial",
+        text: "Digital version (sent by email)",
+        checked: true if data["special-rules-form-type"] === "digital"
+      },
+      {
+        value: "paper",
+        text: "Paper version (hard copy)",
+        checked: true if data["special-rules-form-type"] === "paper"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,65 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block pageTitle %}
+  Tell us about your health condition or disability
+{% endblock %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Tell us about your health condition or disability
+  </h1>
+
+<div class="govuk-!-margin-bottom-8">
+  {{ govukInput({
+    errorMessage: data.validation['health-conditions-manual'].error,
+    id: "health-conditions-manual",
+    name: "health-conditions-manual",
+    label: {
+      text: "Enter your health condition or disability",
+      isPageHeading: false,
+      classes: "govuk-label--m"
+    }
+  }) }}
+  </div>
+
+  {{ govukInput({
+    errorMessage: data.validation['health-conditions-start-date'].error,
+    classes: "govuk-!-width-two-thirds",
+    id: "health-conditions-start-date",
+    name: "health-conditions-start-date",
+    label: {
+      text: "Approximate date this health condition or disability started",
+      isPageHeading: false,
+      classes: "govuk-label--m"
+    },
+    hint: {
+      text: "For example, 04/21 or 1992"
+    }
+  }) }}
+
+
+  {% block formButton %}
+  {% endblock %}
+
+  <div class="govuk-button-group">
+    {{ phaseButton(data, "Continue") }}
+    {% if data['health-conditions-rows'].length > 0 %}
+      {{ govukButton({
+        text: "Skip",
+        classes: "govuk-button--secondary",
+        href: "health-conditions-added"
+      }) }}
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
