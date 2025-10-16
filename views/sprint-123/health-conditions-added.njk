@@ -1,0 +1,83 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block pageTitle %}
+   You have added a health condition or disability
+{% endblock %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    {% if data['health-conditions-rows'].length > 1 %}
+      <h1 class="govuk-fieldset__heading govuk-body govuk-!-margin-bottom-4">
+        You have added {{ data['health-conditions-rows'].length }} health conditions and disabilities
+      </h1>
+    {% else %}
+      <h1 class="govuk-fieldset__heading govuk-body govuk-!-margin-bottom-4">
+        You have added {{ data['health-conditions-rows'].length }} health condition or disability
+      </h1>
+    {% endif %}
+  </legend>
+
+    {{ govukTable({
+      head: [
+        {
+          text: "Condition or disability"
+        },
+        {
+          text: "Start date"
+        },
+        {
+          text: ""
+        },
+        {
+          text: ""
+        }
+      ],
+      rows:data["health-conditions-rows"]
+    }) }}
+
+  {% set healthConditionsLimit %}
+    <p class="govuk-body">
+      You can add up to 20.
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "health-conditions-added",
+    name: "health-conditions-added",
+    fieldset: {
+      legend: {
+        text: "Do you have another health condition or disability?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    hint: {
+    html: healthConditionsLimit
+    },
+    errorMessage: data.validation['health-conditions-added'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes"
+      },
+      {
+        value: "no",
+        text: "No"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<span class="govuk-caption-l">Using the toilet or managing incontinence during the day</span>
+
+<h1 class="govuk-heading-l">
+  Approximately, how often do you have difficulty with your toilet needs?
+</h1>
+
+  {{ govukRadios({
+    idPrefix: "toilet-day-frequency",
+    name: "toilet-day-frequency",
+    errorMessage: data.validation['toilet-day-frequency'].error,
+    items: [
+      {
+        value: "less-than-once",
+        text: "Less than once a day",
+        checked: true if data["toilet-day-frequency"] === "less-than-once"
+      },
+      {
+        value: "one-or-two",
+        text: "1 or 2 times a day",
+        checked: true if data["toilet-day-frequency"] === "one-or-two"
+      },
+      {
+        value: "three-or-four",
+        text: "3 or 4 times a day",
+        checked: true if data["toilet-day-frequency"] === "three-or-four"
+      },
+      {
+        value: "five-or-more",
+        text: "5 or more times a day",
+        checked: true if data["toilet-day-frequency"] === "five-or-more"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

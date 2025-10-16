@@ -1,0 +1,60 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ <span class="govuk-caption-l">Communication</span>
+
+<h1 class="govuk-heading-l">
+  Which of the following difficulties apply to you when you  communicate with other people?
+</h1>
+
+<p class="govuk-hint">
+Choose all that apply to you:</p>
+
+{{ govukCheckboxes
+  ({
+    name: "communication-day-difficulties",
+    errorMessage: data.validation['communication-day-difficulties'].error,
+    items: [{
+      value: "understanding-people",
+      text: "Understanding people I do not know well",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("understanding-people")
+    },{
+      value: "being-understood",
+      text: "Being understood by people who do not know me well",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("being-understood")
+    },{
+      value: "concentrating-remembering",
+      text: "Concentrating or remembering things",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("concentrating-remembering")
+    },{
+      value: "using-phone",
+      text: "Answering or using the phone",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("using-phone")
+    },{
+      value: "letters-forms-mail",
+      text: "Reading letters, filling in forms, replying to mail",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("letters-forms-mail")
+    },{
+      value: "asking-for-help",
+      text: "Asking for help when I need it",
+      checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("asking-for-help")
+    },{
+        divider: "or"
+      },
+      {
+        value: "communication-none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["communication-day-difficulties"] and data["communication-day-difficulties"].includes("communication-none")
+      }]
+  })
+}}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

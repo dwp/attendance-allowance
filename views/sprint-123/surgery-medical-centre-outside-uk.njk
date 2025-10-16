@@ -1,0 +1,61 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% call govukFieldset({
+    legend: {
+      text: "Enter the name of your GP surgery or medical centre outside of the UK",
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  }) %}
+
+  {{ govukInput({
+    label: {
+      text: 'Name of GP surgery or medical centre',
+      isPageHeading: true
+    },
+    errorMessage: data.validation['surgery-medical-centre-outside-uk-name'].error,
+    id: "surgery-medical-centre-outside-uk-name",
+    name: "surgery-medical-centre-outside-uk-name",
+    value: data["surgery-medical-centre-outside-uk-name"],
+    autocomplete: "surgery-medical-centre-outside-uk-name"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Town or city',
+      isPageHeading: true
+    },
+        classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['surgery-medical-centre-outside-uk-town-city'].error,
+    id: "surgery-medical-centre-outside-uk-town-city",
+    name: "surgery-medical-centre-outside-uk-town-city",
+    value: data["surgery-medical-centre-outside-uk-town-city"],
+    autocomplete: "surgery-medical-centre-outside-uk-town-city"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Country',
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['surgery-medical-centre-outside-uk-country'].error,
+    id: "surgery-medical-centre-outside-uk-country",
+    name: "surgery-medical-centre-outside-uk-country",
+    value: data["surgery-medical-centre-outside-uk-country"],
+    autocomplete: "surgery-medical-centre-outside-uk-country"
+  }) }}
+
+{% endcall %}
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

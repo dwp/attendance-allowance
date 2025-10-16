@@ -1,0 +1,44 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <h1 class="govuk-heading-l">
+    Approximately, how long can you be safely left alone during the day?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "safe-day-length",
+    name: "safe-day-length",
+    errorMessage: data.validation['safe-day-length'].error,
+    items: [
+      {
+        value: "cannot-be-alone",
+        text: "I cannot be left alone",
+        checked: true if data["safe-day-length"] === "cannot-be-alone"
+      },
+      {
+        value: "less-than-one-hour",
+        text: "Less than 1 hour",
+        checked: true if data["safe-day-length"] === "less-than-one-hour"
+      },
+     {
+        value: "one-or-four",
+        text: "Between 1 to 4 hours",
+        checked: true if data["safe-day-length"] === "one-or-four"
+      },
+      {
+        value: "more-than-four",
+        text: "More than 4 hours",
+        checked: true if data["safe-day-length"] === "more-than-four"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

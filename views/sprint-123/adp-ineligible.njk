@@ -1,0 +1,31 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    You cannot get Attendance Allowance if you get ADP
+  </h1>
+
+  <p class="govuk-body">
+    If you are already getting Adult Disability Payment (ADP),
+    you are not eligible for Attendance Allowance.
+  </p>
+
+  <p class="govuk-body">
+    <a class="govuk-link" target=”_blank” href="https://www.mygov.scot/adult-disability-payment">Find out more about ADP (opens in a new tab)</a>, including how to
+    <a class="govuk-link" target=”_blank” href="https://www.mygov.scot/adult-disability-payment-reviews/changes-report">report a change to your care needs or circumstances (opens in a new tab)</a>.
+  </p>
+
+  <p class="govuk-body">
+    If you <a href="nationality" class="govuk-link">continue to apply for Attendance Allowance</a>,
+    your existing benefits will be reviewed which may result in a change to what you currently get.
+  </p>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

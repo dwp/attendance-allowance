@@ -1,0 +1,32 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+{{ govukCharacterCount({
+  name: "withHint",
+  id: "with-hint",
+  maxlength: 200,
+  label: {
+    text: "Tell us what treatment or surgery you are having and any dates",
+    classes: "govuk-label--l",
+    isPageHeading: true
+  },
+  hint: {
+    text: "For example, operation to replace my hip on 17 December 2022."
+  },
+  errorMessage: data.validation['treatment-surgery-information'].error,
+    id: "treatment-surgery-information",
+    name: "treatment-surgery-information",
+    value: data["treatment-surgery-information"]
+}) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

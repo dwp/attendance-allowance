@@ -1,0 +1,54 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {% set currentPlace = data['care-home-hospital']
+    | replace("hospital", "hospital")
+    | replace("care-nursing-home", "the care or nursing home")
+    | replace("hospice", "the hospice")
+  %}
+
+  {% set allErrors  = ' govuk-input--error ' if data.validation['care-home-hospital-admission-date'].error.href === '#care-home-hospital-admission-date' %}
+  {% set dayError   = ' govuk-input--error ' if data.validation['care-home-hospital-admission-date'].error.href === '#care-home-hospital-admission-date-day' %}
+  {% set monthError = ' govuk-input--error ' if data.validation['care-home-hospital-admission-date'].error.href === '#care-home-hospital-admission-date-month' %}
+  {% set yearError  = ' govuk-input--error ' if data.validation['care-home-hospital-admission-date'].error.href === '#care-home-hospital-admission-date-year' %}
+
+  {{ govukDateInput({
+    id: "care-home-hospital-admission-date",
+    namePrefix: "care-home-hospital-admission-date",
+    fieldset: {
+      legend: {
+        text: "What date did you go into " + currentPlace + "?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "For example, 27 3 2023."
+    },
+    errorMessage: data.validation['care-home-hospital-admission-date'].error,
+    items: [
+      {
+        classes: 'govuk-input--width-2' + allErrors + dayError,
+        name: 'day',
+        value: data['care-home-hospital-admission-date-day']
+      },
+      {
+        classes: 'govuk-input--width-2' + allErrors + monthError,
+        name: 'month',
+        value: data['care-home-hospital-admission-date-month']
+      },
+      {
+        classes: 'govuk-input--width-4' + allErrors + yearError,
+        name: 'year',
+        value: data['care-home-hospital-admission-date-year']
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

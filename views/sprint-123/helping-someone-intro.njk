@@ -1,0 +1,64 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Helping {{ data['first-name'] | capitalize }} to apply for Attendance Allowance
+  </h1>
+
+  <p class="govuk-body">
+    You can help {{ data['first-name'] | capitalize }} to apply for Attendance Allowance by filling in this application for them.
+  </p>
+
+  <p class="govuk-body">
+    The questions in this application are about {{ data['first-name'] | capitalize }}. Do not enter your own details.
+  </p>
+
+  <p class="govuk-body">
+   {{ data['first-name'] | capitalize }} must:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>check that the information is correct</li>
+    {% if locale == 'NI' %}
+    <li>choose whether to give consent for their GP to share information about their health with DfC</li>
+    {% else %}
+     <li>choose whether to give consent for their GP to share information about their health with DWP</li>
+    {% endif %}
+    <li>agree to the legal declaration at the end of the application</li>
+  </ul>
+  
+
+  {% if journeyType == 'SPECIAL_RULES' %}
+  {% elif locale == 'NI' %}
+    <div class="govuk-inset-text">
+      <p class="govuk-body">
+        If someone has been appointed to make decisions for {{ data['first-name'] | capitalize }}, for example a Power of Attorney, they will need to apply using the
+        <a href="https://www.nidirect.gov.uk/articles/attendance-allowance#toc-4" target="_blank" class="govuk-link">paper claim form</a>.
+      </p>
+      <p class="govuk-body">
+        This is because we need additional information about them. {{ data['first-name'] | capitalize }}'s claim will be delayed if we do not have this information.
+      </p>
+    </div>
+  {% else %}
+    <div class="govuk-inset-text">
+      <p class="govuk-body">
+        If someone has been appointed to make decisions for {{ data['first-name'] | capitalize }}, for example a Power of Attorney, they will need to apply using the
+        <a href="https://www.gov.uk/government/publications/attendance-allowance-claim-form" target="_blank" class="govuk-link">paper claim form</a>.
+      </p>
+      <p class="govuk-body">
+        This is because we need additional information about them. {{ data['first-name'] | capitalize }}'s claim will be delayed if we do not have this information.
+      </p>
+    </div>
+  {% endif %}
+
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

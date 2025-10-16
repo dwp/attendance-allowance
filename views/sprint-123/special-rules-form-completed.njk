@@ -1,0 +1,53 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set specialRulesFormCompletedBody %}
+    {% if locale == 'NI' %}
+      <p class="govuk-body govuk-hint">An SR1 is a form that gives the Department for Communities (DfC) evidence about your illness.</p>
+    {% else %}
+      <p class="govuk-body govuk-hint">An SR1 is a form that gives the Department for Work and Pensions (DWP) evidence about your illness.</p>
+    {% endif %}
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "special-rules-form-completed",
+    name: "special-rules-form-completed",
+    classes: "govuk-!-margin-bottom-3",
+    fieldset: {
+      legend: {
+        text: "Has your doctor, consultant or specialist nurse completed an SR1 form?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-4"
+      }
+    },
+    errorMessage: data.validation['special-rules-form-completed'].error,
+    hint: {
+      html: specialRulesFormCompletedBody
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["special-rules-form-completed"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["special-rules-form-completed"] === "no"
+      },
+      {
+        value: "unsure",
+        text: "I do not know",
+        checked: true if data["special-rules-form-completed"] === "unsure"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  {% set html %}
+    <p class="govuk-notification-banner__heading">
+      You can
+      <a class="govuk-notification-banner__link" href="check-answers-full-list">check all of your answers again</a>.
+    </p>
+  {% endset %}
+
+  {{ govukNotificationBanner({
+    html: html
+  }) }}
+
+  <h2 class="govuk-heading-m">Declaration</h2>
+
+  <p class="govuk-body">By sending the application you agree that the information you have given is complete and correct.
+    If you deliberately give the wrong or incomplete information, or you do not report any changes, you may:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>be prosecuted</li>
+    <li>need to pay a financial penalty</li>
+    <li>need to pay back any money you are overpaid if you are asked to</li>
+  </ul>
+
+{% endblock %}
+
+{% block formButton %}
+
+  <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+      I agree - send my application
+  </button>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

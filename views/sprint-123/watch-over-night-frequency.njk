@@ -1,0 +1,108 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Someone to watch over you</span>
+  <h1 class="govuk-heading-l">How often and for how long</h1>
+
+  {{ govukRadios({
+    idPrefix: "watch-over-night-frequency",
+    name: "watch-over-night-frequency",
+    fieldset: {
+      legend: {
+        text: "How many times during the night does the other person have to be awake to watch over you?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['watch-over-night-frequency'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["watch-over-night-frequency"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["watch-over-night-frequency"] === "2"
+      },
+      {
+        value: "3+",
+        text: "3 or more",
+        checked: true if data["watch-over-night-frequency"] === "3+"
+      }
+    ]
+  }) }}
+
+  {{ govukRadios({
+    idPrefix: "keep-eye-on-you-average-time",
+    name: "keep-eye-on-you-average-time",
+    fieldset: {
+      legend: {
+        text: "How long does the other person have to stay awake on average, for each occasion you need them?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['keep-eye-on-you-average-time'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "less-than-20-minutes",
+        text: "Less than 20 minutes",
+        checked: true if data["keep-eye-on-you-average-time"] === "less-than-20-minutes"
+      },
+      {
+        value: "more-than-20-minutes",
+        text: "More than 20 minutes",
+        checked: true if data["keep-eye-on-you-average-time"] === "more-than-20-minutes"
+      }
+    ]
+  }) }}
+
+  {{ govukRadios({
+    idPrefix: "keep-eye-on-you-times-week",
+    name: "keep-eye-on-you-times-week",
+    fieldset: {
+      legend: {
+        text: "How many times a week do you typically need someone to watch over you?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['keep-eye-on-you-times-week'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["keep-eye-on-you-times-week"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["keep-eye-on-you-times-week"] === "2"
+      },
+      {
+        value: "3+",
+        text: "3 or more",
+        checked: true if data["keep-eye-on-you-times-week"] === "3+"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

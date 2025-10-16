@@ -1,0 +1,58 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Getting settled</span>
+  <h1 class="govuk-heading-l">Approximately, how many times a night do you have difficulty getting settled?</h1>
+
+  {{ govukRadios({
+    id: "night-frequency-bed-position",
+    name: "night-frequency-bed-position",
+    errorMessage: data.validation['night-frequency-bed-position'].error,
+    items: [
+      {
+        value: "once-a-night",
+        text: "Once a night",
+        checked: true if data["night-frequency-bed-position"] === "once-a-night",
+        conditional: {
+          html: conditionalBedPositionTypicallyHowLongHtml
+          }
+      },
+      {
+        value: "2-times-a-night",
+        text: "2 times a night",
+        checked: true if data["night-frequency-bed-position"] === "2-times-a-night"
+      },
+      {
+        value: "3-times-a-night-or-more",
+        text: "3 times a night or more",
+        checked: true if data["night-frequency-bed-position"] === "3-times-a-night-or-more"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% set conditionalBedPositionTypicallyHowLongHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'How long does it take to get settled in bed?'
+    },
+    id: "bed-position-typically-how-long",
+    name: "bed-position-typically-how-long",
+    errorMessage: data.validation['bed-position-typically-how-long'].error,
+    value: data['bed-position-typically-how-long']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

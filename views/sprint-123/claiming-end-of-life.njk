@@ -1,0 +1,179 @@
+{% from "../macros/v5.11.0-components/pagination/macro.njk" import govukPagination %}
+
+{% extends "v5.11.0-layouts/govuk-layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">Attendance Allowance</h1>
+
+          <ul class="govuk-list govuk-body-s">
+            <li class="govuk-!-margin-bottom-2">Contents</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="overview" class="govuk-link">Overview</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="what-youll-get" class="govuk-link">What you'll get</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="eligibility" class="govuk-link">Eligibility</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="how-to-claim" class="govuk-link">How to claim</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="report-change-in-circumstances" class="govuk-link">Report a change in circumstances</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  Claiming Attendance Allowance if you're nearing the end of life</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <h1 class="govuk-heading-l">Claiming Attendance Allowance if you’re nearing the end of life</h1>
+
+          <p class="govuk-body">
+            If you’re nearing the end of life (for example, due to a life-limiting illness)
+            you might be able to get Attendance Allowance more quickly and at a higher rate.
+          </p>
+
+          <p class="govuk-body">
+            This is sometimes called ‘special rules for end of life’.
+          </p>
+
+          <div class="govuk-inset-text">
+            You may also be able to get other <a href="https://www.gov.uk/benefits-end-of-life" class="govuk-link">benefits if you’re nearing the end of life</a>.
+          </div>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">Eligibility</h2>
+
+          <p class="govuk-body">You’re eligible if:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>you’ve reached <a href="#" class="govuk-link">State Pension age</a></li>
+            <li>your doctor or medical professional has said you might have 12 months or less to live</li>
+          </ul>
+
+          <p class="govuk-body">
+            It can be difficult to predict how long someone might live for.
+            If a medical professional has not talked to you about this, you can still ask them
+            to support your claim under the special rules for end of life.
+          </p>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">What you'll get</h2>
+
+          <p class="govuk-body">You’ll get the higher rate of £108.55 per week.</p>
+
+          <p class="govuk-body">You could also get extra Pension Credit, Housing Benefit or Council Tax Reduction.</p>
+
+          <p class="govuk-body">The letter about the money awarded will not mention ‘special rules’.</p>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">How to claim</h2>
+
+          <p class="govuk-body">You can claim for yourself or someone else can make a claim for you (they do not need your permission).</p>
+
+          <p class="govuk-body">You need to:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>ask a medical professional for form SR1 - they’ll either fill it in and give the form to you or send it directly to the Department for Work and Pensions (DWP)</a></li>
+            <li>apply for Attendance Allowance online or by post</li>
+          </ul>
+
+          <p class="govuk-body">You will not need to go to a face-to-face assessment.</p>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">Apply online</h2>
+
+          <p class="govuk-body">To apply, you'll need:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>your National Insurance number</li>
+            <li>your address and contact details</li>
+            <li>details of the health condition and disability that you need extra help for</li>
+            <li>details of your GP surgery or medical centre</li>
+            <li>details of your care home, hospital or hospice if you're currently staying in one</li>
+          </ul>
+
+          <a href="claim-type?journeyType=SPECIAL_RULES" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+            Start now
+            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+          </svg></a>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">Apply by post</h2>
+
+          <p class="govuk-body">You can either:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>print and send the <a href="#" class="govuk-link">Attendance Allowance claim form</a></li>
+            <li>contact the helpline to request a claim form</li>
+          </ul>
+
+          <div style="border-left: 1px solid #b1b4b6; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <p class="govuk-body govuk-!-margin-bottom-0">Attendance Allowance helpline</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Telephone: 0800 731 0122</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Textphone: 0800 731 0317</p>
+            <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Relay UK</a> (if you cannot hear or speak on the phone): 18001 then 0800 731 0122</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">British Sign Language (BSL) <a href="#" class="govuk-link">video relay service</a>
+            if you’re on a computer - find out how to <a href="#" class="govuk-link">use the service on mobile or tablet</a></p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Monday to Friday, 8am to 6pm</p>
+            <p class="govuk-body "><a href="#" class="govuk-link">Find out about call charges</a></p>
+          </div>
+
+          <p class="govuk-body">Send the completed claim form to:</p>
+
+          <div style="border-left: 1px solid #b1b4b6; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <p class="govuk-body">Freepost</br>
+            DWP Attendance Allowance</p>
+          </div>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">After you apply</h2>
+
+          <p class="govuk-body">
+            After you send your claim, we'll contact you by phone or letter within 3 weeks
+            to explain when you can expect a decision.
+          </p>
+
+          <p class="govuk-body">Once a decision is made, you'll get a letter explaining the outcome.</p>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">When you’ll be paid</h2>
+
+          <p class="govuk-body">If you’re awarded Attendance Allowance, the decision letter will tell you when you’ll get your first payment.</p>
+
+          <p class="govuk-body">If you apply online, your claim will start on the date you make your claim.</p>
+
+          <p class="govuk-body">If you print and post the form, your claim will start on the date the Department for Work and Pensions (DWP) receives it.</p>
+
+          <p class="govuk-body">If you call the helpline to get a form, your claim will start on the date of your call (if you return the form within 6 weeks).</p>
+
+          <h2 class="govuk-heading-m govuk-!-static-padding-top-5">If you already get Attendance Allowance</h2>
+
+          <p class="govuk-body">
+            Contact the Attendance Allowance helpline straight away if you already get Attendance Allowance
+            and a medical professional has said you might have 12 months or less to live.
+          </p>
+
+          {{ govukPagination({
+            previous: {
+              labelText: "Report a change in circumstances",
+              href: "report-change-in-circumstances"
+            }
+
+          }) }}
+
+          <p class="govuk-body"><a href="#" class="govuk-link">View a printable version of the whole guide</a></p>
+       </div>
+
+        <div class="govuk-grid-column-one-third">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+          <h3 class="govuk-heading-s">Related content</h3>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Financial help if you're disabled</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">How and when your benefits are paid</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Carer's Allowance</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Personal Independence Payment (PIP)</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Pension Credit</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Show 2 more</a></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

@@ -1,0 +1,67 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    We now need information about {{ data['representative-first-name'] | capitalize }}
+  </h1>
+
+  {% if data['best-describe'] == 'appointed' %}
+
+    {% if locale == 'NI' %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as a DfC appointee, we need additional information to process this claim.
+    </p>
+    {% else %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as a DWP appointee, we need additional information to process this claim.
+    </p>
+    {% endif %}
+
+    <div class="govuk-inset-text">
+      The following questions are about {{ data['representative-first-name'] | capitalize }}. Do not enter {{ data['first-name'] | capitalize }}'s details.
+    </div>
+
+  {% elif data['best-describe'] == 'appointee' %}
+
+    {% if locale == 'NI' %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as someone who wants to be a DfC appointee, we need additional information to process this claim.
+    </p>
+    {% else %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as someone who wants to be a DWP appointee, we need additional information to process this claim.
+    </p>
+    {% endif %}
+
+    <div class="govuk-inset-text">
+      The following questions are about {{ data['representative-first-name'] | capitalize }}. Do not enter {{ data['first-name'] | capitalize }}'s details.
+    </div>
+
+    {% else  %}
+
+    {% if locale == 'NI' %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as someone who has Enduring Power of Attorney, we need additional information to process this claim.
+    </p>
+    {% else %}
+    <p class="govuk-body">
+      As you are applying on behalf of {{ data['first-name'] | capitalize }} as someone who has power of attorney, we need additional information to process this claim.
+    </p>
+    {% endif %}
+
+    <div class="govuk-inset-text">
+      The following questions are about {{ data['representative-first-name'] | capitalize }}. Do not enter {{ data['first-name'] | capitalize }}'s details.
+    </div>
+
+  {% endif %}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

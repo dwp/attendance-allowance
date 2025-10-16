@@ -1,0 +1,27 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">You can now apply online without a verification code</h1>
+
+  <p class="govuk-body">
+    This new service will accept a limited number of applications each week.
+  </p>
+
+  <div class="govuk-inset-text">
+    For your claim to be considered from the date you called the Attendance Allowance helpline, send your verification code
+    email to <a href='mailto:digital.aasupport@dwp.gov.uk' class="govuk-link">digital.aasupport@dwp.gov.uk</a> and tell us why your claim is late.
+  </div>
+
+{{ govukButton({
+  text: "Continue",
+  href: "who-is-applying",
+  isStartButton: false
+}) }}
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

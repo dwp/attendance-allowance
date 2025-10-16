@@ -1,0 +1,24 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">Someone to keep an eye on you</h1>
+  <p class="govuk-body">We need to know if the difficulties you have during the day mean that you need supervision or someone to be with you.</p>
+  <p class="govuk-body">This could be as a result of conditions, such as:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>depression and anxiety</li>
+    <li>Alzheimer's or dementia</li>
+    <li>other neurological or mental conditions</li>
+    <li>learning disabilities</li>
+    <li>sight, hearing or speech difficulties</li>
+  </ul>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

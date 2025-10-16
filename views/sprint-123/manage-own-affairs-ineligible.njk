@@ -1,0 +1,47 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+    <h1 class="govuk-heading-l">
+      You cannot help someone to apply if they do not have the mental capacity to manage their affairs
+    </h1>
+
+    <p class="govuk-body">
+      If the person you are helping to apply does not have the mental capacity to manage their own benefits or financial affairs,
+      someone should be appointed to do this for them.
+    </p>
+
+    <p class="govuk-body">
+      You can:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      {% if locale == 'NI' %}
+      <li><a class="govuk-link" target=”_blank” href="https://www.nidirect.gov.uk/articles/becoming-appointee-social-security-benefits">apply to become a DfC appointee (opens in a new tab)</a></li>
+      <li><a class="govuk-link" target=”_blank” href="https://www.justice-ni.gov.uk/articles/how-apply-become-controller">apply to become a Controller, appointed by the Office of Care and Protection (opens in a new tab)</a></li>
+      {% else %}
+      <li><a class="govuk-link" target=”_blank” href="https://www.gov.uk/become-appointee-for-someone-claiming-benefits">apply to become a DWP appointee (opens in a new tab)</a></li>
+      <li><a class="govuk-link" target=”_blank” href="https://www.gov.uk/become-deputy">apply to become a deputy, appointed by the Court of Protection (opens in a new tab)</a></li>
+      {% endif %}
+    </ul>
+
+    <div class="govuk-inset-text">
+        {% if locale == 'NI' %}
+        If the person you are helping to apply no longer has mental capacity, they may not be able to make an Enduring Power of Attorney (EPA).
+        <a class="govuk-link" target=”_blank” href="https://www.nidirect.gov.uk/articles/managing-your-affairs-and-enduring-power-attorney">Find out more about the power of attorney process (opens in a new tab)</a>.
+        {% else %}
+        If the person you are helping to apply no longer has mental capacity, they may not be able to create a lasting power of attorney.
+        <a class="govuk-link" target=”_blank” href="https://www.gov.uk/power-of-attorney">Find out more about the power of attorney process (opens in a new tab)</a>.
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

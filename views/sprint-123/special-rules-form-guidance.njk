@@ -1,0 +1,27 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+ <h1 class="govuk-heading-l">Uploading your SR1 form</h1>
+
+  <p class="govuk-body">Make sure the files you need are saved to the device
+  you are using to apply for Attendance Allowance.</p>
+  <p class="govuk-body">The SR1 form has two pages. Make sure you upload them both.</p.>
+
+  <h2 class="govuk-heading-m">Taking photos or scans of your SR1 form</h1>
+
+  <p class="govuk-body">If you are taking a photo or scan of your SR1 form, make sure:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>all of the text can be read easily</li>
+    <li>the photo or scan is not blurry</li>
+    <li>each full page is visible, including all four corners</li>
+  </ul>
+
+  <p class="govuk-body">You will be able to upload more than one file if you need to.</p>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

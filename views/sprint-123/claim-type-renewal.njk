@@ -1,0 +1,23 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+    <h1 class="govuk-heading-l">You cannot renew your claim for Attendance Allowance online</h1>
+
+     {% if locale == 'NI' %}
+        <p class="govuk-body">You will need to use the <a class="govuk-link" href="https://www.nidirect.gov.uk/articles/attendance-allowance#toc-4">paper claim form</a>
+        if you already get Attendance Allowance and want to renew your claim.</p>
+        {% else %}
+        <p class="govuk-body">You will need to use the <a class="govuk-link" href="https://www.gov.uk/attendance-allowance/how-to-claim#apply-by-post">paper claim form</a>
+        if you already get Attendance Allowance and want to renew your claim.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

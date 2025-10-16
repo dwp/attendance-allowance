@@ -1,0 +1,44 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <h1 class="govuk-heading-l">
+    Approximately, how many times is someone awake in the night to keep you safe?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "safe-night-frequency",
+    name: "safe-night-frequency",
+    errorMessage: data.validation['safe-night-frequency'].error,
+    items: [
+      {
+        value: "one",
+        text: "1",
+        checked: true if data["safe-night-frequency"] === "one"
+      },
+      {
+        value: "two",
+        text: "2",
+        checked: true if data["safe-night-frequency"] === "two"
+      },
+     {
+        value: "three-to-four",
+        text: "3 to 4",
+        checked: true if data["safe-night-frequency"] === "three-to-four"
+      },
+      {
+        value: "more-than-four",
+        text: "More than 4",
+        checked: true if data["safe-night-frequency"] === "more-than-four"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Washing or bathing during the day</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage to wash, have a bath or shower?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "wash-day-why",
+      name: "wash-day-why",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['wash-day-why'].error,
+      items: [{
+        value: "hold-on-to-things",
+        text: "I hold on to things to get in or out of the bath or shower",
+        checked: true if data["wash-day-why"] and data["wash-day-why"].includes("hold-on-to-things")
+      },
+      {
+        value: "wash-bathe-safely",
+        text: "I cannot wash or bathe safely on my own",
+        checked: true if data["wash-day-why"] and data["wash-day-why"].includes("wash-bathe-safely")
+      },
+      {
+        value: "wash-encouragement",
+        text: "I need someone to encourage me to wash or bathe",
+        checked: true if data["wash-day-why"] and data["wash-day-why"].includes("wash-encouragement")
+      },
+      {
+        value: "wash-help",
+        text: "Someone has to physically help me wash or bathe",
+        checked: true if data["wash-day-why"] and data["wash-day-why"].includes("wash-help")
+      },
+      {
+        value: "wash-day-why-something-else",
+        text: "Something else",
+        checked: true if data["wash-day-why"] and data["wash-day-why"].includes("wash-day-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseWashWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseWashWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to wash, have a bath or shower'
+    },
+    id: "something-else-wash-day-why-explain",
+    name: "something-else-wash-day-why-explain",
+    errorMessage: data.validation['something-else-wash-day-why-explain'].error,
+    value: data['something-else-wash-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

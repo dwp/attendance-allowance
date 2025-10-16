@@ -1,0 +1,48 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block beforeContent %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        Beta
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <a class="govuk-back-link" href="residence-country">Back</a>
+
+{% endblock %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    You may not get Attendance Allowance if you do not live in the UK
+  </h1>
+
+  <p class="govuk-body">
+    To be eligible for Attendance Allowance, you usually have to live in the UK.
+  </p>
+
+  <div class="govuk-inset-text">
+    You might still be able to get Attendance Allowance if you live in or move to an EEA state or Switzerland.
+    <a class="govuk-link" target=”_blank” href="https://www.gov.uk/uk-benefits-abroad">Check if you are eligible (opens in a new tab)</a>.
+  </div>
+
+  <p class="govuk-body">
+    If you think you are eligible, you can <a href="country-outside-uk-duration" class="govuk-link">continue to apply for Attendance Allowance</a>.
+  </p>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

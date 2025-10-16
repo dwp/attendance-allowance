@@ -1,0 +1,45 @@
+{% from "./macros/check-answers-contact-details-section.njk" import checkAnswersContactDetailsSection %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block beforeContent %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        Beta
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  {% if data['email-submit'] == 'yes' %}
+    <a href="email-confirm" class="govuk-back-link">Back</a>
+  {% else %}
+    <a href="email-submit" class="govuk-back-link">Back</a>
+  {% endif %}
+
+{% endblock %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Check your answers
+  </h1>
+
+        {{ checkAnswersContactDetailsSection(data, locale) }}
+
+{% endblock %}
+
+{% block formButton %}
+  <a href="declaration" class="govuk-button">
+    Accept and continue
+  </a>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

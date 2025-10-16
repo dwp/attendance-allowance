@@ -1,0 +1,61 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% call govukFieldset({
+    legend: {
+      text: "Enter the name of the place where you are staying outside of the UK",
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  }) %}
+
+  {{ govukInput({
+    label: {
+      text: 'Name of the place where you are staying',
+      isPageHeading: true
+    },
+    errorMessage: data.validation['accommodation-outside-uk-name'].error,
+    id: "accommodation-outside-uk-name",
+    name: "accommodation-outside-uk-name",
+    value: data["accommodation-outside-uk-name"],
+    autocomplete: "accommodation-outside-uk-name"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Town or city',
+      isPageHeading: true
+    },
+        classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['accommodation-outside-uk-town-city'].error,
+    id: "accommodation-outside-uk-town-city",
+    name: "accommodation-outside-uk-town-city",
+    value: data["accommodation-outside-uk-town-city"],
+    autocomplete: "accommodation-outside-uk-town-city"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Country',
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['accommodation-outside-uk-country'].error,
+    id: "accommodation-outside-uk-country",
+    name: "accommodation-outside-uk-country",
+    value: data["accommodation-outside-uk-country"],
+    autocomplete: "accommodation-outside-uk-country"
+  }) }}
+
+{% endcall %}
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+{% if data['manage-own-affairs-authority'] == 'authority' %}
+
+  {{ govukRadios({
+    idPrefix: "applying-someone-else",
+    name: "applying-someone-else",
+    fieldset: {
+      legend: {
+        text: "Why are you applying for someone else?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['applying-someone-else'].error,
+    items: [
+      {
+        value: "individual",
+        text: "I am an individual with authority over someone's benefits or financial affairs",
+        checked: true if data["applying-someone-else"] and data["applying-someone-else"].includes("individual")
+      },
+      {
+        value: "corporate",
+        text: "I am an organisation with authority over someone's benefits or financial affairs",
+        checked: true if data["applying-someone-else"] and data["applying-someone-else"].includes("corporate")
+      }
+    ]
+  }) }}
+
+{% else %}
+
+  {{ govukRadios({
+    idPrefix: "applying-someone-else",
+    name: "applying-someone-else",
+    fieldset: {
+      legend: {
+        text: "Why are you applying for someone else?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['applying-someone-else'].error,
+    items: [
+      {
+        value: "helping-someone",
+        text: "I am helping someone to fill in the application",
+        checked: true if data["applying-someone-else"] and data["applying-someone-else"].includes("helping-someone")
+      },
+      {
+        value: "individual",
+        text: "I am an individual with authority over someone's benefits or financial affairs",
+        checked: true if data["applying-someone-else"] and data["applying-someone-else"].includes("individual")
+      },
+      {
+        value: "corporate",
+        text: "I am an organisation with authority over someone's benefits or financial affairs",
+        checked: true if data["applying-someone-else"] and data["applying-someone-else"].includes("corporate")
+      }
+    ]
+  }) }}
+
+{% endif %}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

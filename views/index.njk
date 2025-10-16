@@ -11,9 +11,9 @@
 
       <p class="govuk-body">
         <strong class="govuk-!-font-weight-bold">Product manager:</strong> Laura Regan<br/>
-        <strong class="govuk-!-font-weight-bold">Interaction designer:</strong> Jonathan Branthwaite<br/>
+        <strong class="govuk-!-font-weight-bold">Interaction designer:</strong> Louise Aron<br/>
         <strong class="govuk-!-font-weight-bold">Content designer:</strong> Caroline Rye<br/>
-        <strong class="govuk-!-font-weight-bold">User researcher:</strong> Carlene Carter
+        <strong class="govuk-!-font-weight-bold">User researcher:</strong> TBC
 
       </p>
 
@@ -21,10 +21,64 @@
 
       {# [Version listings] (do not delete this comment it is used in automation) #}
 
-      {# [sprint-120-start] (do not delete this comment it is used in automation) #}
+      {# [sprint-123-start] (do not delete this comment it is used in automation) #}
       <div class="app-most-recent govuk-!-padding-bottom-7">
         <div>
           <span class="govuk-tag govuk-tag--turquoise">In progress</span>
+        </div>
+        <br/>
+        <h2 class="govuk-heading-m">Sprint 123</h2>
+        <ul class="govuk-list govuk-list--bullet">
+        </ul>
+        
+        {% set details %}
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/how-to-claim' class="govuk-link">How to claim</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/claim-type' class="govuk-link">Claim type</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/effective-date' class="govuk-link">VO effective date</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/who-is-applying' class="govuk-link">Who is applying</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/manage-own-affairs' class="govuk-link">Mental capacity</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/before-you-start' class="govuk-link">Before you start</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/birth-date' class="govuk-link">Eligibility</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/national-insurance' class="govuk-link">Identity</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/special-rules-declaration' class="govuk-link">Special rules</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/care-home-hospital' class="govuk-link">Care home or hospital</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/health-conditions' class="govuk-link">Health conditions</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/treatment-surgery' class="govuk-link">Treatment or surgery</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/consent' class="govuk-link">Consent</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/day-difficulties' class="govuk-link">Day care</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/night-difficulties' class="govuk-link">Night care</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/safe-day-night' class="govuk-link">Supervision</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/difficulties-start-date' class="govuk-link">Difficulties start date</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/supporting-documents-intro' class="govuk-link">Supporting documents</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/aids-adaptations-question' class="govuk-link">Aids and adaptations</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/telephone-number' class="govuk-link">Contact preferences</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/declaration' class="govuk-link">Declaration</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/application-complete' class="govuk-link">Application complete</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/403' class="govuk-link">403 - forbidden access</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/404' class="govuk-link">404 - page not found</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/404-ni' class="govuk-link">404 (NI) - page not found</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/413' class="govuk-link">413 - file too big</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/500' class="govuk-link">500 - problem with the service</a></p>
+          <p class="govuk-body govuk-!-margin-bottom-1"><a href='sprint-123/503' class="govuk-link">503 - service unavailable</a></p>
+        {% endset %}
+
+        {{ govukDetails({
+            summaryText: "Key sections in journey",
+            html: details
+          }) }}
+
+        <a href="sprint-123/how-to-claim" class="govuk-button govuk-button--start">Start GB</a>
+        <a href="sprint-123/claim-type?locale=NI" class="govuk-button govuk-button--start">Start NI</a>
+        
+
+        <p class="govuk-body govuk-!-font-size-16">Date created - Thu Oct 16 2025</p>
+      </div>
+      {# [sprint-123-end] (do not delete this comment it is used in automation) #}
+
+      {# [sprint-120-start] (do not delete this comment it is used in automation) #}
+      <div class="app-most-recent govuk-!-padding-bottom-7">
+        <div>
+          <span class="govuk-tag govuk-tag--blue">Frozen</span>
         </div>
         <br/>
         <h2 class="govuk-heading-m">Sprint 120</h2>

@@ -1,0 +1,35 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "who-is-applying",
+    name: "who-is-applying",
+    fieldset: {
+      legend: {
+        text: "Who is applying?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['who-is-applying'].error,
+    items: [
+      {
+        value: "myself",
+        text: "I am applying for myself",
+        checked: true if data["who-is-applying"] and data["who-is-applying"].includes("myself")
+      },
+      {
+        value: "someone-else",
+        text: "I am applying for someone else",
+        checked: true if data["who-is-applying"] and data["who-is-applying"].includes("someone-else")
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

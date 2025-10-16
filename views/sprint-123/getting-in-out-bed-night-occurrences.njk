@@ -1,0 +1,65 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Getting into the right position in bed during the night</span>
+  {{ govukRadios({
+    id: "night-frequency-1-bed",
+    name: "night-frequency-1-bed",
+    fieldset: {
+      legend: {
+        text: "How many times a night do you need to move to get into a comfortable position in bed?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['night-frequency-1-bed'].error,
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["night-frequency-1-bed"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["night-frequency-1-bed"] === "2"
+      },
+      {
+        value: "3+",
+        text: "3 or more",
+        checked: true if data["night-frequency-1-bed"] === "3+"
+      }
+    ]
+  }) }}
+  {{ govukRadios({
+    id: "night-length-1-bed",
+    name: "night-length-1-bed",
+    fieldset: {
+      legend: {
+        text: "Typically, how long do the occasions take when you need to move to get into a comfortable position in bed?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['night-length-1-bed'].error,
+    items: [
+      {
+        value: "less than 20 minutes",
+        text: "Less than 20 minutes",
+        checked: true if data["night-length-1-bed"] === "less than 20 minutes"
+      },
+      {
+        value: "more than 20 minutes",
+        text: "More than 20 minutes",
+        checked: true if data["night-length-1-bed"] === "more than 20 minutes"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

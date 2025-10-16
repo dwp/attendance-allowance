@@ -1,0 +1,74 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% call govukFieldset({
+    legend: {
+      text: "What is the name of the care or nursing home?",
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  }) %}
+
+  {{ govukInput({
+    label: {
+      text: 'Name of care or nursing home',
+      isPageHeading: true
+    },
+    errorMessage: data.validation['care-home-name'].error,
+    id: "care-home-name",
+    name: "care-home-name",
+    value: data["care-home-name"],
+    autocomplete: "care-home-name"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Town or city',
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['care-home-town'].error,
+    id: "care-home-town",
+    name: "care-home-town",
+    value: data["care-home-town"]
+  }) }}
+
+  {#
+  {{ govukInput({
+    label: {
+      text: "Postcode",
+      isPageHeading: true
+    },
+    classes: "govuk-input--width-10",
+    errorMessage: data.validation['care-home-postcode'].error,
+    id: "care-home-postcode",
+    name: "care-home-postcode",
+    value: data["care-home-postcode"],
+    autocomplete: "care-home-postcode"
+  }) }}
+  #}
+
+{% endcall %}
+
+  {#
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+      <p class="govuk-body">
+        <a href="accommodation-address-outside-uk" class="govuk-link">
+         The address is outside of the UK
+        </a>
+      </p>
+    </div>
+  </div>
+  #}
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
