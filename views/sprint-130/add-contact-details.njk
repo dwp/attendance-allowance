@@ -1,0 +1,60 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">Do you want to add contact details for someone else?</h1>
+  </legend>
+
+  {% if data['applying-someone-else'] == 'individual' %}
+
+    {% if locale == 'NI' %}
+      <p class="govuk-body">
+        By adding contact details for someone else, you give permission for DfC to contact them if we have questions about this application.
+      </p>
+    {% else %}
+      <p class="govuk-body">
+        By adding contact details for someone else, you give permission for DWP to contact them if we have questions about this application.
+      </p>
+    {% endif %}
+
+   {% else %}
+
+    {% if locale == 'NI' %}
+      <p class="govuk-body">
+        By adding contact details for someone else, you give permission for DfC to contact them if we have questions about your application.
+      </p>
+    {% else %}
+      <p class="govuk-body">
+        By adding contact details for someone else, you give permission for DWP to contact them if we have questions about your application.
+      </p>
+    {% endif %}
+
+  {% endif %}
+
+  {{ govukRadios({
+    idPrefix: "add-contact-details",
+    name: "add-contact-details",
+    errorMessage: data.validation['add-contact-details'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["add-contact-details"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["add-contact-details"] === "no"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

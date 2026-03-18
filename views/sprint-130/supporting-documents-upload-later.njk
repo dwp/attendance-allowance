@@ -1,0 +1,25 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    How to upload your supporting documents later
+  </h1>
+
+  <p class="govuk-body">
+    Continue to complete your application for Attendance Allowance.
+  </p>
+
+  <p class="govuk-body">
+    There will be a link to upload your supporting documents on the confirmation page.
+  </p>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

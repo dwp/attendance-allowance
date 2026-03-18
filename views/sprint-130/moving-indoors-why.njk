@@ -1,0 +1,96 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Moving around indoors during the day</span>
+  <h1 class="govuk-heading-l">
+    How do you manage to move around indoors?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "moving-indoors-why",
+      name: "moving-indoors-why",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['moving-indoors-why'].error,
+      items: [{
+        value: "shuffle",
+        text: "I shuffle or take very small steps",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("shuffle")
+      },
+      {
+        value: "unsteady",
+        text: "I am very unsteady, even if I use an aid or lean on things",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("unsteady")
+      },
+      {
+        value: "slow",
+        text: "I am very slow",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("slow")
+      },
+      {
+        value: "several-attemps-chair",
+        text: "It takes me several attempts to get out of a chair",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("several-attemps-chair")
+      },
+      {
+        value: "physically-assisted",
+        text: "Someone has to physically assist me",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("physically-assisted")
+      },
+      {
+        value: "move-around-safely",
+        text: "I cannot move around safely",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("move-around-safely")
+      },
+      {
+        value: "encourage-move-around",
+        text: "Someone has to encourage me to get up and move around",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("encourage-move-around")
+      },
+      {
+        value: "chair-bound",
+        text: "I sit in a chair all day",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("chair-bound")
+      },
+      {
+        value: "bed-bound",
+        text: "I am confined to my bed",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("bed-bound")
+      },
+      {
+        value: "something-else-moving-around",
+        text: "Something else",
+        checked: true if data["moving-indoors-why"] and data["moving-indoors-why"].includes("something-else-moving-around"),
+        conditional: {
+          html: conditionalSomethingElseMovingAroundIndoorsWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseMovingAroundIndoorsWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to move around indoors'
+    },
+    id: "something-else-moving-around-why-explain",
+    name: "something-else-moving-around-why-explain",
+    errorMessage: data.validation['something-else-moving-around-why-explain'].error,
+    value: data['something-else-medication-moving-around-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

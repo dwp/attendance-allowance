@@ -1,0 +1,27 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukInput({
+    label: {
+      text: "What is your verification code?",
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    classes: "govuk-input--width-5",
+    id: "verification-code",
+    name: "verification-code",
+    value: data['verification-code'],
+    errorMessage: data.validation['verification-code'].error
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
+
+{% block formButton %}
+  {{ phaseButton(data, "Continue") }}
+{% endblock %}

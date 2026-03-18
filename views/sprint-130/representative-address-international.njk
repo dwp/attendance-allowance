@@ -1,0 +1,85 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+    <h1 class="govuk-fieldset__heading">Enter your home address outside of the UK</h1>
+  </legend>
+
+  <p class="govuk-body">
+    We will only use this to send you letters about this Attendance Allowance claim.
+  </p>
+
+  {{ govukInput({
+    label: {
+      text: "Address line 1",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-address-international-line-one'].error,
+    id: "representative-address-international-line-one",
+    name: "representative-address-international-line-one",
+    value: data["representative-address-international-line-one"],
+    autocomplete: "representative-address-international-line-one"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Address line 2 (optional)",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-address-international-line-two'].error,
+    id: "representative-address-international-line-two",
+    name: "representative-address-international-line-two",
+    value: data["representative-address-international-line-two"],
+    autocomplete: "representative-address-international-line-two"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Address line 3",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    id: "representative-address-international-line-three",
+    name: "representative-address-international-line-three",
+    value: data["representative-address-international-line-three"],
+    autocomplete: "representative-address-international-line-three"
+  }) }}
+
+   {{ govukInput({
+    label: {
+      text: "Address line 4 (optional)",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    id: "representative-address-international-line-four",
+    name: "representative-address-international-line-four",
+    value: data["representative-address-international-line-four"],
+    autocomplete: "representative-address-international-line-four"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Country",
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['representative-address-international-country'].error,
+    id: "representative-address-international-country",
+    name: "representative-address-international-country",
+    value: data["representative-address-international-country"],
+    autocomplete: "representative-address-international-country"
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

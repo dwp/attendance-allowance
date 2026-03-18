@@ -1,0 +1,25 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+  <h1 class="govuk-heading-l">
+    You need to post your full registered property and finance documents to us
+  </h1>
+
+  <p class="govuk-body">
+    We will tell you how to do this when you have completed your application for Attendance Allowance.
+  </p>
+
+  <p class="govuk-body">
+    You can send the originals or certified copies.
+  </p>
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
+
+{% block formButton %}
+  {{ phaseButton(data, "Continue") }}
+{% endblock %}

@@ -1,0 +1,94 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+<span class="govuk-caption-l">Using the toilet or managing incontinence during the day</span>
+
+<h1 class="govuk-heading-l">
+  How do you manage your toilet needs?
+</h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "toilet-day-why",
+      name: "toilet-day-why",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['toilet-day-why'].error,
+      items: [{
+        value: "lean-on-sink-radiator",
+        text: "I need to lean on something such as the sink or radiator",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("lean-on-sink-radiator")
+      },
+      {
+        value: "toilet-raised",
+        text: "I can only use a toilet if it is raised",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-raised")
+      },
+      {
+        value: "toilet-several-attempts",
+        text: "It takes me several attempts to get on or off the toilet or commode",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-several-attempts")
+      },
+      {
+        value: "toilet-accident",
+        text: "I have accidents because I cannot get there in time",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-accident")
+      },
+      {
+        value: "toilet-safely",
+        text: "I cannot get on or off the toilet safely",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-safely")
+      },
+      {
+        value: "toilet-physical-assist",
+        text: "Someone has to physically assist me",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-physical-assist")
+      },
+      {
+        value: "collecting-device",
+        text: "I use a commode, catheter, stoma or bedpan instead of the toilet",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("collecting-device")
+      },
+      {
+        value: "remind-encourage-toilet",
+        text: "Someone has to remind or encourage me to use the toilet or commode",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("remind-encourage-toilet")
+      },
+      {
+        value: "toilet-day-why-something-else",
+        text: "Something else",
+        checked: true if data["toilet-day-why"] and data["toilet-day-why"].includes("toilet-day-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseToiletWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseToiletWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage your toilet needs'
+    },
+    id: "something-else-toilet-day-why-explain",
+    name: "something-else-toilet-day-why-explain",
+    errorMessage: data.validation['something-else-toilet-day-why-explain'].error,
+    value: data['something-else-toilet-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

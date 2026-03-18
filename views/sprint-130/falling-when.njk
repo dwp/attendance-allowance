@@ -1,0 +1,43 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Stumbling or falling during the day</span>
+  <h1 class="govuk-heading-l">
+    Approximately, when did you last fall down?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "falling-when",
+    name: "falling-when",
+    errorMessage: data.validation['falling-when'].error,
+    items: [
+      {
+        value: "within-last-month",
+        text: "Within the last month",
+        checked: true if data["falling-when"] === "within-last-month"
+      },
+      {
+        value: "within-two-six-months",
+        text: "Within the last 2 to 6 months",
+        checked: true if data["falling-when"] === "within-two-six-months"
+      },
+      {
+        value: "within-seven-twelve-months",
+        text: "Within the last 7 to 12 months",
+        checked: true if data["falling-when"] === "within-seven-twelve-months"
+      }
+    ]
+  }) }}
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

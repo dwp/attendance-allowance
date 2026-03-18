@@ -1,0 +1,39 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% if data['special-rules-declaration'] == 'no' %}
+    <a href="special-rules-declaration" class="govuk-back-link">Back</a>
+  {% elif data['consent'] == 'no' %}
+  {% else %}
+    <a href="how-to-claim" class="govuk-back-link">Back</a>
+  {% endif %}
+
+  <h1 class="govuk-heading-l">You cannot apply online today</h1>
+  <p class="govuk-body">This is because:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>the service is still being developed</li>
+    <li>only a limited number of people can apply online each week</li>
+  </ul>
+
+  <p class="govuk-body">More applications will become available every Monday.</p>
+
+  <div class="govuk-inset-text">
+    There is a different way to claim if you are <a href="claiming-end-of-life" class="govuk-link">nearing
+    the end of life</a> (for example, because you have a life-limiting illness).
+  </div>
+
+  <h2 class="govuk-heading-m">You can still apply by post</h2>
+  <p class="govuk-body">If you print and post the form, your claim will start on the date we receive it.</p>
+  <p class="govuk-body">If you call the helpline to request a form, your claim will start on the date of your call.</p>
+
+  <div class="govuk-inset-text">
+    <p>Find out more about <a href="https://www.gov.uk/attendance-allowance/how-to-claim#apply-by-post" class="govuk-link">how to claim Attendance Allowance</a>.</p>
+  </div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

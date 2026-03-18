@@ -1,0 +1,41 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">
+      Your contact details
+    </h1>
+  </legend>
+  <p class="govuk-body">We will contact you by letter at the address you've provided:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>to confirm details of our decision</li>
+    <li>if we need more information and you're not contactable by phone</li>
+  </ul>
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="email-address">
+      Email address
+    </label>
+    <div id="email-hint" class="govuk-hint">
+      We will only email you to confirm we have received your claim.
+    </div>
+    <input class="govuk-input" id="email-address" name="email-address" type="text" spellcheck="false" autocomplete="name"></div>
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="telephone-number">
+      Telephone number
+    </label>
+    <div id="telephone-hint" class="govuk-hint">
+      We will only use your telephone number if we need more information based on your claim.
+    </div>
+    <input
+      class="govuk-input"
+      id="telephone-number"
+      name="telephone-number"
+      type="text"
+      spellcheck="false"
+      autocomplete="name">
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

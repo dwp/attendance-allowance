@@ -1,0 +1,27 @@
+{% from "./macros/check-answers-details-section.njk" import checkAnswersDetailsSection %}
+{% extends "v5.11.0-layouts/layout.njk" %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="govuk-heading-xl">
+          Check your answers
+        </h1>
+
+        {{ checkAnswersDetailsSection(data) }}
+
+        <a href="telephone-number">
+          <button class="govuk-button" data-module="govuk-button">
+            Accept and continue
+          </button>
+        </a>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

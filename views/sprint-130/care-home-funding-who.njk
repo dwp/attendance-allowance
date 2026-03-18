@@ -1,0 +1,75 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+ {% set otherOrganisationHtml %}
+  {{ govukInput({
+    id: "other-organisation-who",
+    name: "other-organisation-who",
+    errorMessage: data.validation['other-organisation-who'].error,
+    value:  data['other-organisation-who'],
+    classes: "govuk-input",
+    label: {
+      text: "Tell us who you get funding from"
+    }
+  }) }}
+
+{% endset -%}
+
+ {{ govukRadios({
+  idPrefix: "care-home-funding-who",
+  name: "care-home-funding-who",
+  fieldset: {
+    legend: {
+      text: "Who do you get funding from?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  errorMessage: data.validation['care-home-funding-who'].error,
+  items: [
+    {
+      value: "local-authority",
+      text: "Local authority",
+      checked: true if data["care-home-funding-who"] === "local-authority"
+    } if locale !== 'NI',
+    {
+      value: "health-authority",
+      text: "Health authority",
+      checked: true if data["care-home-funding-who"] === "health-authority"
+    } if locale !== 'NI',
+    {
+      value: "health-social-care-trust",
+      text: "Health and Social Care Trust",
+      checked: true if data["care-home-funding-who"] === "health-social-care-trust"
+    } if locale == 'NI',
+    {
+      value: "charity",
+      text: "Charity",
+      checked: true if data["care-home-funding-who"] === "charity"
+    },
+    {
+      value: "other-organisation",
+      text: "Other organisation",
+      checked: true if data["care-home-funding-who"] === "other-organisation",
+        conditional: {
+          html: otherOrganisationHtml
+        }
+    },
+    {
+        divider: "or"
+      },
+      {
+        value: "i-do-not-know",
+        text: "I do not know",
+        checked: true if data["care-home-funding"] === "i-do-not-know"
+      }
+  ]
+ }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

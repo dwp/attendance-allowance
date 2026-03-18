@@ -1,0 +1,29 @@
+{% macro rewordDate(day, month, year) %}
+  {# pull the date prettifiction out #}
+  {{ day+' '+
+    ( month
+      | replace("11", "November")
+      | replace("12", "December")
+      | replace("01", "January")
+      | replace("02", "February")
+      | replace("03", "March")
+      | replace("04", "April")
+      | replace("05", "May")
+      | replace("06", "June")
+      | replace("07", "July")
+      | replace("08", "August")
+      | replace("09", "September")
+      | replace("10", "October")
+      | replace("1", "January")
+      | replace("2", "February")
+      | replace("3", "March")
+      | replace("4", "April")
+      | replace("5", "May")
+      | replace("6", "June")
+      | replace("7", "July")
+      | replace("8", "August")
+      | replace("9", "September")
+    )
+		+' '+year
+  -}}
+{% endmacro %}

@@ -1,0 +1,84 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Dressing or undressing yourself during the day</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage to get dressed or undressed?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "dress-day-why",
+      name: "dress-day-why",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['dress-day-why'].error,
+      items: [{
+        value: "breathless",
+        text: "I get breathless",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("breathless")
+      },
+      {
+        value: "restricted-movement",
+        text: "I have restricted movement due to pain",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("restricted-movement")
+      },
+      {
+        value: "long-time-dress",
+        text: "It takes me a long time to get dressed or undressed",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("long-time-dress")
+      },
+      {
+        value: "remind-get-dressed",
+        text: "Someone has to remind me to get dressed or undressed",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("remind-get-dressed")
+      },
+      {
+        value: "help-dress",
+        text: "Someone has to physically help me to get dressed or undressed",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("help-dress")
+      },
+      {
+        value: "cannot-dress",
+        text: "I cannot put on or take off clothes or footwear on my own",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("cannot-dress")
+      },
+      {
+        value: "dress-day-why-something-else",
+        text: "Something else",
+        checked: true if data["dress-day-why"] and data["dress-day-why"].includes("dress-day-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseDressDayWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseDressDayWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage to get dressed or undressed'
+    },
+    id: "something-else-dress-day-why-explain",
+    name: "something-else-dress-day-why-explain",
+    errorMessage: data.validation['something-else-dress-day-why-explain'].error,
+    value: data['something-else-dress-day-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

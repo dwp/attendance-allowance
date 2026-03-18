@@ -1,0 +1,54 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Cleaning yourself during the night</span>
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty when you clean yourself
+  </h1>
+
+  <p class="govuk-body govuk-!-margin-bottom-8">This could include difficulties if you've spilt something on yourself, been sick or need to clean up after you've had an  episode of incontinence or soiled the bed.</p>
+
+  {{ govukCheckboxes
+    ({
+      id: "cleaning-self-night",
+      name: "cleaning-self-night",
+      fieldset: {
+        legend: {
+          text: "Which difficulties do you have when you clean yourself?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['cleaning-self-night'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty when I clean myself",
+        checked: true if data["cleaning-self-night"] and data["cleaning-self-night"].includes("physical")
+      },
+      {
+        value: "prompt",
+        text: "I need encouragement or prompting to clean myself",
+        checked: true if data["cleaning-self-night"] and data["cleaning-self-night"].includes("prompt")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["cleaning-self-night"] and data["cleaning-self-night"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

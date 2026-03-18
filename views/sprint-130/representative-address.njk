@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+
+  {{ govukRadios({
+    idPrefix: "representative-address",
+    name: "representative-address",
+    fieldset: {
+      legend: {
+        text: "Do you live at the same address as the person you are applying on behalf of?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['representative-address'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["representative-address"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["representative-address"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

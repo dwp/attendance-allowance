@@ -1,0 +1,45 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set specialRulesBody %}
+    <p class="govuk-body govuk-hint">
+      This is sometimes called ‘special rules for end of life’.
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+    idPrefix: "special-rules-declaration",
+    name: "special-rules-declaration",
+    fieldset: {
+      legend: {
+        text: "Has your doctor, consultant or specialist nurse said you might have less than 12 months to live due to your condition?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['special-rules-declaration'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["special-rules-declaration"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["special-rules-declaration"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

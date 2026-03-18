@@ -1,0 +1,23 @@
+{% extends "v5.11.0-layouts/layout.njk" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a class="govuk-back-link" href="country">Back</a>
+      <div class="govuk-form-group">
+        <h1 class="govuk-heading-l">Based on your answers, you may not be eligible to receive
+          Attendance Allowance</h1>
+        <p class="govuk-body">There are some circumstances under which you may still be able to <a
+             class="govuk-link govuk-link--no-underline" href="https://www.gov.uk/claim-benefits-abroad/disability-benefits">claim benefits if you
+          live, move or travel abroad</a>.</p>
+        <h2 class="govuk-heading-m">If you still want to apply</h2>
+        <p class="govuk-body">You can <a href="country-outside-uk" class="govuk-link govuk-link--no-underline">apply for Attendance Allowance</a>
+          but you may not be entitled to it.</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

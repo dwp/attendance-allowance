@@ -1,0 +1,88 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    What type of cancer do you have?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "cancer-type",
+      name: "cancer-type",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['cancer-type'].error,
+      items: [
+        {
+          value: "lung-cancer",
+          text: "Lung cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("lung-cancer")
+        },
+        {
+          value: "bowel-cancer",
+          text: "Bowel cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("bowel-cancer")
+        },
+        {
+          value: "prostate-cancer",
+          text: "Prostate cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("prostate-cancer")
+        },
+        {
+          value: "breast-cancer",
+          text: "Breast cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("breast-cancer")
+        },
+        {
+          value: "oesophageal-cancer",
+          text: "Oesophageal cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("oesophageal-cancer")
+        },
+        {
+          value: "pancreatic-cancer",
+          text: "Pancreatic cancer",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("pancreatic-cancer")
+        },
+        {
+          value: "mesothelioma-cancer",
+          text: "Mesothelioma",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("mesothelioma-cancer")
+        },
+        {
+          value: "cancer-not-listed",
+          text: "My cancer is not listed here",
+          checked: true if data["cancer-type"] and data["cancer-type"].includes("cancer-not-listed"),
+          conditional: {
+            html: manualCancerType
+          }
+        }
+      ]
+    })
+  }}
+{% endblock %}
+
+{% set manualCancerType %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    label: {
+      text: "Tell us what type of cancer you have",
+      isPageHeading: true
+    },
+    id: "cancer-type-manual",
+    name: "cancer-type-manual",
+    value: data['cancer-type-manual'],
+    errorMessage: data.validation['cancer-type-manual'].error
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">
+      What is your home address?
+    </h1>
+  </legend>
+
+  {% if data['best-describe'] == 'appointed' or data['best-describe'] == 'powerOfAttorney' %}
+
+    {% if locale == 'NI' %}
+    {% else %}
+     <p class="govuk-body">
+      We will not send any letters to {{ data['first-name'] | capitalize }} if someone has been given the authority to manage their affairs.
+    </p>
+    {% endif %}
+
+  {% elif data['best-describe'] == 'appointee' %}
+
+    {% if locale == 'NI' %}
+    <p class="govuk-body">
+      A DfC Outreach Officer will arrange an appointment at this address to assess:
+    </p>
+    {% else %}
+    <p class="govuk-body">
+      DWP's Visiting Service will arrange an appointment at this address to assess:
+    </p>
+    {% endif %}
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>if an appointee is needed</li>
+      <li>your suitability as an appointee</li>
+    </ul>
+
+  {% else %}
+
+    <p class="govuk-body">
+      We will only use this to send you letters about your Attendance Allowance claim.
+    </p>
+
+  {% endif %}
+
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="postcode">
+      Postcode
+    </label>
+
+    {{ govukInput({
+      id: "home-address-postcode",
+      name: "home-address-postcode",
+      value: data['home-address-postcode'],
+      classes: 'govuk-input--width-10',
+      errorMessage: data.validation['home-address-postcode'].error
+    }) }}
+  </div>
+{% endblock %}
+
+{% block formButton %}
+  {{ phaseButton(data, "Find address") }}
+{% endblock %}
+
+{% block postForm %}
+{% if data['residence-country'] == 'scotland' %}
+    {% else %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+        <a href="home-address-international" class="govuk-link">
+          My home address is outside of the UK
+        </a>
+      </p>
+    </div>
+  </div>
+  {% endif %}
+  {% include './macros/assisted-digital-details.njk' %}
+
+{% endblock %}

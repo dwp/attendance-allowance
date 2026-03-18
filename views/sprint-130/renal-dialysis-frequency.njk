@@ -1,0 +1,46 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Kidney conditions</span>
+
+  {{ govukRadios({
+    idPrefix: "renal-dialysis-frequency",
+    name: "renal-dialysis-frequency",
+    fieldset: {
+      legend: {
+        text: "How many days a week do you have dialysis?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['renal-dialysis-frequency'].error,
+    hint: {
+      html: specialRulesBody
+    },
+    items: [
+      {
+        value: "one",
+        text: "1",
+        checked: true if data["renal-dialysis-frequency"] === "one"
+      },
+      {
+        value: "two",
+        text: "2",
+        checked: true if data["renal-dialysis-frequency"] === "two"
+      },
+      {
+        value: "three-or-more",
+        text: "3 or more",
+        checked: true if data["renal-dialysis-frequency"] === "three-or-more"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

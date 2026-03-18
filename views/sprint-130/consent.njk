@@ -1,0 +1,125 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% if locale == 'NI' %}
+    <h1 class="govuk-heading-l">Sharing information about your health condition or disability</h1>
+
+    <p class="govuk-body">
+      We may want to contact your GP, or the people or organisations involved with you,
+      for information about your claim. This may include medical information.
+    </p>
+
+    <p class="govuk-body">
+      We, or any healthcare professional working for an organisation approved by the Department,
+      may ask any person or organisation to give them or us any information, including medical information, which we need to deal with:
+    </p>
+
+     <ul class="govuk-list govuk-list--bullet">
+        <li>this claim for Attendance Allowance, or</li>
+        <li>any appeal or other request to reconsider a decision about this claim</li>
+      </ul>
+
+    <h2 class="govuk-heading-m">How we use your personal information</h2>
+
+    <p class="govuk-body">
+      Any information that we ask you for is necessary to enable the Department for Communities (DfC) to carry out its official duties.
+      The legal basis for the request is GDPR Article 6(1)(e) and Article 9(2)(b) for special category information.
+    </p>
+
+  {% else %}
+
+    {% set consentBody %}
+      <p class="govuk-body govuk-!-static-padding-top-1">
+        The Department for Work and Pensions (DWP), or approved healthcare professionals that work for them, 
+        may need more information or evidence to process and make a decision on your claim. 
+      </p>
+    {% endset %}
+
+    {{ govukRadios({
+        idPrefix: "consent",
+        name: "consent",
+        fieldset: {
+          legend: {
+            text: "Do you give consent for your GP or other healthcare professionals to share relevant information about your health conditions with DWP?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        errorMessage: data.validation['consent'].error,
+        hint: {
+          html: consentBody
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes, information about my health can be shared",
+            checked: true if data["consent"] and data["consent"].includes("yes")
+          },
+          {
+            value: "no",
+            text: "No, information about my health cannot be shared",
+            checked: true if data["consent"] and data["consent"].includes("no")
+          }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m govuk-!-static-padding-top-7">How DWP uses this information</h2>
+
+    <p class="govuk-body">DWP uses this information to:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>assess your claim</li>
+      <li>make a decision on your claim, or any future disputes or appeals</li>
+    </ul>
+
+    <p class="govuk-body">
+      The law allows DWP to get, keep and use this information.
+    </p>
+
+    <p class="govuk-body">
+      If you agree, DWP will store your consent on your behalf. This means your GP or other 
+      healthcare professionals will know they are legally allowed to share information about you.
+    </p>
+
+    <p class="govuk-body">
+      If you do not give your consent, DWP will make a decision using only the information you provide.
+    </p>
+
+    <h2 class="govuk-heading-m govuk-!-static-padding-top-3">If you change your mind</h2>
+
+    <p class="govuk-body">
+      You can change your mind at any time. If you withdraw your consent, 
+      DWP will not ask your GP or other healthcare professionals to share any more information.
+    </p>
+
+    <p class="govuk-body">
+      If you want to give or withdraw your consent later, contact:
+    </p>
+
+    <p class="govuk-body">
+      Phone: 0800 731 0122<br/>
+      Textphone: 0800 731 0317 if you have speech or hearing difficulties.
+    </p>
+
+  {% endif %}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
+
+{% block formButton %}
+  {% if locale == 'NI' %}
+    <a href="gp-details" class="govuk-button">
+        Continue
+      </a>
+  {% else %}
+    {{ phaseButton(data, "Continue") }}
+  {% endif %}
+
+{% endblock %}

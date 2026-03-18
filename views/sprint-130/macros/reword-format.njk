@@ -1,0 +1,9 @@
+{% macro rewordFormat(format) %}
+  {{ format
+    | replace("format-cd-cassette", "Cd or cassette tape" )
+    | replace("format-braille", "Braille" )
+    | replace("format-large", "Large print" )
+    | replace("format-textphone", "Textphone" )
+    | replace("format-relay-uk", "Relay UK" )
+    | replace("format-none", "No" ) }}
+{% endmacro %}

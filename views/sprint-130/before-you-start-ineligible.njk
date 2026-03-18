@@ -1,0 +1,25 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">You must have all the information you need to apply online</h1>
+  <p class="govuk-body">You will need certain information about yourself, or the person who wants to claim
+  Attendance Allowance, to complete the application. </p>
+  <p class="govuk-body">You will not be able to save your application and come back to it later.</p>
+
+  {{ govukButton({
+    text: "Return to Apply for Attendance Allowance",
+    href: "before-you-start",
+    isStartButton: false
+  }) }}
+
+  {% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

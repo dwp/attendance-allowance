@@ -1,0 +1,116 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "../macros/v5.11.0-components/pagination/macro.njk" import govukPagination %}
+
+{% extends "v5.11.0-layouts/govuk-layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">Attendance Allowance</h1>
+
+          <ul class="govuk-list govuk-body-s">
+            <li class="govuk-!-margin-bottom-2">Contents</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  Overview</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="what-youll-get" class="govuk-link">What you'll get</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="eligibility" class="govuk-link">Eligibility</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="how-to-claim" class="govuk-link">How to claim</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="report-change-in-circumstances" class="govuk-link">Report a change in circumstances</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="claiming-end-of-life" class="govuk-link">Claiming Attendance Allowance if you’re nearing the end of life</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <h2 class="govuk-heading-l">Overview</h2>
+
+          <p class="govuk-body">Attendance Allowance helps with extra costs if you have a disability or health condition severe enough that you need someone to help look after you.</p>
+
+          <p class="govuk-body">There’s a different way to claim <a href="claiming-end-of-life" class="govuk-link">if you’re nearing the end of life</a> (for example, because you have a life-limiting illness).</p>
+
+          <div class="govuk-inset-text">
+            This guide is also available in <a href="#" class="govuk-link">Welsh (Cymraeg)</a>,
+            <a href="#" class="govuk-link">British Sign Language (BSL)</a> and
+            <a href="#" class="govuk-link">Easy Read format</a>.
+          </div>
+
+          <p class="govuk-body">It’s paid at <a href="what-youll-get" class="govuk-link">2 different rates</a> and how much you get depends on the level of care that you need because of your disability or health condition.</p>
+
+          <p class="govuk-body">You could get £73.90 or £110.40 a week to help with personal support if both of the following apply:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>you have a physical disability, mental disability, or a health condition</li>
+            <li><a href="#" class="govuk-link">you're State Pension age</a> or older</li>
+          </ul>
+
+          <p class="govuk-body">It does not cover mobility needs.</p>
+
+          <p class="govuk-body">You could get extra Pension Credit, Housing Benefit or Council Tax Reduction if you get Attendance Allowance.</p>
+
+          <p class="govuk-body">You do not have to have someone caring for you in order to claim.</p>
+
+          <div class="govuk-inset-text">
+            If you do have a carer, they could get <a href="#" class="govuk-link">Carer’s Allowance</a> if you have substantial caring needs.
+          </div>
+
+          <h3 class="govuk-heading-m govuk-!-static-padding-top-5">If you live in Scotland</h3>
+
+          <p class="govuk-body">
+            You will need to <a href="https://www.mygov.scot/pension-age-disability-payment" class="govuk-link">
+            apply for Pension Age Disability Payment</a> instead of Attendance Allowance if you live in:
+          </p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Aberdeen City</li>
+            <li>Argyll and Bute</li>
+            <li>Highland</li>
+            <li>Orkney Islands</li>
+            <li>Shetland Islands</li>
+          </ul>
+
+          <div class="govuk-inset-text">
+            If you live in one of these areas and you already get Attendance Allowance,
+            you do not need to apply for Pension Age Disability Payment.
+          </div>
+
+          <p class="govuk-body">If you live in another part of Scotland, apply for Attendance Allowance.</p>
+
+          <h4 class="govuk-heading-s">If you currently get Attendance Allowance</h4>
+
+          <p class="govuk-body">You’ll automatically be moved to Pension Age Disability Payment from spring 2025.</p>
+
+          <p class="govuk-body">When the move begins, you’ll get letters from the Department for Work and Pensions (DWP) and Social Security Scotland.</p>
+
+          {{ govukPagination({
+            next: {
+              labelText: "What you'll get",
+              href: "what-youll-get"
+            }
+          }) }}
+
+          <p class="govuk-body"><a href="#" class="govuk-link">View a printable version of the whole guide</a></p>
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+          <h3 class="govuk-heading-s">Related content</h3>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Financial help if you're disabled</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">How and when your benefits are paid</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Carer's Allowance</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Personal Independence Payment (PIP)</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Pension Credit</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Show 2 more</a></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

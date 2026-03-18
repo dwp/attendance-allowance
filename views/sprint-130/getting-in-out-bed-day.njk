@@ -1,0 +1,48 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ <span class="govuk-caption-l">Getting in and out of bed during the day</span>
+   <h1 class="govuk-heading-l">
+     You told us you have difficulty when you get in and out of bed
+   </h1>
+  {{ govukCheckboxes
+    ({
+      idPrefix: "getting-in-out-bed-day",
+      name: "getting-in-out-bed-day",
+      fieldset: {
+        legend: {
+          text: "Which difficulty do you have when you get in and out of bed?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['getting-in-out-bed-day'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty when I get in and out of bed",
+        checked: true if data["getting-in-out-bed-day"] and data["getting-in-out-bed-day"].includes("physical")
+      },
+      {
+        value: "motivation",
+        text: "I need encouragement or prompting to get in and out of bed",
+        checked: true if data["getting-in-out-bed-day"] and data["getting-in-out-bed-day"].includes("motivation")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["getting-in-out-bed-day"] and data["getting-in-out-bed-day"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

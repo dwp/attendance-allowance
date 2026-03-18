@@ -1,0 +1,111 @@
+{% from "../macros/v5.11.0-components/pagination/macro.njk" import govukPagination %}
+
+{% extends "v5.11.0-layouts/govuk-layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">Attendance Allowance</h1>
+
+          <ul class="govuk-list govuk-body-s">
+            <li class="govuk-!-margin-bottom-2">Contents</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="overview" class="govuk-link">Overview</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="what-youll-get" class="govuk-link">What you'll get</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="eligibility" class="govuk-link">Eligibility</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="how-to-claim" class="govuk-link">How to claim</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  Report a change in circumstances</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="claiming-end-of-life" class="govuk-link">Claiming Attendance Allowance if you’re nearing the end of life</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <h2 class="govuk-heading-l">Report a change in circumstances</h2>
+
+          <p class="govuk-body">If your circumstances change, the amount you get from Attendance Allowance may go up or down.</p>
+
+          <p class="govuk-body">You must contact the Attendance Allowance helpline straight away if:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the level of help you need or your condition changes - you’ll need to provide details
+            like if the amount of times you need help each day has changed</li>
+            <li>you go into hospital or a care home - you’ll need to provide the address, the dates you’ve been there for,
+            and how your stay is paid for</li>
+            <li>a medical professional has said <a href="claiming-end-of-life" class="govuk-link">you might have 12 months or less to live</a> (you could get Attendance Allowance at a higher rate under ‘special rules for end of life’)</li>
+            <li>you plan to leave the country for more than 4 weeks</li>
+            <li>you go into prison</li>
+            <li>you change your name, address or bank details</li>
+            <li>you want to stop receiving your benefit</li>
+            <li>your doctor’s details change</li>
+            <li>your immigration status changes, if you’re not a British citizen</li>
+          </ul>
+
+          <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+              <span class="govuk-visually-hidden">Warning</span>
+                You could be taken to court or have to pay a penalty if you give wrong information or do not report a change in your circumstances.
+              </strong>
+          </div>
+
+          <div style="border-left: 1px solid #b1b4b6; padding-left: 15px; margin-bottom: 30px; margin-top: 30px;">
+            <p class="govuk-body govuk-!-margin-bottom-0">Attendance Allowance helpline</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Telephone: 0800 731 0122</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Textphone: 0800 731 0317</p>
+            <p class="govuk-body govuk-!-margin-bottom-0"><a href="#" class="govuk-link">Relay UK</a> (if you cannot hear or speak on the phone): 18001 then 0800 731 0122</p>
+            <p class="govuk-body govuk-!-margin-bottom-0">British Sign Language (BSL) <a href="#" class="govuk-link">video relay service</a>
+            if you’re on a computer - find out how to <a href="#" class="govuk-link">use the service on mobile or tablet</a></p>
+            <p class="govuk-body govuk-!-margin-bottom-0">Monday to Friday, 8am to 6pm</p>
+            <p class="govuk-body"><a href="#" class="govuk-link">Find out about call charges</a></p>
+          </div>
+
+          <h3 class="govuk-heading-m">If you’ve been paid too much</h3>
+
+          <p class="govuk-body">You may have to repay the money if you:</p>
+
+          <ul class="govuk-list govuk-list--bullet">
+            <li>did not report a change straight away</li>
+            <li>gave wrong information</li>
+            <li>were overpaid by mistake</li>
+          </ul>
+
+          <p class="govuk-body">Find out how to <a href="#" class="govuk-link">repay the money you owe from benefit overpayment.</a></p>
+
+          {{ govukPagination({
+            previous: {
+              labelText: "How to claim",
+              href: "how-to-claim"
+            },
+            next: {
+              labelText: "Claiming Attendance Allowance if you're nearing the end of life",
+              href: "claiming-end-of-life"
+            }
+          }) }}
+
+          <p class="govuk-body"><a href="#" class="govuk-link">View a printable version of the whole guide</a></p>
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+          <h3 class="govuk-heading-s">Related content</h3>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Financial help if you're disabled</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">How and when your benefits are paid</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Carer's Allowance</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Personal Independence Payment (PIP)</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Pension Credit</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Show 2 more</a></p>
+      </div>
+    </div>
+  </main>
+</div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

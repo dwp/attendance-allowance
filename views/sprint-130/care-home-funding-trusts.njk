@@ -1,0 +1,63 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+ {{ govukRadios({
+  idPrefix: "care-home-funding-trusts",
+  name: "care-home-funding-trusts",
+  fieldset: {
+    legend: {
+      text: "Which Health and Social Care Trust do you get funding from?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  errorMessage: data.validation['care-home-funding-trusts'].error,
+  items: [
+    {
+      value: "belfast-hscni",
+      text: "Belfast Health and Social Care Trust",
+      checked: true if data["care-home-funding-trusts"] === "belfast-hscni"
+    },
+    {
+      value: "northern-hscni",
+      text: "Northern Health and Social Care Trust",
+      checked: true if data["care-home-funding-trusts"] === "northern-hscni"
+    },
+    {
+      value: "northern-ireland-ambulance",
+      text: "Northern Ireland Ambulance Service HSC Trust",
+      checked: true if data["care-home-funding-trusts"] === "northern-ireland-ambulance"
+    },
+    {
+      value: "southern-eastern-hscni",
+      text: "Southern Eastern Health and Social Care Trust",
+      checked: true if data["care-home-funding-trusts"] === "southern-eastern-hscni"
+    },
+    {
+      value: "southern-hscni",
+      text: "Southern Health and Social Care Trust",
+      checked: true if data["care-home-funding-trusts"] === "southern-hscni"
+    },
+    {
+      value: "western-hscni",
+      text: "Western Health and Social Care Trust",
+      checked: true if data["care-home-funding-trusts"] === "western-hscni"
+    },
+    {
+        divider: "or"
+      },
+      {
+        value: "i-do-not-know",
+        text: "I do not know",
+        checked: true if data["care-home-funding-trusts"] === "i-do-not-know"
+      }
+  ]
+ }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

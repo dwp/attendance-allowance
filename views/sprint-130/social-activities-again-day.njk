@@ -1,0 +1,44 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ <span class="govuk-caption-l">Social activities or hobbies</span>
+
+  {{ govukRadios({
+    idPrefix: "social-activities-again-day",
+    name: "social-activities-again-day",
+    fieldset: {
+      legend: {
+        text: "On a typical day how many times do you take part in social activities or hobbies?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6"
+      }
+    },
+    errorMessage: data.validation['social-activities-again-day'].error,
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["social-activities-again-day"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["social-activities-again-day"] === "2"
+      },
+     {
+        value: "3 or more",
+        text: "3 or more",
+        checked: true if data["social-activities-again-day"] === "3 or more"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

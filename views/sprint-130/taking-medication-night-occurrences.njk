@@ -1,0 +1,67 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Taking medication or receiving treatment during the night</span>
+
+  {{ govukRadios({
+    id: "night-frequency-5-meds",
+    name: "night-frequency-5-meds",
+    fieldset: {
+      legend: {
+        text: "How many times a night do you need to take medication or receive treatment?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['night-frequency-5-meds'].error,
+    items: [
+      {
+        value: "1",
+        text: "1",
+        checked: true if data["night-frequency-5-meds"] === "1"
+      },
+      {
+        value: "2",
+        text: "2",
+        checked: true if data["night-frequency-5-meds"] === "2"
+      },
+      {
+        value: "3+",
+        text: "3 or more",
+        checked: true if data["night-frequency-5-meds"] === "3+"
+      }
+    ]
+  }) }}
+  {{ govukRadios({
+    id: "night-length-5-meds",
+    name: "night-length-5-meds",
+    fieldset: {
+      legend: {
+        text: "Typically, how long do the occasions take when you need medication or receive treatment?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['night-length-5-meds'].error,
+    items: [
+      {
+        value: "less than 20 minutes",
+        text: "Less than 20 minutes",
+        checked: true if data["night-length-5-meds"] === "less than 20 minutes"
+      },
+      {
+        value: "more than 20 minutes",
+        text: "More than 20 minutes",
+        checked: true if data["night-length-5-meds"] === "more than 20 minutes"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

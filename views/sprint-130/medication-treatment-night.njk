@@ -1,0 +1,83 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Medication or treatment during the night</span>
+
+  <h1 class="govuk-heading-l">
+    What medication or treatment do you have difficulty taking during the night?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      id: "medication-treatment-night",
+      name: "medication-treatment-night",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['medication-treatment-night'].error,
+      items: [{
+        value: "having-oxygen-therapy",
+        text: "Having oxygen therapy",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("having-oxygen-therapy")
+      },
+      {
+        value: "cpap-mask",
+        text: "Adjusting continuous positive airway pressure (CPAP) mask",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("cpap-mask")
+      },
+      {
+        value: "applying-cream",
+        text: "Applying cream",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("applying-cream")
+      },
+      {
+        value: "taking-medication",
+        text: "Taking medication, for example, pain relief",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("taking-medication")
+      },
+      {
+        value: "something-else-medication",
+        text: "Something else",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("something-else-medication"),
+        conditional: {
+          html: conditionalSomethingElseMedicationNightHtml
+          }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "I do not take medication or get treatment during the night",
+        behaviour: "exclusive",
+        checked: true if data["medication-treatment-night"] and data["medication-treatment-night"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+{% set conditionalSomethingElseMedicationNightHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what medication or treatment you have difficulty with during the night'
+    },
+    id: "something-else-explain-medication-night",
+    name: "something-else-explain-medication-night",
+    errorMessage: data.validation['something-else-explain-medication-night'].error,
+    value: data['something-else-explain-medication-night']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

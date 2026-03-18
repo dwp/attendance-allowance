@@ -1,0 +1,86 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+    <h1 class="govuk-fieldset__heading">Enter your home address</h1>
+  </legend>
+
+  <p class="govuk-body">
+      We will only use this to send you letters about this Attendance Allowance claim.
+  </p>
+
+  {{ govukInput({
+    label: {
+      text: "Address line 1",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['representative-address-manual-line-one'].error,
+    id: "representative-address-manual-line-one",
+    name: "representative-address-manual-line-one",
+    value: data["representative-address-manual-line-one"],
+    autocomplete: "representative-address-manual-line-one"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Address line 2 (optional)",
+      classes: "govuk-body",
+      isPageHeading: true
+    },
+    id: "representative-address-manual-line-two",
+    name: "representative-address-manual-line-two",
+    value: data["representative-address-manual-line-two"],
+    autocomplete: "representative-address-manual-line-two"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Town or city",
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['representative-address-manual-town'].error,
+    id: "representative-address-manual-town",
+    name: "representative-address-manual-town",
+    value: data["representative-address-manual-town"],
+    autocomplete: "representative-address-manual-town"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "County (optional)",
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['representative-address-manual-county'].error,
+    id: "representative-address-manual-county",
+    name: "representative-address-manual-county",
+    value: data["representative-address-manual-county"],
+    autocomplete: "representative-address-manual-county"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Postcode",
+      isPageHeading: true
+    },
+    classes: "govuk-input--width-10",
+    errorMessage: data.validation['representative-address-manual-postcode'].error,
+    id: "representative-address-manual-postcode",
+    name: "representative-address-manual-postcode",
+    value: data["representative-address-manual-postcode"],
+    autocomplete: "representative-address-manual-postcode"
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

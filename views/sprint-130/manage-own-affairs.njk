@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set applicantName = data['first-name'] | capitalize %}
+
+  {{ govukRadios({
+    idPrefix: "manage-own-affairs",
+    name: "manage-own-affairs",
+    fieldset: {
+      legend: {
+        text: "Does the person you are helping have the mental capacity to manage their own affairs?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['manage-own-affairs'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["manage-own-affairs"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["manage-own-affairs"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

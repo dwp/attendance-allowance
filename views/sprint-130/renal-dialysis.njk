@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Kidney conditions</span>
+
+  {{ govukRadios({
+    idPrefix: "renal-dialysis",
+    name: "renal-dialysis",
+    fieldset: {
+      legend: {
+        text: "Are you undergoing renal dialysis?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['renal-dialysis'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["renal-dialysis"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["renal-dialysis"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

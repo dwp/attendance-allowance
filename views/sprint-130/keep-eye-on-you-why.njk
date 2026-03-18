@@ -1,0 +1,76 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Someone to keep an eye on you</span>
+
+  <h1 class="govuk-heading-l">
+    Can you tell us why you need someone to keep an eye on you during the day?
+  </h1>
+
+  <p class="govuk-hint">
+  For example, you may have a mental-health problem, a learning disability, sight, hearing or speech difficulty.</p>
+
+  <p class="govuk-body">
+    Select all the reasons why you need supervision or someone to keep an eye on you:
+  </p>
+
+  {{ govukCheckboxes
+    ({
+      name: "keep-eye-on-you-why",
+      errorMessage: data.validation['keep-eye-on-you-why'].error,
+      items: [{
+        value: "prevent-danger",
+        text: "to prevent danger to myself or others",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("prevent-danger")
+      },{
+        value: "common-dangers",
+        text: "I am not aware of common dangers",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("common-dangers")
+      },{
+        value: "neglecting-myself",
+        text: "I am at risk of neglecting myself",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("neglecting-myself")
+      },{
+        value: "harming-myself",
+        text: "I am at risk of harming myself",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("harming-myself")
+      },{
+        value: "wander",
+        text: "I may wander",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("wander")
+      },{
+        value: "behaviour",
+        text: "to discourage antisocial or aggressive behaviour",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("behaviour")
+      },{
+        value: "blackouts",
+        text: "fits, dizzy spells or blackouts",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("blackouts")
+      },{
+        value: "confused",
+        text: "I may get confused",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("confused")
+      },{
+        value: "voices",
+        text: "I may hear voices or experience thoughts that disrupt my thinking",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("voices")
+      },{
+        divider: "or"
+      },
+      {
+        value: "why-none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["keep-eye-on-you-why"] and data["keep-eye-on-you-why"].includes("why-none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

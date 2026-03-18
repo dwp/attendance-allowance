@@ -1,0 +1,49 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+ <h1 class="govuk-heading-l">Upload your SR1 form</h1>
+
+{{ govukFileUpload({
+  id: "special-rules-form-upload",
+  name: "special-rules-form-upload",
+  label: {
+    text: "Upload a file"
+  },
+  value: data["special-rules-form-upload"],
+  errorMessage: data.validation['special-rules-form-upload'].error
+}) }}
+
+<p class="govuk-body govuk-!-static-padding-top-6">Your file must be:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+    <li>a JPG, JPEG, PNG or PDF</li>
+    <li>smaller than 10MB</li>
+  </ul>
+
+{% endblock %}
+
+{% block formButton %}
+  {{ govukButton({
+    text: "Upload and continue"
+  }) }}
+
+  {{ govukButton({
+    text: "Continue without uploading",
+    classes: "govuk-button--secondary",
+    href: "special-rules-form-added" if data['special-rules-form-upload-rows'].length > 0 else "care-home-hospital"
+  }) }}
+
+  <div class="govuk-inset-text">
+    If you are struggling to upload your SR1 form, continue without
+    uploading to avoid delaying your claim.
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

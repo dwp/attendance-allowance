@@ -1,0 +1,57 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <p class="govuk-hint govuk-!-margin-bottom-1">
+    Washing yourself during the day
+  </p>
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty when you wash yourself
+  </h1>
+  <p class="govuk-body">
+    This means things like getting in and out of the bath or shower, checking your appearance, looking after your personal hygiene or washing after you've soiled yourself.
+  </p>
+  <p class="govuk-body">
+    Personal hygiene includes things such as brushing your teeth, washing your hair, shaving or something similar.
+  </p>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "washing-yourself-during-day",
+      name: "washing-yourself-during-day",
+      fieldset: {
+        legend: {
+          text: "Which difficulty do you have when you wash yourself?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['washing-yourself-during-day'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty when I wash myself",
+        checked: true if data["washing-yourself-during-day"] and data["washing-yourself-during-day"].includes("physical")
+      },
+      {
+        value: "motivation",
+        text: "I need encouragement or prompting to wash myself",
+        checked: true if data["washing-yourself-during-day"] and data["washing-yourself-during-day"].includes("motivation")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["washing-yourself-during-day"] and data["washing-yourself-during-day"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

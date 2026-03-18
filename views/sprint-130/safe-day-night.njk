@@ -1,0 +1,44 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Do you need someone with you to make sure you are safe at home?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "safe-day-night",
+      name: "safe-day-night",
+      errorMessage: data.validation['safe-day-night'].error,
+      items: [
+        {
+          value: "day",
+          text: "Yes, during the day",
+          checked: true if data["safe-day-night"] and data["safe-day-night"].includes("day")
+        },
+        {
+          value: "night",
+          text: "Yes, during the night",
+          checked: true if data["safe-day-night"] and data["safe-day-night"].includes("night")
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "no",
+          text: "No",
+          behaviour: "exclusive",
+          checked: true if data["safe-day-night"] and data["safe-day-night"].includes("no")
+        }
+      ]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

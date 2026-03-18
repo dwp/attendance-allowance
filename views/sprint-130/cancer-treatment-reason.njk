@@ -1,0 +1,73 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Why are you not having treatment for your cancer?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "cancer-treatment-reason",
+      name: "cancer-treatment-reason",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['cancer-treatment-reason'].error,
+      items: [
+        {
+          value: "chosen-not-to",
+          text: "I have chosen not to",
+          checked: true if data["cancer-treatment-reason"] and data["cancer-treatment-reason"].includes("chosen-not-to")
+        },
+        {
+          value: "not-well-enough",
+          text: "I am not physically well enough",
+          checked: true if data["cancer-treatment-reason"] and data["cancer-treatment-reason"].includes("not-well-enough")
+        },
+        {
+          value: "not-working",
+          text: "It was not working",
+          checked: true if data["cancer-treatment-reason"] and data["cancer-treatment-reason"].includes("not-working")
+        },
+        {
+          value: "stopped",
+          text: "I was having treatment but have stopped",
+          checked: true if data["cancer-treatment-reason"] and data["cancer-treatment-reason"].includes("stopped")
+        },
+        {
+          value: "something-else",
+          text: "Something else",
+          checked: true if data["cancer-treatment-reason"] and data["cancer-treatment-reason"].includes("something-else"),
+          conditional: {
+            html: cancerTreatmentReasonSomethingElse
+          }
+        }
+      ]
+    })
+  }}
+{% endblock %}
+
+{% set cancerTreatmentReasonSomethingElse %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    label: {
+      text: "Tell us why you are not having treatment",
+      isPageHeading: true
+    },
+    id: "cancer-treatment-reason-something-else",
+    name: "cancer-treatment-reason-something-else",
+    value: data['cancer-treatment-reason-something-else'],
+    errorMessage: data.validation['cancer-treatment-reason-something-else'].error
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

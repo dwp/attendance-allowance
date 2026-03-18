@@ -1,0 +1,56 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+ <span class="govuk-caption-l">Washing or bathing during the day</span>
+  {{ govukRadios({
+    idPrefix: "additional-wash-day",
+    name: "additional-wash-day",
+    fieldset: {
+      legend: {
+        text: "Do you need to wash yourself again during the day?",
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "This is if you have to wash yourself again after you have got up in the morning. For example, because you have spilt something on yourself or soiled yourself in another way."
+    },
+    errorMessage: data.validation['additional-wash-day'].error,
+    items: [
+     {
+       value: "yes",
+       text: "Yes",
+       checked: true if data["additional-wash-day"] === "yes",
+       conditional: {
+        html: frequencyDayHtml
+      }
+     },
+     {
+       value: "no",
+       text: "No",
+       checked: true if data["additional-wash-day"] === "no"
+     }
+    ]
+  }) }}
+{% endblock %}
+
+{% set frequencyDayHtml %}
+   {{ govukInput({
+    classes: "govuk-input--width-4",
+    isPageHeading: true,
+    label: {
+      text: 'Approximately, how many times a day do you need to wash yourself again?'
+    },
+    id: "wash-frequency",
+    name: "wash-frequency",
+    errorMessage: data.validation['wash-frequency'].error,
+    value: data['wash-frequency']
+    }) }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

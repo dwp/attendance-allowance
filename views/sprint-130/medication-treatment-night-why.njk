@@ -1,0 +1,73 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Medication or treatment during the night</span>
+
+  <h1 class="govuk-heading-l">
+    How do you manage taking medication or getting treatment during the night?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "medication-treatment-night-why",
+      name: "medication-treatment-night-why",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['medication-treatment-night-why'].error,
+      items: [{
+        value: "long-time",
+        text: "It takes me a long time to take the medication or treatment on my own",
+        checked: true if data["medication-treatment-night-why"] and data["medication-treatment-night-why"].includes("long-time")
+      },
+      {
+        value: "someone-prepare",
+        text: "Someone has to prepare my medication or treatment for me",
+        checked: true if data["medication-treatment-night-why"] and data["medication-treatment-night-why"].includes("someone-prepare")
+      },
+      {
+        value: "remind-encourage",
+        text: "Someone has to remind or encourage me to take my medication or treatment",
+        checked: true if data["medication-treatment-night-why"] and data["medication-treatment-night-why"].includes("remind-encourage")
+      },
+      {
+        value: "help",
+        text: "I cannot take the medication or treatment by myself",
+        checked: true if data["medication-treatment-night-why"] and data["medication-treatment-night-why"].includes("help")
+      },
+      {
+        value: "medication-treatment-night-why-something-else",
+        text: "Something else",
+        checked: true if data["medication-treatment-night-why"] and data["medication-treatment-night-why"].includes("medication-treatment-night-why-something-else"),
+        conditional: {
+          html: conditionalSomethingElseMedicationTreatmentNightWhy
+        }
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseMedicationTreatmentNightWhy %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: false,
+    label: {
+      text: 'Tell us how you manage taking your medication or getting treatment during the night'
+    },
+    id: "something-else-medication-treatment-night-why-explain",
+    name: "something-else-medication-treatment-night-why-explain",
+    errorMessage: data.validation['something-else-medication-treatment-night-why-explain'].error,
+    value: data['something-else-medication-treatment-night-why-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

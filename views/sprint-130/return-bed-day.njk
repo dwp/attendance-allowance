@@ -1,0 +1,52 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Getting in or out of bed during the day</span>
+  <h1 class="govuk-heading-l">
+  Do you usually need to go back to bed during the day?</h1>
+
+  {% set bedHtml %}
+    <p class="govuk-body">Approximately, how many times a day do you need to go back to bed?</p>
+
+    {{ govukInput({
+      id: "return-bed-day-times",
+      name: "return-bed-day-times",
+      errorMessage: data.validation['return-bed-day-times'].error,
+      value: data['return-bed-day-times'],
+      classes: "govuk-input--width-4"
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    id: "return-bed-day",
+    name: "return-bed-day",
+    hint: {
+      text: "This is if you have to return to bed after you have got up in the morning."
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["return-bed-day"] === "yes",
+        conditional: {
+          html: bedHtml
+        }
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["return-bed-day"] === "no"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

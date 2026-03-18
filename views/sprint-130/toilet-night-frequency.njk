@@ -1,0 +1,58 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Toilet needs or managing incontinence during the night</span>
+  <h1 class="govuk-heading-l">Approximately, how many times a night do you have difficulty with your toilet needs?</h1>
+
+  {{ govukRadios({
+    id: "night-frequency-2-loo",
+    name: "night-frequency-2-loo",
+    errorMessage: data.validation['night-frequency-2-loo'].error,
+    items: [
+      {
+        value: "once-a-night",
+        text: "Once a night",
+        checked: true if data["night-frequency-2-loo"] === "once-a-night",
+        conditional: {
+          html: conditionalToiletTypicallyHowLongHtml
+          }
+      },
+      {
+        value: "twice-a-night",
+        text: "2 times a night",
+        checked: true if data["night-frequency-2-loo"] === "twice-a-night"
+      },
+      {
+        value: "three-or-more-a-night",
+        text: "3 times a night or more",
+        checked: true if data["night-frequency-2-loo"] === "three-or-more-a-night"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% set conditionalToiletTypicallyHowLongHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'How long does it take to manage the difficulty you have with your toilet needs?'
+    },
+    id: "toilet-typically-how-long",
+    name: "toilet-typically-how-long",
+    errorMessage: data.validation['toilet-typically-how-long'].error,
+    value: data['toilet-typically-how-long']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

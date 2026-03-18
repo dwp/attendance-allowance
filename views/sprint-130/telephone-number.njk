@@ -1,0 +1,62 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">What is your telephone number?</h1>
+  </legend>
+
+  {% if data['applying-someone-else'] == 'individual' %}
+
+  <p class="govuk-body">
+    We need {{ data['first-name'] | capitalize }}'s telephone number to process this claim. 
+    We will not call {{ data['first-name'] | capitalize }} if someone has been given the authority to manage their affairs.
+  </p>
+
+  <div class="govuk-inset-text">
+    We will ask for the 
+    {{ data['best-describe'] 
+    | replace("appointed", "appointee") 
+    | replace("appointee", "appointee" ) 
+    | replace("powerOfAttorney", "power of attorney" if locale != 'NI' else "Enduring Power of Attorney") }}'s 
+    contact details later.
+  </div>
+
+  {% else %}
+
+  <p class="govuk-body">
+      We will only phone you if we need to talk to you about your application.
+  </p>
+
+  <div class="govuk-inset-text">
+      You can add contact details for someone else next.
+  </div>
+
+  {% endif %}
+
+
+  {{ govukInput({
+    label: {
+      text: "Telephone number",
+      classes: "govuk-!-font-weight-bold"
+    },
+    hint: {
+      text: "For international numbers include the country code."
+    },
+    classes: "govuk-input--width-30",
+    errorMessage: data.validation['main-contact-number'].error,
+    id: "main-contact-number",
+    name: "main-contact-number",
+    value: data["main-contact-number"],
+    autocomplete: "main-contact-number"
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

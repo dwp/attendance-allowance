@@ -78,6 +78,9 @@ module.exports = {
     representativeAddressManual: 'representative-address-manual',
     representativeAddressInternational: 'representative-address-international',
     representativeTelephoneNumber: 'representative-telephone-number',
+    representativeHaveAccessCode: 'representative-have-access-code',
+    representativeEnterAccessCode: 'representative-enter-access-code',
+    representativeAccessCodeNone: 'representative-access-code-none',
 
     // identity
     nationalInsurance: 'national-insurance',

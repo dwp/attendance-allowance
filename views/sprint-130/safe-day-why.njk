@@ -1,0 +1,97 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Why do you need someone to help you stay safe at home?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "safe-day-why",
+      name: "safe-day-why",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['safe-day-why'].error,
+      items: [
+        {
+          value: "prevent-danger",
+          text: "To prevent danger to myself or others",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("prevent-danger")
+        },
+        {
+          value: "wander",
+          text: "I may wander or become disorientated",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("wander")
+        },
+        {
+          value: "voices-or-intrusive-thoughts",
+          text: "I can hear voices or experience intrusive thoughts",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("voices-or-intrusive-thoughts")
+        },
+        {
+          value: "uncontrolled-seizures",
+          text: "I have uncontrolled seizures, dizzy spells or blackouts",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("uncontrolled-seizures")
+        },
+        {
+          value: "not-aware-hazards",
+          text: "I am not aware of household hazards",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("not-aware-hazards")
+        },
+        {
+          value: "falling",
+          text: "I am at risk of hurting myself, for example, by falling",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("falling")
+        },
+        {
+          value: "self-harm",
+          text: "I self harm",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("self-harm")
+        },
+        {
+          value: "something-else",
+          text: "Something else",
+          checked: true if data["safe-day-why"] and data["safe-day-why"].includes("something-else"),
+          conditional: {
+            html: conditionalSomethingElseHtml
+          }
+        },
+        {
+          divider: "or"
+        },
+        {
+          value: "none",
+          text: "I do not need someone to help me stay safe at home",
+          behaviour: "exclusive",
+          checked: true if data["safe-day-night"] and data["safe-day-night"].includes("none")
+        }
+      ]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    label: {
+      text: "Tell us why you need someone to help you stay safe at home",
+      isPageHeading: true
+    },
+    id: "safe-day-why-something-else",
+    name: "safe-day-why-something-else",
+    value: data['safe-day-why-something-else'],
+    errorMessage: data.validation['safe-day-why-something-else'].error
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

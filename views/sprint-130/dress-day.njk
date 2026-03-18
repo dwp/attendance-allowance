@@ -1,0 +1,75 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Dressing or undressing yourself during the day</span>
+  <h1 class="govuk-heading-l">
+    What difficulty do you have when dressing or undressing?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "dress-day",
+      name: "dress-day",
+      hint: {
+        text: 'Select all that apply.'
+      },
+      errorMessage: data.validation['dress-day'].error,
+      items: [{
+        value: "put-on-take-off",
+        text: "Putting on or taking off clothes or footwear",
+        checked: true if data["dress-day"] and data["dress-day"].includes("put-on-take-off")
+      },
+      {
+        value: "choosing-clothes",
+        text: "Choosing appropriate clothes",
+        checked: true if data["dress-day"] and data["dress-day"].includes("choosing-clothes")
+      },
+      {
+        value: "forget-want-change-clothes",
+        text: "Forgetting to or not wanting to change my clothes",
+        checked: true if data["dress-day"] and data["dress-day"].includes("forget-want-change-clothes")
+      },
+      {
+        value: "something-else-dressing",
+        text: "Something else",
+        checked: true if data["dress-day"] and data["dress-day"].includes("something-else-dressing"),
+        conditional: {
+          html: conditionalSomethingElseDressingHtml
+        }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply-dress-day",
+        text: "I do not have difficulty dressing or undressing",
+        behaviour: "exclusive",
+        checked: true if data["dress-day"] and data["dress-day"].includes("no-other-apply-dress-day")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseDressingHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what you find difficult when dressing or undressing'
+    },
+    id: "something-else-explain-dressing",
+    name: "something-else-explain-dressing",
+    errorMessage: data.validation['something-else-explain-dressing'].error,
+    value: data['something-else-explain-dressing']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

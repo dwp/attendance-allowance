@@ -1,0 +1,60 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Incontinence or if you soil yourself  during the night</span>
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty managing incontinence or if you soil yourself
+  </h1>
+
+  <p class="govuk-body govuk-!-margin-bottom-2">This means difficulties:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>emptying of your bowel and bladder when you have difficulty controlling this</li>
+    <li>changing your incontinence pads</li>
+    <li>managing the emptying of your catheter or stoma bag</li>
+    <li>cleaning the bed if you've soiled yourself</li>
+  </ul>
+
+  {{ govukCheckboxes
+    ({
+      id: "cleaning-soiled-night",
+      name: "cleaning-soiled-night",
+      fieldset: {
+        legend: {
+          text: "Which difficulties do you have managing incontinence or if you soil yourself?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['cleaning-soiled-night'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty managing incontinence or if I soil myself",
+        checked: true if data["cleaning-soiled-night"] and data["cleaning-soiled-night"].includes("physical")
+      },
+      {
+        value: "prompt",
+        text: "I need encouragement or prompting to manage my incontinence or if I soil myself",
+        checked: true if data["cleaning-soiled-night"] and data["cleaning-soiled-night"].includes("prompt")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["cleaning-soiled-night"] and data["cleaning-soiled-night"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

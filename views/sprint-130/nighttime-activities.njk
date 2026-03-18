@@ -1,0 +1,68 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Do you have difficulty with any of these activities during the night?
+  </h1>
+
+  <p class="govuk-body">
+    You need to tell us about the difficulties you have during your night routine. Include activities that you have help with or that you need help with, or if you need encouragement or prompting to carry out any of these activities.
+  </p>
+
+  <p class="govuk-body">
+    Please select from the following:
+  </p>
+
+  {{ govukCheckboxes
+    ({
+      name: "nighttime-activities",
+      errorMessage: data.validation['nighttime-activities'].error,
+      items: [{
+        value: "nighttime-position-bed",
+        text: "Getting into a comfortable position in bed",
+        hint: {
+          text: "This could mean getting comfortably settled, needing to be propped up or putting your bedclothes back on the bed if they fall off."
+        },
+        checked: true if data["nighttime-activities"] and data["nighttime-activities"].includes("nighttime-position-bed")
+      },{
+        value: "nighttime-toilet",
+        text: "Getting to and using the toilet",
+        hint: {
+          text: "This can include getting to and using a commode or bedpan."
+        },
+        checked: true if data["nighttime-activities"] and data["nighttime-activities"].includes("nighttime-toilet")
+      },{
+        value: "nighttime-cleaning-yourself",
+        text: "Cleaning yourself after incontinence or soiling",
+        hint: {
+          text: "This means difficulties changing your incontinence pads or catheter. It can also mean cleaning yourself or stripping the bed if you’ve spilt something and need to put fresh bedclothes on."
+        },
+        checked: true if data["nighttime-activities"] and data["nighttime-activities"].includes("nighttime-cleaning-yourself")
+      },{
+        value: "nighttime-medication",
+        text: "Taking your medication or receiving treatment",
+        hint: {
+          text: "This means struggling to handle your medicines and understanding how much to take and when to take them during the night. Or whether you have physical difficulties receiving treatment that you need, during the night."
+        },
+        checked: true if data["nighttime-activities"] and data["nighttime-activities"].includes("nighttime-medication")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "nighttime-none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["nighttime-activities"] and data["nighttime-activities"].includes("nighttime-none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

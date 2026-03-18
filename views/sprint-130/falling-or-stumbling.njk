@@ -1,0 +1,45 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Stumbling or falling during the day</span>
+  <h1 class="govuk-heading-l">
+    Does your health condition or disability cause you to stumble or fall down?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "falling-or-stumbling",
+      name: "falling-or-stumbling",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['falling-or-stumbling'].error,
+      items: [{
+        value: "risk-stumbling",
+        text: "Yes, I stumble",
+        checked: true if data["falling-or-stumbling"] and data["falling-or-stumbling"].includes("risk-stumbling")
+      },
+      {
+        value: "risk-falling",
+        text: "Yes, I fall down",
+        checked: true if data["falling-or-stumbling"] and data["falling-or-stumbling"].includes("risk-falling")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "No, I do not stumble or fall down",
+        behaviour: "exclusive",
+        checked: true if data["falling-or-stumbling"] and data["falling-or-stumbling"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

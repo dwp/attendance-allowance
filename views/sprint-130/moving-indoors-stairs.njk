@@ -1,0 +1,73 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Moving around indoors during the day</span>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-5">Why do you need to go up or down the stairs during the day?</h1>
+
+ {{ govukCheckboxes
+    ({
+      idPrefix: "moving-indoors-stairs",
+      name: "moving-indoors-stairs",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['moving-indoors-stairs'].error,
+      items: [
+        {
+          value: "toilet",
+          text: "To get to the toilet",
+          checked: true if data["moving-indoors-stairs"] and data["moving-indoors-stairs"].includes("toilet")
+        },
+        {
+          value: "bathroom",
+          text: "To get to the bathroom",
+          checked: true if data["moving-indoors-stairs"] and data["moving-indoors-stairs"].includes("bathroom")
+        },
+        {
+          value: "kitchen",
+          text: "To get to the kitchen",
+          checked: true if data["moving-indoors-stairs"] and data["moving-indoors-stairs"].includes("kitchen")
+        },
+        {
+          value: "in-out-property",
+          text: "To get in and out of my property",
+          checked: true if data["moving-indoors-stairs"] and data["moving-indoors-stairs"].includes("in-out-property")
+        },
+        {
+          value: "something-else-stairs",
+          text: "Something else",
+          checked: true if data["moving-indoors-stairs"] and data["moving-indoors-stairs"].includes("something-else-stairs"),
+          conditional: {
+            html: conditionalSomethingElseStairsHtml
+          }
+        }
+      ]
+    })
+  }}
+
+{% endblock %}
+
+{% set conditionalSomethingElseStairsHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us why you need to go up or down the stairs during the day'
+      },
+    id: "something-else-explain-stairs",
+    name: "something-else-explain-stairs",
+    errorMessage: data.validation['something-else-explain-stairs'].error,
+    value: data['something-else-explain-stairs']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

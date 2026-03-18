@@ -1,0 +1,45 @@
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+{% set overnightDetailsBody %}
+      <p class="govuk-body govuk-!-static-padding-top-1">
+        We need to know:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the name and address</li>
+        <li>the date you went in</li>
+        <li>the date you came out</li>
+        <li>if you paid for it yourself or received any funding</li>
+      </ul>
+    {% endset %}
+
+{{ govukCharacterCount({
+  name: "overnight-information",
+  id: "overnight-information",
+  rows: "8",
+  maxlength: 500,
+  label: {
+    text: "Tell us about the care homes, hospitals or hospices you stayed overnight in between [6 weeks ago] and [admission date / today's date]",
+    classes: "govuk-label--l",
+    isPageHeading: true
+  },
+  errorMessage: data.validation['care-home-hospital-overnight-information'].error,
+    hint: {
+          html: overnightDetailsBody
+        },
+    id: "care-home-hospital-overnight-information",
+    name: "care-home-hospital-overnight-information",
+    value: data["care-home-hospital-overnight-information"]
+}) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

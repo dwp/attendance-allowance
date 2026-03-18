@@ -1,0 +1,39 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "claim-type",
+    name: "claim-type",
+    fieldset: {
+      legend: {
+        text: "What do you want to do?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['claim-type'].error,
+    items: [
+      {
+        value: "new-claim",
+        text: "I want to make a new claim",
+        checked: true if data["claim-type"] and data["claim-type"].includes("new-claim")
+      },
+      {
+        value: "change-in-circumstances",
+        text: "I want to tell you about a change in circumstances",
+        checked: true if data["claim-type"] and data["claim-type"].includes("change-in-circumstances")
+      },
+      {
+        value: "renewal",
+        text: "I want to renew a claim",
+        checked: true if data["claim-type"] and data["claim-type"].includes("renewal")
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

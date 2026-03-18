@@ -1,0 +1,54 @@
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+       {% if data['supporting-documents-upload-rows'].length > 0 %}
+        Upload another supporting document
+      {% else %}
+        Upload your first supporting document
+      {% endif %}
+  </h1>
+
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="supporting-documents-upload">
+      Upload a file
+    </label>
+    <div
+      class="govuk-drop-zone"
+      data-module="govuk-file-upload">
+      <input class="govuk-file-upload" id="supporting-documents-upload" name="supporting-documents-upload" type="file">
+    </div>
+  </div>
+
+  <p class="govuk-body govuk-!-static-padding-top-6">Your file must be:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>a JPG, JPEG, PNG or PDF</li>
+    <li>smaller than 10MB</li>
+  </ul>
+
+{% endblock %}
+
+{% block formButton %}
+
+  <div class="govuk-button-group">
+    {{ phaseButton(data, "Upload and continue") }}
+    {% if data['supporting-documents-upload-rows'].length > 0 %}
+      {{ govukButton({
+        text: "Skip",
+        value: "Skip",
+        classes: "govuk-button--secondary",
+        href: "supporting-documents-added"
+      }) }}
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <h1 class="govuk-heading-l">Add your GP's details</h1>
+
+  {{ govukInput({
+    label: {
+      text: 'GP surgery or medical centre',
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['gp-surgery-name'].error,
+    id: "gp-surgery-name",
+    name: "gp-surgery-name",
+    value: data["gp-surgery-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Name of GP (optional)',
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    id: "gp-name",
+    name: "gp-name",
+    value: data["gp-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Telephone number",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    hint: {
+      text: "For international numbers include the country code."
+    },
+    errorMessage: data.validation['gp-telephone'].error,
+    id: "gp-telephone",
+    name: "gp-telephone",
+    value: data["gp-telephone"]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

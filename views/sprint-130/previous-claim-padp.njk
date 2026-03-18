@@ -1,0 +1,35 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "previous-claim-padp",
+    name: "previous-claim-padp",
+    fieldset: {
+      legend: {
+        text: "Are you getting, or have you previously made a claim for, Pension Age Disability Payment?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['previous-claim-padp'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["previous-claim-padp"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["previous-claim-padp"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

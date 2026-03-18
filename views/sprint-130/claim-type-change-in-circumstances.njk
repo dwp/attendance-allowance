@@ -1,0 +1,21 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+    <h1 class="govuk-heading-l">You cannot report a change in circumstances online</h1>
+
+    {% if locale == 'NI' %}
+        <p class="govuk-body">You will need to contact the <a class="govuk-link" href="https://www.nidirect.gov.uk/contacts/disability-and-carers-service">Attendance Allowance helpline</a> if you want to report a change in circumstances.</p>
+        {% else %}
+        <p class="govuk-body">You will need to contact the <a class="govuk-link" href="https://www.gov.uk/attendance-allowance/report-change-in-circumstances">Attendance Allowance helpline</a> if you want to report a change in circumstances.</p>
+    {% endif %}
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

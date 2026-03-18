@@ -1,0 +1,141 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+{% set allErrors  = ' govuk-input--error ' if data.validation['difficulties-start-date'].error.href === '#difficulties-start-date' %}
+{% set dayError   = ' govuk-input--error ' if data.validation['difficulties-start-date'].error.href === '#difficulties-start-date-day' %}
+{% set monthError = ' govuk-input--error ' if data.validation['difficulties-start-date'].error.href === '#difficulties-start-date-month' %}
+{% set yearError  = ' govuk-input--error ' if data.validation['difficulties-start-date'].error.href === '#difficulties-start-date-year' %}
+
+{% set startDateHtml %}
+    {{ govukDateInput({
+      id: "difficulties-start-date",
+      namePrefix: "difficulties-start-date",
+      classes: "govuk-!-margin-bottom-2",
+      fieldset: {
+        legend: {
+          classes: "govuk-body",
+          text: "Approximate start date"
+        }
+      },
+      hint: {
+        text: "For example, 23 04 2021"
+      },
+      errorMessage: data.validation['difficulties-start-date'].error,
+      items: [
+        {
+          classes: 'govuk-input--width-2' + allErrors + dayError,
+          name: 'day',
+          value: data['difficulties-start-date-day']
+        },
+        {
+          classes: 'govuk-input--width-2' + allErrors + monthError,
+          name: 'month',
+          value: data['difficulties-start-date-month']
+        },
+        {
+          classes: 'govuk-input--width-4' + allErrors + yearError,
+          name: 'year',
+          value: data['difficulties-start-date-year']
+        }
+      ]
+    }) }}
+  {% endset -%}
+
+  <h1 class="govuk-heading-l">
+    You have told us about the following difficulties
+  </h1>
+
+  {% if data['day-difficulties'] == "daytime-none" %}
+  {% else %}
+    <h2 class="govuk-heading-s govuk-!-margin-0">During the day</h2>
+    <ul class="govuk-list">
+      {% for item in data['day-difficulties'] %}
+        <li>
+          {{ item
+					| replace("daytime-bed", "Getting in or out of bed")
+          | replace("daytime-washing", "Washing or bathing")
+          | replace("daytime-dressing", "Dressing or undressing yourself")
+          | replace("daytime-moving", "Moving around indoors")
+          | replace("stumbling-falling", "Stumbling or falling")
+          | replace("daytime-toilet", "Using the toilet or managing incontinence")
+          | replace("daytime-eating", "Eating or drinking")
+          | replace("daytime-medication", "Taking medication or receiving treatment")
+          | replace("daytime-hobbies", "Social activities")
+          | replace("daytime-communication", "Communication") }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if data['night-difficulties'] == "nighttime-none" %}
+  {% else %}
+    <h2 class="govuk-heading-s govuk-!-margin-0">During the night</h2>
+    <ul class="govuk-list">
+      {% for item in data['night-difficulties'] %}
+        <li>
+          {{ item
+          | replace("nighttime-turning-over", "Turning over or changing position in bed")
+          | replace("nighttime-getting-settled", "Getting settled")
+          | replace("nighttime-cleaning-yourself", "Using the toilet or managing incontinence")
+          | replace("nighttime-medication", "Managing medication or treatment") }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if data['safe-day-night'] == "no" %}
+  {% else %}
+    <h2 class="govuk-heading-s govuk-!-margin-0">Someone to keep you safe at home</h2>
+    <ul class="govuk-list">
+      {% for item in data['safe-day-night'] %}
+        <li>
+          {{ item
+          | replace("day", "Yes, during the day")
+          | replace("night", "Yes, during the night")
+          | replace("no", "No") }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+
+  {{ govukRadios({
+    idPrefix: "start-date",
+    name: "start-date",
+    fieldset: {
+      legend: {
+        text: "How long have you had these difficulties?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--m govuk-!-padding-top-4"
+      }
+    },
+    errorMessage: data.validation['start-date'].error,
+    items: [
+      {
+        value: "less-than-six-months",
+        text: "Less than 6 months",
+        checked: true if data["start-date"] === "less-than-six-months",
+        conditional: {
+            html: startDateHtml
+          }
+      },
+      {
+        value: "more-than-six-months",
+        text: "More than 6 months",
+        checked: true if data["start-date"] === "more-than-six-months"
+      }
+    ]
+  }) }}
+
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

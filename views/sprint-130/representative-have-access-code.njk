@@ -1,0 +1,44 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Do you have a lasting power of attorney (LPA) access code?</h1>
+
+  <div class="govuk-hint">If your LPA was registered on or after 1 January 2016, you can use an access code to share an online summary with the Department for Work and Pensions (DWP)</div>
+
+  {{ govukDetails({
+  summaryText: "Where to find your access code",
+  html: '<p class="govuk-body">Sign in to the GOV.UK <a href="https://use-lasting-power-of-attorney.service.gov.uk/home" class="govuk-link" rel="noreferrer noopener" target="_blank">Use a power of attorney service (opens in a new tab)</a> to generate a new access code for DWP.</p> <p class="govuk-body">The code is valid for 30 days from the day you create it. If your code is about to expire you can create a new one.</p>'
+}) }}
+
+  {{ govukRadios({
+    idPrefix: "representative-have-access-code",
+    name: "representative-have-access-code",
+    fieldset: {
+      legend: {
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['representative-have-access-code'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["representative-have-access-code"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["representative-have-access-code"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

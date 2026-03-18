@@ -1,0 +1,52 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<div class="govuk-form-group">
+    <h1 class="govuk-heading-l">You cannot apply for Attendance Allowance online</h1>
+
+
+    {% if locale == 'NI' %}
+        <p class="govuk-body">If you are a
+        {{ data['best-describe']
+        | replace("deputy", "property and financial affairs deputy")
+        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Office of Care and Protection")
+        }}, you will need to use the <a class="govuk-link govuk-link" href="https://www.nidirect.gov.uk/publications/attendance-allowance-claim-form-and-guidance-notes">paper claim form</a>.</p>
+        {% else %}
+        <p class="govuk-body">If you are a
+        {{ data['best-describe']
+        | replace("deputy", "property and financial affairs deputy")
+        | replace("curator", "curator bonis or judicial factor (under Scottish law)" if locale != 'NI' else "Controller, appointed by the Office of Care and Protection")
+        }}, you will need to use the <a class="govuk-link govuk-link" href="https://www.gov.uk/attendance-allowance/how-to-claim#apply-by-post">paper claim form</a>.</p>
+    {% endif %}
+
+    <p class="govuk-body">
+        This is because we need additional information.
+        This claim will be delayed if we do not have this information.
+    </p>
+
+    {% if locale == 'NI' %}
+    <div class="govuk-inset-text">
+        There is a different way to claim if the person you are applying for is <a href="https://www.nidirect.gov.uk/articles/attendance-allowance#toc-3" class="govuk-link">nearing
+        the end of life</a> (for example, because they have a life-limiting illness).
+    </div>
+    {% else %}
+    <div class="govuk-inset-text">
+        There is a different way to claim if the person you are applying for is <a href="claiming-end-of-life" class="govuk-link">nearing
+        the end of life</a> (for example, because they have a life-limiting illness).
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

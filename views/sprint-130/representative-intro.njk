@@ -1,0 +1,65 @@
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    You should answer all questions as if you are {{ data['first-name'] | capitalize }}
+  </h1>
+
+  <p class="govuk-body">
+    The following questions are about {{ data['first-name'] | capitalize }}. Do not enter your own details.
+  </p>
+
+  {% if data['best-describe'] == 'appointed' %}
+    <div class="govuk-inset-text">
+      {% if locale == 'NI' %}
+      <p class="govuk-body">
+        As you are a DfC appointee, we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% else %}
+      <p class="govuk-body">
+        As you are a DWP appointee, we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% endif %}
+    </div>
+  {% elif data['best-describe'] == 'appointee' %}
+    <div class="govuk-inset-text">
+      {% if locale == 'NI' %}
+      <p class="govuk-body">
+        As you want to become a DfC appointee, we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% else %}
+      <p class="govuk-body">
+        As you want to become a DWP appointee, we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="govuk-inset-text">
+      {% if locale == 'NI' %}
+      <p class="govuk-body">
+        As you have Enduring Power of Attorney (EPA), we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% else %}
+      <p class="govuk-body">
+        As you have power of attorney, we will need additional information about you to process this claim.
+        We will ask for this at the end of the application.
+      </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

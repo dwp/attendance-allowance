@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Someone to watch over you</span>
+
+  {{ govukRadios({
+    idPrefix: "watch-over-night",
+    name: "watch-over-night",
+    fieldset: {
+      legend: {
+        text: "Do you need someone to watch over you during the night?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['watch-over-night'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["watch-over-night"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["watch-over-night"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

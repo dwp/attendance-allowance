@@ -1,0 +1,50 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+  <h1 class="govuk-heading-l">Enter the LPA access code</h1>
+
+  {{ govukInput({
+    label: {
+      text: "The DWP will use this code to view an online summary of your LPA."
+    },
+    errorMessage: data.validation['access-code'].error,
+    hint: {
+      text: "For example, V-AB12-CD34-EF56"
+    },
+  prefix: {
+    text: "V -"
+  },
+    id: "access-code",
+    name: "access-code",
+    classes: "govuk-input--width-10",
+    spellcheck: false,
+    value: data["access-code"]
+  }) }}
+
+{% endblock %}
+
+{% block formButton %}
+  {{ govukButton({
+    text: "Continue"
+  }) }}
+
+  {{ govukButton({
+    text: "Continue without a code",
+    classes: "govuk-button--secondary",
+    href: "representative-address"
+  }) }}
+
+  <div class="govuk-inset-text">
+    If you cannot generate a code you can continue to apply online. You can post a paper version of your LPA to us later.
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

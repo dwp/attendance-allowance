@@ -1,0 +1,63 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Do you have difficulty or need help with any of these activities during the night?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+     hint: {
+        text: "Select all that apply."
+       },
+      name: "night-difficulties",
+      errorMessage: data.validation['night-difficulties'].error,
+      items: [{
+        value: "nighttime-turning-over",
+        text: "Turning over or changing position in bed",
+        hint: {
+          text: "This is if you have difficulty or need help turning over or changing position in bed."
+        },
+        checked: true if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-turning-over")
+      },{
+        value: "nighttime-getting-settled",
+        text: "Getting settled",
+        hint: {
+          text: "This is if you have difficulty or need help getting propped up or putting the bed cover back on."
+        },
+        checked: true if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-getting-settled")
+      },{
+        value: "nighttime-cleaning-yourself",
+        text: "Using the toilet or managing incontinence",
+        hint: {
+          text: "This is if you have difficulty, need help or encouragement getting to or using the toilet or commode."
+        },
+        checked: true if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-cleaning-yourself")
+      },{
+        value: "nighttime-medication",
+        text: "Managing medication or treatment",
+        hint: {
+          text: "This is if you have difficulty or need help taking or remembering your medication or treatment."
+        },
+        checked: true if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-medication")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "nighttime-none",
+        text: "I do not have difficulties or need help during the night",
+        behaviour: "exclusive",
+        checked: true if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

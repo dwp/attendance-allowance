@@ -1,0 +1,78 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+
+<span class="govuk-caption-l">Stumbling or falling during the day</span>
+<h1 class="govuk-heading-l">
+  What causes you to stumble or fall down?
+</h1>
+
+{{ govukCheckboxes
+  ({
+    idPrefix: "falling-or-stumbling-why",
+    name: "falling-or-stumbling-why",
+    hint: {
+      text: "Select all that apply."
+    },
+    errorMessage: data.validation['falling-or-stumbling-why'].error,
+    items: [{
+      value: "joints-weak",
+      text: "My joints are stiff or weak",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("joints-weak")
+    },
+    {
+      value: "weak-frail",
+      text: "I am physically weak or frail",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("weak-frail")
+    },
+    {
+      value: "visually-impaired",
+      text: "I am visually impaired",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("visually-impaired")
+    },
+    {
+      value: "unbalanced-dizzy",
+      text: "I feel unbalanced or dizzy",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("unbalanced-dizzy")
+    },
+    {
+      value: "blackouts-fits",
+      text: "I have blackouts or seizures",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("blackouts-fits")
+    },
+    {
+      value: "something-else",
+      text: "Something else",
+      checked: true if data["falling-or-stumbling-why"] and data["falling-or-stumbling-why"].includes("something-else"),
+      conditional: {
+        html: conditionalSomethingElseFallingHtml
+      }
+    }]
+  })
+}}
+{% endblock %}
+
+{% set conditionalSomethingElseFallingHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what causes you to stumble or fall down'
+    },
+    id: "something-else-falling-explain",
+    name: "something-else-falling-explain",
+    errorMessage: data.validation['something-else-falling-explain'].error,
+    value: data['something-else-falling-explain']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

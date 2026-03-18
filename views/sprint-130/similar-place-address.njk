@@ -1,0 +1,74 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% call govukFieldset({
+    legend: {
+      text: "What is the name of the place where you are staying?",
+      classes: "govuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  }) %}
+
+  {{ govukInput({
+    label: {
+      text: 'Name of the place where you are staying',
+      isPageHeading: true
+    },
+    errorMessage: data.validation['similar-place-name'].error,
+    id: "similar-place-name",
+    name: "similar-place-name",
+    value: data["similar-place-name"],
+    autocomplete: "similar-place-name"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Town or city',
+      isPageHeading: true
+    },
+    classes: "govuk-!-width-two-thirds",
+    errorMessage: data.validation['similar-place-town'].error,
+    id: "similar-place-town",
+    name: "similar-place-town",
+    value: data["similar-place-town"]
+  }) }}
+
+  {#
+  {{ govukInput({
+    label: {
+      text: "Postcode",
+      isPageHeading: true
+    },
+    classes: "govuk-input--width-10",
+    errorMessage: data.validation['similar-place-postcode'].error,
+    id: "similar-place-postcode",
+    name: "similar-place-postcode",
+    value: data["similar-place-postcode"],
+    autocomplete: "similar-place-postcode"
+  }) }}
+  #}
+
+{% endcall %}
+
+{#
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+      <p class="govuk-body">
+        <a href="accommodation-address-outside-uk" class="govuk-link">
+         The address is outside of the UK
+        </a>
+      </p>
+    </div>
+  </div>
+#}
+
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

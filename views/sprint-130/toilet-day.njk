@@ -1,0 +1,102 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+
+{% block form %}
+  <span class="govuk-caption-l">Using the toilet or managing incontinence during the day</span>
+
+  <h1 class="govuk-heading-l">
+    What difficulty do you have with your toilet needs?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "toilet-day",
+      name: "toilet-day",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['toilet-day'].error,
+      items: [{
+        value: "toilet-getting-to",
+        text: "Getting to the toilet or commode",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-getting-to")
+      },
+      {
+        value: "toilet-urgent",
+        text: "Needing the toilet urgently",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-urgent")
+      },
+      {
+        value: "toilet-getting-on-off",
+        text: "Getting on or off the toilet or commode",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-getting-on-off")
+      },
+      {
+        value: "toilet-cleaning-myself",
+        text: "Cleaning myself after using the toilet",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-cleaning-myself")
+      },
+      {
+        value: "toilet-emptying",
+        text: "Emptying and managing my stoma, catheter or similar",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-emptying")
+      },
+      {
+        value: "toilet-remembering",
+        text: "Remembering to use the toilet",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-remembering")
+      },
+      {
+        value: "managing-incontinence",
+        text: "I have incontinence",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("managing-incontinence")
+      },
+      {
+        value: "toilet-not-always",
+        text: "I do not always use the toilet or commode",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-not-always")
+      },
+      {
+        value: "toilet-something-else",
+        text: "Something else",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("toilet-something-else"),
+        conditional: {
+          html: conditionalSomethingElseToiletHtml
+          }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "I do not have difficulty with my toilet needs",
+        behaviour: "exclusive",
+        checked: true if data["toilet-day"] and data["toilet-day"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseToiletHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what difficulty you have with your toilet needs'
+    },
+    id: "something-else-explain-toilet",
+    name: "something-else-explain-toilet",
+    errorMessage: data.validation['something-else-explain-toilet'].error,
+    value: data['something-else-explain-toilet']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

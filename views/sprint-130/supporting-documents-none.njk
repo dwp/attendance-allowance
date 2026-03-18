@@ -1,0 +1,26 @@
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    We will contact you if we need any supporting documents to confirm what you have told us about your health conditions or disabilities
+  </h1>
+
+  <p class="govuk-body">
+    This is to help us assess your claim for Attendance Allowance.
+  </p>
+
+  <p class="govuk-body">
+    We will let you know what we need if we contact you.
+  </p>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
+
+{% block formButton %}
+  {{ phaseButton(data, "Continue") }}
+{% endblock %}

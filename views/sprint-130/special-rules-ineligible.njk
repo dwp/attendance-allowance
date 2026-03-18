@@ -1,0 +1,32 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<div class="govuk-form-group">
+    <a class="govuk-back-link" href="special-rules-declaration">Back</a>
+    <h1 class="govuk-heading-l">Based on your answers, you need to apply using the paper form</h1>
+
+    {% if locale == 'NI' %}
+        <p class="govuk-body">You will need to use the <a class="govuk-link govuk-link" href="https://www.nidirect.gov.uk/publications/attendance-allowance-claim-form-and-guidance-notes">paper claim form</a> if you're applying for Attendance Allowance:</p>
+        {% else %}
+        <p class="govuk-body">You will need to use the <a class="govuk-link govuk-link" href="https://www.gov.uk/government/publications/attendance-allowance-claim-form">paper claim form</a> if you're applying for Attendance Allowance:</p>
+    {% endif %}
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>on behalf of someone else for example, you have lasting power of attorney in place for property and finance</li>
+        <li>on behalf of someone else who meets the 'special rules'</li>
+        <li>for yourself and the 'special rules' apply to your condition</li>
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

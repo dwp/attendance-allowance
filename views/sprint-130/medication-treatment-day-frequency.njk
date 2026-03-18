@@ -1,0 +1,45 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Taking medication or receiving treatment during the day</span>
+  <h1 class="govuk-heading-l">
+    Approximately, how often do you take medication or get treatment?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "medication-treatment-day-frequency",
+    name: "medication-treatment-day-frequency",
+    errorMessage: data.validation['medication-treatment-day-frequency'].error,
+    items: [
+      {
+        value: "few-days-week",
+        text: "A few days a week",
+        checked: true if data["medication-treatment-day-frequency"] === "few-days-week"
+      },
+      {
+        value: "one-or-two",
+        text: "1 or 2 times every day",
+        checked: true if data["medication-treatment-day-frequency"] === "one-or-two"
+      },
+     {
+        value: "three-or-four",
+        text: "3 or 4 times every day",
+        checked: true if data["medication-treatment-day-frequency"] === "three-or-four"
+      },
+      {
+        value: "five-or-more",
+        text: "5 or more times every day",
+        checked: true if data["medication-treatment-day-frequency"] === "five-or-more"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

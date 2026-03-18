@@ -1,0 +1,62 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set currentResidence = data['residence-country'] | capitalize %}
+
+  <h1 class="govuk-heading-l">
+    Add your
+    {{ data['healthcare-professional-options']
+      | replace("consultant", "consultant's")
+      | replace("specialist-doctor", "specialist doctor's")
+      | replace("district-specialist-nurse", "district or specialist nurse's")
+      | replace("other-healthcare-professional", "healthcare professional's")
+    }}
+    details</h1>
+
+  {{ govukInput({
+    label: {
+      text: 'Name',
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    errorMessage: data.validation['healthcare-professional-name'].error,
+    id: "healthcare-professional-name",
+    name: "healthcare-professional-name",
+    value: data["healthcare-professional-name"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: 'Their place of work (optional)',
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    id: "place-of-work",
+    name: "place-of-work",
+    value: data["place-of-work"]
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Telephone number",
+      classes: "govuk-label",
+      isPageHeading: true
+    },
+    hint: {
+      text: "For international numbers include the country code."
+    },
+    errorMessage: data.validation['healthcare-professional-telephone'].error,
+    id: "healthcare-professional-telephone",
+    name: "healthcare-professional-telephone",
+    value: data["healthcare-professional-telephone"]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

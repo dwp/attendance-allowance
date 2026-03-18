@@ -1,0 +1,64 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  {% set consentBody %}
+    <p class="govuk-body govuk-!-static-padding-top-1">
+      The Department for Work and Pensions (DWP) may need more information about your health condition
+      or disability to assess and make a decision on your claim.
+    </p>
+  {% endset %}
+
+  {{ govukRadios({
+      idPrefix: "consent",
+      name: "consent",
+      fieldset: {
+        legend: {
+          text: "Do you give consent for your GP or other healthcare professionals to share relevant information about your health conditions with DWP?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      errorMessage: data.validation['consent'].error,
+      hint: {
+        html: consentBody
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes, information about my health can be shared",
+          checked: true if data["consent"] and data["consent"].includes("yes")
+        },
+        {
+          value: "no",
+          text: "No, information about my health cannot be shared",
+          checked: true if data["consent"] and data["consent"].includes("no")
+        }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m govuk-!-static-padding-top-7">How DWP uses this information</h2>
+
+  <p class="govuk-body">DWP uses this information to:</p>
+
+  <ol class="govuk-list govuk-list--number">
+    <li>assess your claim</li>
+    <li>make a decision on your claim, or any future disputes or appeals</li>
+    <li>assess your claim</li>
+    <li>make a decision on your claim, or any future disputes or appeals</li>
+  </ol>
+
+  <p class="govuk-body">If you do not give your consent, DWP will make a decision using only the information you provide.</p>
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
+
+{% block formButton %}
+  {{ phaseButton(data, "Accept") }}
+{% endblock %}

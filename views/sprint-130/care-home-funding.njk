@@ -1,0 +1,53 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "care-home-funding",
+    name: "care-home-funding",
+    fieldset: {
+      legend: {
+        text: "Do you pay for the full cost of your care or nursing home?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['care-home-funding'].error,
+    items: [
+      {
+        value: "yes-full-cost",
+        text: "Yes, I pay the full cost",
+        checked: true if data["care-home-funding"] === "yes-full-cost"
+      },
+      {
+        value: "yes-selling-home",
+        text: "Yes, I am selling my home or assets",
+        checked: true if data["care-home-funding"] === "yes-selling-home"
+      },
+      {
+        value: "assessment",
+        text: "I am waiting for an assessment",
+        checked: true if data["care-home-funding"] === "assessment"
+      },
+      {
+        value: "no-get-funding",
+        text: "No, I get funding",
+        checked: true if data["care-home-funding"] === "no-get-funding"
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "i-do-not-know",
+        text: "I do not know",
+        checked: true if data["care-home-funding"] === "i-do-not-know"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

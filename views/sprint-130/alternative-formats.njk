@@ -1,0 +1,58 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukCheckboxes
+    ({
+      idPrefix: "alternative-formats",
+      name: "alternative-formats",
+      fieldset: {
+        legend: {
+          text: "Do you need us to use a different format when we contact you?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6"
+          }
+      },
+      hint: {
+        text: "Select all that apply."
+    },
+      errorMessage: data.validation['alternative-formats'].error,
+      items: [
+      {
+        value: "format-large",
+        text: "Large print",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-large")
+      },{
+        value: "format-cd-cassette",
+        text: "CD or cassette tape",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-cd-cassette")
+      },{
+        value: "format-braille",
+        text: "Braille",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-braille")
+      },{
+        value: "format-textphone",
+        text: "Textphone",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-textphone")
+      },{
+        value: "format-relay-uk",
+        text: "Relay UK",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-relay-uk")
+      },{
+        divider: "or"
+      },
+      {
+        value: "format-none",
+        text: "No, these do not apply to me",
+        behaviour: "exclusive",
+        checked: true if data["alternative-formats"] and data["alternative-formats"].includes("format-none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

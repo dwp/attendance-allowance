@@ -1,0 +1,54 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Getting to and using the toilet during the night</span>
+  <h1 class="govuk-heading-l">
+    You told us you have difficulty getting to or using the toilet
+  </h1>
+
+  <p class="govuk-body govuk-!-margin-bottom-8">This could include using a commode or bedpan.  It also includes using or changing incontinence aids or a catheter.</p>
+
+  {{ govukCheckboxes
+    ({
+      id: "getting-to-toilet-night",
+      name: "getting-to-toilet-night",
+      fieldset: {
+        legend: {
+          text: "Which difficulties do you have getting to or using the toilet?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['getting-to-toilet-night'].error,
+      items: [{
+        value: "physical",
+        text: "I have physical difficulty getting to or using the toilet",
+        checked: true if data["getting-to-toilet-night"] and data["getting-to-toilet-night"].includes("physical")
+      },
+      {
+        value: "prompt",
+        text: "I need encouragement or prompting to get to or use the toilet",
+        checked: true if data["getting-to-toilet-night"] and data["getting-to-toilet-night"].includes("prompt")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "none",
+        text: "None of these apply to me",
+        behaviour: "exclusive",
+        checked: true if data["getting-to-toilet-night"] and data["getting-to-toilet-night"].includes("none")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

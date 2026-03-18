@@ -1,0 +1,39 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Do you have any home adaptations, specialist equipment or aids?</h1>
+
+  <div class="govuk-hint ">This means things like a raised toilet seat, walking stick, handrails, shoe horn, hearing aid or special cutlery.</div>
+
+  {{ govukRadios({
+    idPrefix: "aids-adaptations-question",
+    name: "aids-adaptations-question",
+    fieldset: {
+      legend: {
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['aids-adaptations-question'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["aids-adaptations-question"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["aids-adaptations-question"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

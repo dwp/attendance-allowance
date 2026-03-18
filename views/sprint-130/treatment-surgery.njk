@@ -1,0 +1,35 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "treatment-surgery",
+    name: "treatment-surgery",
+    fieldset: {
+      legend: {
+        text: "Are you having any other treatment or waiting for surgery?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['treatment-surgery'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["treatment-surgery"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["treatment-surgery"] === "no"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

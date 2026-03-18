@@ -1,0 +1,45 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Social activities or hobbies</span>
+  <h1 class="govuk-heading-l">
+    How often would you usually take part in social activities or hobbies?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "social-activities-day-frequency",
+    name: "social-activities-day-frequency",
+    errorMessage: data.validation['social-activities-day-frequency'].error,
+    items: [
+      {
+        value: "1-or-less",
+        text: "Once a week or less",
+        checked: true if data["social-activities-day-frequency"] === "1-or-less"
+      },
+      {
+        value: "2-to-3",
+        text: "2 to 3 times a week",
+        checked: true if data["social-activities-day-frequency"] === "2-to-3"
+      },
+     {
+        value: "4-to-6",
+        text: "4 to 6 times a week",
+        checked: true if data["social-activities-day-frequency"] === "4-to-6"
+      },
+      {
+        value: "every-day",
+        text: "Every day",
+        checked: true if data["social-activities-day-frequency"] === "every-day"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

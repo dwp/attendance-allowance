@@ -1,0 +1,100 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "../macros/v5.11.0-components/pagination/macro.njk" import govukPagination %}
+
+{% extends "v5.11.0-layouts/govuk-layout.njk" %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">Attendance Allowance</h1>
+
+          <ul class="govuk-list govuk-body-s">
+            <li class="govuk-!-margin-bottom-2">Contents</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="overview" class="govuk-link">Overview</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  What you'll get</li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="eligibility" class="govuk-link">Eligibility</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="how-to-claim" class="govuk-link">How to claim</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="report-change-in-circumstances" class="govuk-link">Report a change in circumstances</a></li>
+            <li class="govuk-!-margin-bottom-2">&#8212;  <a href="claiming-end-of-life" class="govuk-link">Claiming Attendance Allowance if you’re nearing the end of life</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <h2 class="govuk-heading-l">What you'll get</h2>
+
+          <p class="govuk-body">Attendance Allowance is paid weekly at 2 different rates - the one you get depends on the level of help you need.</p>
+
+          <p class="govuk-body">Attendance Allowance is not means-tested - what you earn or how much you have in savings will not affect what you get.</p>
+
+          <h3 class="govuk-heading-m">Attendance Allowance rates</h3>
+
+          <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th class="govuk-table__header govuk-!-width-one-quarter" scope="col">Rate</th>
+                <th class="govuk-table__header" scope="col">Level of help you need</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row ">
+                <td class="govuk-table__cell">Lower rate - £73.90</td>
+                <td class="govuk-table__cell">Frequent help or constant supervision during the day, or supervision at night</td>
+              </tr>
+              <tr class="govuk-table__row ">
+                <td class="govuk-table__cell">Higher rate - £110.40</td>
+                <td class="govuk-table__cell">Help or supervision throughout both day and night, or a medical professional has said you’re <a href="claiming-end-of-life" class="govuk-link">nearing the end of life</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="govuk-body">If your circumstances change, you could get a different rate. You must <a href="report-change-in-circumstances" class="govuk-link">report a change of circumstances</a>.</p>
+
+          <p class="govuk-body">You could get extra Pension Credit, Housing Benefit or Council Tax Reduction if you get Attendance Allowance - check with the helpline or office dealing with your benefit.</p>
+
+          <div class="govuk-inset-text">
+            If you get <a href="#" class="govuk-link">Constant Attendance Allowance</a> at the same time, your Attendance Allowance will be reduced by the amount of Constant Attendance Allowance you get.
+          </div>
+
+          <h3 class="govuk-heading-m">How you're paid</h3>
+
+          <p class="govuk-body">All benefits are <a href="#" class="govuk-link">paid into your bank, building society or credit union account</a>.</p>
+
+          {{ govukPagination({
+            previous: {
+              labelText: "Overview",
+               href: "overview"
+            },
+            next: {
+              labelText: "Eligibility",
+               href: "eligibility"
+            }
+          }) }}
+
+          <p class="govuk-body"><a href="#" class="govuk-link">View a printable version of the whole guide</a></p>
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+          <h3 class="govuk-heading-s">Related content</h3>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Financial help if you're disabled</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">How and when your benefits are paid</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Carer's Allowance</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Personal Independence Payment (PIP)</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Pension Credit</a></p>
+          <p class="govuk-body-s govuk-!-margin-bottom-3"><a href="#" class="govuk-link">Show 2 more</a></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}

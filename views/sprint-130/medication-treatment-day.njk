@@ -1,0 +1,95 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Taking medication or receiving treatment during the day</span>
+  <h1 class="govuk-heading-l">
+    What medication or treatment do you have difficulty with?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "medication-treatment-day",
+      name: "medication-treatment-day",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['medication-treatment-day'].error,
+      items: [{
+        value: "dressings-bandages",
+        text: "Changing dressings or bandages",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("dressings-bandages")
+      },
+      {
+        value: "applying-cream",
+        text: "Applying cream",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("applying-cream")
+      },
+      {
+        value: "taking-medication",
+        text: "Taking medication",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("taking-medication")
+      },
+      {
+        value: "having-treatment",
+        text: "Having treatment",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("having-treatment")
+      },
+      {
+        value: "right-medication-dosage",
+        text: "Taking the right medication and dosage at the right day or time",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("right-medication-dosage")
+      },
+      {
+        value: "coping-side-effects",
+        text: "Coping with the side effects of my medication or treatment",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("coping-side-effects")
+      },
+      {
+        value: "motivation-medication",
+        text: "Motivating myself to take medication or receive treatment",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("motivation-medication")
+      },
+      {
+        value: "something-else-medication",
+        text: "Something else",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("something-else-medication"),
+        conditional: {
+          html: conditionalSomethingElseMedicationHtml
+          }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "I do not have difficulty with medication or treatment",
+        behaviour: "exclusive",
+        checked: true if data["medication-treatment-day"] and data["medication-treatment-day"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseMedicationHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what medication or treatment you have difficulty with'
+    },
+    id: "something-else-explain-medication",
+    name: "something-else-explain-medication",
+    errorMessage: data.validation['something-else-explain-medication'].error,
+    value: data['something-else-explain-medication']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

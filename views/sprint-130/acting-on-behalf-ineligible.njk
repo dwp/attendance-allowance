@@ -1,0 +1,34 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+<div class="govuk-form-group">
+    <a class="govuk-back-link" href="special-rules-declaration">Back</a>
+    <h1 class="govuk-heading-l">You cannot apply for Attendance Allowance online</h1>
+
+    {% if locale == 'NI' %}
+        <p class="govuk-body">If you are acting on behalf of someone else, for example you have Power of Attorney,
+        you will need to use the <a class="govuk-link govuk-link" href="https://www.nidirect.gov.uk/publications/attendance-allowance-claim-form-and-guidance-notes">paper claim form</a>.</p>
+        {% else %}
+        <p class="govuk-body">If you are acting on behalf of someone else, for example you have Power of Attorney,
+        you will need to use the <a class="govuk-link govuk-link" href="https://www.gov.uk/attendance-allowance/how-to-claim#apply-by-post">paper claim form</a>.</p>
+    {% endif %}
+
+    <p class="govuk-body">
+        This is because we need additional information about you. Your claim will
+        be delayed if we do not have this information.
+    </p>
+
+</div>
+
+{% endblock %}
+
+{% block formButton %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

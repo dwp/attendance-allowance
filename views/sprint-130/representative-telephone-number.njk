@@ -1,0 +1,40 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+    <h1 class="govuk-fieldset__heading">What is your telephone number?</h1>
+  </legend>
+
+  <p class="govuk-body">
+    We will only call you if we need to talk to you about this application.
+  </p>
+
+  <div class="govuk-inset-text">
+    You can add contact details for someone else next.
+  </div>
+
+  {{ govukInput({
+    label: {
+      text: "Telephone number",
+      classes: "govuk-!-font-weight-bold"
+    },
+    hint: {
+      text: "For international numbers include the country code."
+    },
+    classes: "govuk-input--width-30",
+    errorMessage: data.validation['representative-telephone-number'].error,
+    id: "representative-telephone-number",
+    name: "representative-telephone-number",
+    value: data["representative-telephone-number"],
+    autocomplete: "representative-telephone-number"
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,85 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <span class="govuk-caption-l">Communication</span>
+  <h1 class="govuk-heading-l">
+    What difficulty do you have when communicating with others?
+  </h1>
+
+  {{ govukCheckboxes
+    ({
+      idPrefix: "communication-day",
+      name: "communication-day",
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['communication-day'].error,
+      items: [{
+        value: "reading-writing-understanding",
+        text: "Reading, writing or understanding written communication such as letters or emails",
+        checked: true if data["communication-day"] and data["communication-day"].includes("reading-writing-understanding")
+      },
+      {
+        value: "answering-using-phone",
+        text: "Answering or using the phone",
+        checked: true if data["communication-day"] and data["communication-day"].includes("answering-using-phone")
+      },
+      {
+        value: "understanding-people",
+        text: "Understanding or being understood by people I do not know well",
+        checked: true if data["communication-day"] and data["communication-day"].includes("understanding-people")
+      },
+      {
+        value: "concentrating-remembering",
+        text: "Concentrating or remembering things",
+        checked: true if data["communication-day"] and data["communication-day"].includes("concentrating-remembering")
+      },
+      {
+        value: "asking-for-help",
+        text: "Asking for help when I need it",
+        checked: true if data["communication-day"] and data["communication-day"].includes("asking-for-help")
+      },
+      {
+        value: "something-else-communication",
+        text: "Something else",
+        checked: true if data["communication-day"] and data["communication-day"].includes("something-else-communication"),
+        conditional: {
+          html: conditionalSomethingElseCommunicationHtml
+        }
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-apply",
+        text: "I do not have difficulty communicating with others",
+        behaviour: "exclusive",
+        checked: true if data["communication-day"] and data["communication-day"].includes("no-other-apply")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% set conditionalSomethingElseCommunicationHtml %}
+  {{ govukCharacterCount({
+    rows: "4",
+    maxlength: 200,
+    isPageHeading: true,
+    label: {
+      text: 'Tell us what difficulty you have when communicating with others'
+    },
+    id: "something-else-explain-communication",
+    name: "something-else-explain-communication",
+    errorMessage: data.validation['something-else-explain-communication'].error,
+    value: data['something-else-explain-communication']
+    })
+  }}
+{% endset %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

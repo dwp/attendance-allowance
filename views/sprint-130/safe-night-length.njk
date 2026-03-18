@@ -1,0 +1,27 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <h1 class="govuk-heading-l">
+    Approximately, how long is someone awake in the night to keep you safe?
+  </h1>
+
+  {{
+    govukInput({
+      id: "safe-night-length",
+      name: "safe-night-length",
+      value: data['safe-night-length'],
+      hint: {
+        text: "This is the total amount of time that someone is awake. For example, 10 minutes or two hours."
+      },
+      errorMessage: data.validation['safe-night-length'].error
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

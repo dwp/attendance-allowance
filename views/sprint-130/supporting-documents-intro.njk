@@ -1,0 +1,70 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+    Supporting documents
+  </h1>
+
+  <p class="govuk-body">
+    You can give us supporting documents to confirm what you have told us about your health conditions or disabilities.
+    For example, a letter from a specialist, care plan or summary from your GP.
+  </p>
+
+  <p class="govuk-body">
+    You can choose to upload these during the application or send them by post.
+  </p>
+
+  <p class="govuk-body">
+    Do not worry if you do not have any supporting documents, just submit your claim.
+  </p>
+
+  {% if data['care-needs-cause'] == "none-of-these" %}
+  {% elif data['care-needs-cause'] %}
+  <div class="govuk-inset-text">
+    <p class="govuk-body">You told us you need support because of:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      {% if data['care-needs-cause'] is string %}
+          <li>{{data['care-needs-cause'] }}</li>
+      {% else %}
+        {% for item in data['care-needs-cause'] %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  {% else %}
+  {% endif %}
+
+    {{ govukRadios({
+      idPrefix: "supporting-documents-intro",
+      name: "supporting-documents-intro",
+      fieldset: {
+        legend: {
+          text: "Do you have any supporting documents to confirm what you have told us?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      errorMessage: data.validation['supporting-documents-intro'].error,
+      items: [
+        {
+          value: "yes",
+          text: "Yes",
+          checked: true if data["supporting-documents-intro"] === "yes"
+        },
+        {
+          value: "no",
+          text: "No",
+          checked: true if data["supporting-documents-intro"] === "no"
+        }
+      ]
+    }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukRadios({
+    idPrefix: "nationality",
+    name: "nationality",
+    fieldset: {
+      legend: {
+        text: "What is your nationality?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: data.validation['nationality'].error,
+    items: [
+      {
+        value: "british",
+        text: "British",
+        checked: true if data["nationality"] === "british"
+      },
+      {
+        value: "irish",
+        text: "Irish",
+        checked: true if data["nationality"] === "irish"
+      },
+      {
+        value: "other",
+        text: "Other nationality",
+        checked: true if data["nationality"] === "other"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

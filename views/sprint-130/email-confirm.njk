@@ -1,0 +1,46 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">What is your email address?</h1>
+
+  </legend>
+  {{ govukInput({
+    id: "contact-by-email",
+    name: "contact-by-email",
+    errorMessage: data.validation['contact-by-email'].error,
+    autocomplete: "yes",
+    spellcheck: false,
+    value: data['contact-by-email'],
+    classes: "govuk-input",
+    label: {
+      text: "Email address"
+    }
+  }) }}
+
+{{ govukInput({
+    id: "contact-by-email-confirm",
+    name: "contact-by-email-confirm",
+    errorMessage: data.validation['contact-by-email-confirm'].error,
+    autocomplete: "yes",
+    spellcheck: false,
+    value: data['contact-by-email-confirm'],
+    classes: "govuk-input",
+    label: {
+      text: "Confirm email address"
+    }
+  }) }}
+
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+  <script>
+    const selfServeConfirmEmailAddressField = document.getElementById('contact-by-email-confirm');
+    selfServeConfirmEmailAddressField.addEventListener('paste', function (event) { event.preventDefault(); });
+  </script>
+{% endblock %}

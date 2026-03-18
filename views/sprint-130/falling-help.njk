@@ -1,0 +1,61 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <span class="govuk-caption-l">Stumbling or falling during the day</span>
+
+  <h1 class="govuk-heading-l">
+    Do you need help to get up after a fall?
+  </h1>
+
+  {{ govukRadios({
+    idPrefix: "help-falling",
+    name: "help-falling",
+    errorMessage: data.validation['help-falling'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["help-falling"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["help-falling"] === "no"
+      }
+    ]
+  }) }}
+
+  {{ govukRadios({
+    idPrefix: "falls-clinic",
+    name: "falls-clinic",
+    fieldset: {
+      legend: {
+        text: "Have you been referred to a Falls Clinic?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['falls-clinic'].error,
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: true if data["falls-clinic"] === "yes"
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: true if data["falls-clinic"] === "no"
+      }
+    ]
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

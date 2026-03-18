@@ -1,0 +1,52 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">Add their contact details</h1>
+  </legend>
+
+  {% if data['applying-someone-else'] == 'individual' %}
+      <p class="govuk-body">We will only call them if we have questions about this application.</p>
+    {% else %}
+      <p class="govuk-body">We will only call them if we have questions about your application.</p>
+    {% endif %}
+
+  {{ govukInput({
+    label: {
+      text: "Full name",
+      classes: "govuk-!-font-weight-bold"
+    },
+    classes: "govuk-input--width-30",
+    errorMessage: data.validation['someone-else-name'].error,
+    id: "someone-else-name",
+    name: "someone-else-name",
+    value: data["someone-else-name"],
+    autocomplete: "someone-else-name"
+  }) }}
+
+  {{ govukInput({
+    label: {
+      text: "Telephone number",
+      classes: "govuk-!-font-weight-bold"
+    },
+    hint: {
+      text: "For international numbers include the country code."
+    },
+    classes: "govuk-input--width-30",
+    errorMessage: data.validation['someone-else-number'].error,
+    id: "someone-else-number",
+    name: "someone-else-number",
+    value: data["someone-else-number"],
+    autocomplete: "someone-else-number"
+  }) }}
+
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

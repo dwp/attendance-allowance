@@ -1,0 +1,52 @@
+{% from "./macros/check-answers-start-date-section.njk" import checkAnswersStartDateSection %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+{% block beforeContent %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        Beta
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  {% if data['aids-adaptations-question'] == "yes" %}
+    <a href="aids-adaptations-added" class="govuk-back-link">Back</a>
+  {% else %}
+    <a href="aids-adaptations-reason" class="govuk-back-link">Back</a>
+  {% endif %}
+
+{% endblock %}
+
+
+{% block form %}
+
+  <h1 class="govuk-heading-l">
+      Check your answers
+  </h1>
+
+  {{ checkAnswersStartDateSection(data) }}
+
+{% endblock %}
+
+{% block formButton %}
+    {% if data['applying-someone-else'] == 'individual' %}
+    <a href="representative-contact-information" class="govuk-button">
+      Accept and continue
+    </a>
+  {% else %}
+    <a href="telephone-number" class="govuk-button">
+      Accept and continue
+    </a>
+  {% endif %}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

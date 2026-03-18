@@ -1,0 +1,63 @@
+{% from "govuk/components/checkboxes/macro.njk"    import govukCheckboxes %}
+
+{% extends "v5.11.0-layouts/prototypeLayout.njk" %}
+
+
+{% block form %}
+  {{ govukCheckboxes
+    ({
+      idPrefix: "other-benefits",
+      name: "other-benefits",
+      fieldset: {
+        legend: {
+          text: "Are you getting any of these benefits?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l govuk-!-margin-bottom-6"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      errorMessage: data.validation['other-benefits'].error,
+      items: [
+      {
+        value: "adult-disability-payment",
+        text: "Adult Disability Payment (ADP)",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("adult-disability-payment")
+      },
+      {
+        value: "attendance-allowance",
+        text: "Attendance Allowance (AA)",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("attendance-allowance")
+      },
+      {
+        value: "constant-attendance-allowance",
+        text: "Constant Attendance Allowance (CAA)",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("constant-attendance-allowance")
+      },
+      {
+        value: "disability-living-allowance",
+        text: "Disability Living Allowance (DLA)",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("disability-living-allowance")
+      },
+      {
+        value: "personal-independence-payment",
+        text: "Personal Independence Payment (PIP)",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("personal-independence-payment")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "no-other-benefit",
+        text: "None of these benefits",
+        behaviour: "exclusive",
+        checked: true if data["other-benefits"] and data["other-benefits"].includes("no-other-benefit")
+      }]
+    })
+  }}
+{% endblock %}
+
+{% block postForm %}
+    {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}
