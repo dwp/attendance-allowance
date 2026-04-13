@@ -9,7 +9,7 @@
   "execMap": {
     "js": "node --harmony"
   },
-  "watch": ["views/**/*", "routes/**/*", "validators/**/*"],
+  "watch": ["views/**/*", "routes/**/*", "validators/**/*", "controllers/**/*"],
   "env": {
     "NODE_ENV": "development"
   },

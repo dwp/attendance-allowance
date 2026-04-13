@@ -23,12 +23,8 @@ const config = {
   ],
   validation: {
     type: validation.textInput,
-    /* options: {
-      regEx: "^[a-zA-Z]\\s*[a-zA-Z](?:\\s*\\d\\s*){6}\\s*[a-dA-D]?s*$",
-    }, */
     errors: {
       required: "Select if you have a lasting power of attorney (LPA) access code",
-      /* regEx: "Select if you have a lasting power of attorney (LPA) access code", */
     },
   },
 };

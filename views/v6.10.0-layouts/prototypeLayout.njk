@@ -1,0 +1,99 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "../macros/validation-summary.njk" import validationSummary %}
+{% from "../macros/phase-button.njk" import phaseButton %}
+{% from "../macros/v6.10.0-components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+
+{%- set assetPath = '/govuk/assets-v6' -%}
+
+{% extends "./template.njk" %}
+
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/govuk-frontend-6.1.0.min.css" />
+  <script type="module" src="/govuk-frontend-6.1.0.min.js"></script>
+
+
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK - Prototype - Attendance Allowance
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container",
+    rebrand: true
+  }) }}
+
+  {{ govukServiceNavigation({
+  serviceName: "Apply for Attendance Allowance",
+  serviceUrl: "/"
+}) }}
+{% endblock %}
+
+{% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
+
+{% block beforeContent %}
+    <div class="govuk-phase-banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">
+          Beta
+        </strong>
+        <span class="govuk-phase-banner__text">
+          This is a new service – your <a class="govuk-link" href="#">feedback (opens in a new tab)</a> will help us to improve it.
+        </span>
+      </p>
+    </div>
+
+    {% block backLink %}
+    {% if data['back-link'] %}
+      {{ govukBackLink({
+        text: "Back",
+        href: data['back-link']
+      }) }}
+    {% endif %}
+    {% endblock %}
+
+
+
+{% endblock %}
+
+  {% block content %}
+  {% block preForm %}
+  {% endblock %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form method="post" class="form" novalidate="novalidate">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            {{ validationSummary(data) }}
+
+            {% block form %}
+            {% endblock %}
+
+          </fieldset>
+        </div>
+        {% block formButton %}
+          {{ phaseButton(data) }}
+        {% endblock %}
+      </form>
+    </div>
+  </div>
+
+  {% block postForm %}
+  {% endblock %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+   <script type='module'>
+      import { initAll } from '/govuk-frontend-6.1.0.min.js'
+
+      initAll()
+    </script>
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% from "../macros/v6.10.0-components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "../macros/v6.10.0-components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "#"
+    },
+    {
+      text: "Passports, travel and living abroad",
+      href: "#"
+    },
+    {
+      text: "Travel abroad",
+      href: "#"
+    }
+  ]
+}) }}
+
+{%- set assetPath = '/govuk/assets-v6' -%}
+
+{% extends "./template.njk" %}
+
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/govuk-frontend-6.1.0.min.css" />
+  <script type="module" src="/govuk-frontend-6.1.0.min.js"></script>
+
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit - Apply for Attendance Allowance
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container",
+    rebrand: true
+  }) }}
+
+
+
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "#"
+    },
+    {
+      text: "Benefits",
+      href: "#"
+    },
+    {
+      text: "Benefits and financial support if you're disabled or have a health condition",
+      href: "#"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
+
+{% if useAutoStoreData %}
+  {% block footer %}
+    {{ govukFooter({
+      rebrand: true,
+      meta: {
+        items: [
+          {
+            href: "/survey",
+            text: "Survey"
+          }
+        ]
+      }
+    }) }}
+  {% endblock %}
+{% endif %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+     <script type='module'>
+      import { initAll } from '/govuk-frontend-6.1.0.min.js'
+
+      initAll()
+    </script>
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}

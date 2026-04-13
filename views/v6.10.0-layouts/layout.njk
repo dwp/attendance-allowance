@@ -1,0 +1,43 @@
+{% from "../macros/v6.10.0-components/service-navigation/macro.njk" import govukServiceNavigation %}
+{%- set assetPath = '/govuk/assets-v6' -%}
+
+{% extends "./template.njk" %}
+
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="/govuk-frontend-6.1.0.min.css" />
+  <script type="module" src="/govuk-frontend-6.1.0.min.js"></script>
+
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit - Apply for Attendance Allowance
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container",
+    rebrand: true
+  }) }}
+
+  {{ govukServiceNavigation({
+  serviceName: "Apply for Attendance Allowance",
+  serviceUrl: "/"
+}) }}
+{% endblock %}
+
+{% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
+
+
+
+{% block bodyEnd %}
+  {% block scripts %}
+     <script type='module'>
+      import { initAll } from '/govuk-frontend-6.1.0.min.js'
+
+      initAll()
+    </script>
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}
