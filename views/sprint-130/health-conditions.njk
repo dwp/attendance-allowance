@@ -10,6 +10,7 @@
   {{super()}}
   <link rel="stylesheet" type="text/css" href="/accessible-autocomplete.min.css"/>
   <script src="/accessible-autocomplete2.min.js"></script>
+
   <style>
     .autocomplete__option {
       font-size: 19px;
@@ -2858,9 +2859,7 @@ value: "Writer's cramp",
   </div>
 
   <script>
-     accessibleAutocomplete.enhanceSelectElement({
-      selectElement: document.querySelector('#health-conditions')
-    })
+    accessibleAutocomplete.enhanceSelectElement({selectElement: document.querySelector('#health-conditions')})
   </script>
 
 {% endblock %}

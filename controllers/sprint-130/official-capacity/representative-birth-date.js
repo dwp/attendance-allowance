@@ -7,7 +7,7 @@ const {
 const config = {
   name: urls.representativeBirthDate,
   previous: urls.representativeNationalInsurance,
-  next: urls.representativeAddress,
+  next: urls.representativeHaveAccessCode,
   validation: {
     type: validation.dateInput,
     errors: {

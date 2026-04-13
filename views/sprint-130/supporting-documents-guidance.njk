@@ -2,10 +2,14 @@
 
 {% block form %}
 
- <h1 class="govuk-heading-l">Uploading your supporting documents</h1>
+  <h1 class="govuk-heading-l">Uploading your supporting documents</h1>
 
   <p class="govuk-body">
     If your supporting documents are digital files, make sure they are saved to the device you are using to apply for Attendance Allowance.
+  </p>
+
+  <p class="govuk-body">
+    You can add up to 10 files.
   </p>
 
   <h2 class="govuk-heading-m">Taking photos or scans of your documents</h1>
@@ -32,5 +36,5 @@
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

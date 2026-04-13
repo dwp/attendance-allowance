@@ -23,14 +23,13 @@
 
 {% endblock %}
 
-
 {% block form %}
 
   <h1 class="govuk-heading-l">
     Check your answers
   </h1>
 
-        {{ checkAnswersContactDetailsSection(data, locale) }}
+  {{ checkAnswersContactDetailsSection(data, locale) }}
 
 {% endblock %}
 
@@ -41,5 +40,5 @@
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

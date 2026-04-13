@@ -99,23 +99,23 @@
 					Do you have a lasting power of attorney (LPA) access code?
 				</dt>
 					<dd class="govuk-summary-list__value">
-						{{ data['have-access-code'] | capitalize }}
+						{{ data['representative-have-access-code'] | capitalize }}
 					</dd>
 					<dd class="govuk-summary-list__actions">
-						{{ changeLink('have-access-code') }}
+						{{ changeLink('representative-have-access-code') }}
 					</dd>
 				</div>
 
-				{% if data['have-access-code']== "yes" %}
+				{% if data['representative-have-access-code']== "yes" %}
 					<div class="govuk-summary-list__row access-code">
 						<dt class="govuk-summary-list__key">
 						LPA access code
 					</dt>
 						<dd class="govuk-summary-list__value">
-							{{ data['access-code'] }}
+							{{ data['representative-enter-access-code'] }}
 						</dd>
 						<dd class="govuk-summary-list__actions">
-							{{ changeLink('access-code') }}
+							{{ changeLink('representative-enter-access-code') }}
 						</dd>
 					</div>
 				{% endif %}

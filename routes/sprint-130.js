@@ -72,6 +72,9 @@ router.use(`/${urls.representativeAddressSelect}`, controllers.representativeAdd
 router.use(`/${urls.representativeAddressManual}`, controllers.representativeAddressManual);
 router.use(`/${urls.representativeAddressInternational}`, controllers.representativeAddressInternational);
 router.use(`/${urls.representativeTelephoneNumber}`, controllers.representativeTelephoneNumber);
+router.use(`/${urls.representativeHaveAccessCode}`, controllers.representativeHaveAccessCode);
+router.use(`/${urls.representativeEnterAccessCode}`, controllers.representativeEnterAccessCode);
+router.use(`/${urls.representativeAccessCodeNone}`, controllers.representativeAccessCodeNone);
 
 // identity
 router.use(`/${urls.nationalInsurance}`, controllers.nationalInsurance);

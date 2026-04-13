@@ -5,24 +5,25 @@
 
 {% block form %}
 
- <h1 class="govuk-heading-l">Upload your SR1 form</h1>
+  <h1 class="govuk-heading-l">Upload your SR1 form</h1>
 
-{{ govukFileUpload({
+  <p class="govuk-body">Your file must be:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>a JPG, JPEG, PNG or PDF</li>
+    <li>smaller than 10MB</li>
+  </ul>
+
+  {{ govukFileUpload({
   id: "special-rules-form-upload",
   name: "special-rules-form-upload",
   label: {
     text: "Upload a file"
   },
+  javascript: true,
   value: data["special-rules-form-upload"],
   errorMessage: data.validation['special-rules-form-upload'].error
 }) }}
-
-<p class="govuk-body govuk-!-static-padding-top-6">Your file must be:</p>
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>a JPG, JPEG, PNG or PDF</li>
-    <li>smaller than 10MB</li>
-  </ul>
 
 {% endblock %}
 
@@ -45,5 +46,5 @@
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

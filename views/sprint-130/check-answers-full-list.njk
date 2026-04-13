@@ -35,19 +35,19 @@
 
   <div class="govuk-!-padding-bottom-5"></div>
 
-    {{ checkAnswersDetailsSection(data) }}
-    {% if data['special-rules-declaration'] != 'yes' %}
+  {{ checkAnswersDetailsSection(data) }}
+  {% if data['special-rules-declaration'] != 'yes' %}
     {{ checkAnswersDaySection(data) }}
     {{ checkAnswersNightSection(data) }}
     {{ checkAnswersStartDateSection(data) }}
-    {% endif %}
+  {% endif %}
 
-    {{ checkAnswersContactDetailsSection(data) }}
+  {{ checkAnswersContactDetailsSection(data) }}
 
 {% endblock %}
 
 {% block formButton %}
-  <a href="claim-submission" class="govuk-button">
+  <a href="application-complete" class="govuk-button">
     Accept and continue
   </a>
   <a href="#">
@@ -58,5 +58,5 @@
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

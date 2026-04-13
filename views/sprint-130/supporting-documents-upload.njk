@@ -6,14 +6,21 @@
 {% block form %}
 
   <h1 class="govuk-heading-l">
-       {% if data['supporting-documents-upload-rows'].length > 0 %}
+    {% if data['supporting-documents-upload-rows'].length > 0 %}
         Upload another supporting document
       {% else %}
         Upload your first supporting document
       {% endif %}
   </h1>
 
-  <div class="govuk-form-group">
+  <p class="govuk-body">Your file must be:</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li>a JPG, JPEG, PNG or PDF</li>
+    <li>smaller than 10MB</li>
+  </ul>
+
+  <div class="govuk-form-group govuk-!-static-padding-top-3">
     <label class="govuk-label" for="supporting-documents-upload">
       Upload a file
     </label>
@@ -24,18 +31,11 @@
     </div>
   </div>
 
-  <p class="govuk-body govuk-!-static-padding-top-6">Your file must be:</p>
-
-  <ul class="govuk-list govuk-list--bullet">
-    <li>a JPG, JPEG, PNG or PDF</li>
-    <li>smaller than 10MB</li>
-  </ul>
-
 {% endblock %}
 
 {% block formButton %}
 
-  <div class="govuk-button-group">
+  <div class="govuk-button-group govuk-!-static-padding-top-3">
     {{ phaseButton(data, "Upload and continue") }}
     {% if data['supporting-documents-upload-rows'].length > 0 %}
       {{ govukButton({
@@ -50,5 +50,5 @@
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

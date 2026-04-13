@@ -7,7 +7,19 @@ const {
 
 const config = {
   name: urls.representativeAddress,
-  previous: urls.representativeBirthDate,
+previous: [
+    {
+      page: urls.representativeAccessCodeNone,
+      condition: {
+        field: urls.representativeHaveAccessCode,
+        value: "no",
+        match: match.value,
+      },
+    },
+    {
+      page: urls.representativeEnterAccessCode,
+    },
+  ],
   next: [
     {
       page: urls.representativeTelephoneNumber,
