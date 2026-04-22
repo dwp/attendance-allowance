@@ -2,12 +2,33 @@ const {
   urls,
   validation,
   registerController,
+  match,
 } = require("../../../utils/controller");
 
 const config = {
   name: urls.representativeBirthDate,
   previous: urls.representativeNationalInsurance,
-  next: urls.representativeHaveAccessCode,
+  next: [
+    {
+      page: urls.representativeAddress,
+      condition: {
+            field: urls.locale,
+            value: 'NI',
+            match: match.value,
+      },
+    },
+    {
+      page: urls.representativeHaveAccessCode,
+      condition: {
+            field: urls.bestDescribe,
+            value: 'powerOfAttorney',
+            match: match.value,
+      },
+    },    
+    {
+      page: urls.representativeAddress,
+    },
+  ],
   validation: {
     type: validation.dateInput,
     errors: {

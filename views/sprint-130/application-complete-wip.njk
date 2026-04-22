@@ -1,6 +1,7 @@
 {% extends "v6.10.0-layouts/prototypeLayout.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{{ data | dump | safe }}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
 {% block form %}
 
   {% if data['applying-someone-else'] == 'individual' %}
@@ -10,11 +11,11 @@
       <div class="govuk-panel__body">The claim reference is the claimant's National Insurance number</div>
     </div>
 
+    <h2 class="govuk-heading-m">What you need to do</h2>
+
     {# --------- SCENARIO 1 posting POA docs; posting paper evidence docs --------- #}
 
     {% if data['representative-have-access-code'] == 'no' and data['supporting-documents-options'] == 'post' %}
-
-      <h2 class="govuk-heading-m">What you need to do</h2>
 
       <p class="govuk-body">You need to send us your:</p>
 
@@ -44,11 +45,9 @@
       <p class="govuk-body">You do not need a postcode or a stamp if you use the Freepost address.</p>
       <p class="govuk-body">If you do not send us your documents or if we need more information we will contact you by phone or letter.</p>
 
-      {# --------- SCENARIO 2 posting POA docs; uploaded evidence docs --------- #}
-
     {% elif data['representative-have-access-code'] == 'no' and data['supporting-documents-options'] == 'upload-now' %}
 
-      <h2 class="govuk-heading-m">What you need to do</h2>
+      {# --------- SCENARIO 2 posting POA docs; uploaded evidence docs --------- #}
 
       <p class="govuk-body">You need to send us your full registered property and finance documents for power of attorney.</p>
 
@@ -74,11 +73,9 @@
       <p class="govuk-body">You do not need a postcode or a stamp if you use the Freepost address.</p>
       <p class="govuk-body">If you do not send us your documents or if we need more information we will contact you by phone or letter.</p>
 
-      {# --------- SCENARIO 3 submitted POA access code; posting paper evidence docs --------- #}
-
     {% elif data['representative-have-access-code'] == 'yes' and data['supporting-documents-options'] == 'post' %}
 
-      <h2 class="govuk-heading-m">What you need to do</h2>
+      {# --------- SCENARIO 3 submitted POA access code; posting paper evidence docs --------- #}
 
       <p class="govuk-body">You have 14 days to post your supporting documents to us.</p>
 
@@ -86,39 +83,19 @@
 
       <p class="govuk-body">Include the claimant’s full name, address and National Insurance number with the documents on a separate piece of paper.</p>
 
-      {% if locale == 'NI' %}
-        <div class="govuk-inset-text">
-            Attendance Allowance<br/>
-            Disability and Carers Service<br/>
-            Mail Opening Unit<br/>
-            PO Box 42<br/>
-            Limavady<br/>
-            BT49 4AN
-          </div>
-
-        <p class="govuk-body">
-            You will need to put a stamp on the envelope.
-          </p>
-
-      {% else %}
-
-        <p class="govuk-body">Send your supporting documents to:</p>
-        <div class="govuk-inset-text">
+      <p class="govuk-body">Send your supporting documents to:</p>
+      <div class="govuk-inset-text">
         Freepost<br>
         Attendance Allowance
       </div>
 
-        <p class="govuk-body">You do not need a postcode or a stamp if you use the Freepost address.</p>
-
-      {% endif %}
+      <p class="govuk-body">You do not need a postcode or a stamp if you use the Freepost address.</p>
 
       <p class="govuk-body">If you do not send us your documents or if we need more information we will contact you by phone or letter.</p>
 
-      {# --------- SCENARIO 4 submitted POA access code; uploaded evidence docs --------- #}
-
     {% elif data['representative-have-access-code'] == 'yes' and data['supporting-documents-options'] == 'upload-now' %}
 
-      {# <h2 class="govuk-heading-m">What you need to do</h2>
+      {# --------- SCENARIO 4 submitted POA access code; uploaded evidence docs --------- #}
 
       <p class="govuk-body">Include the claimant's National Insurance number with anything you send.</p>
 
@@ -133,13 +110,11 @@
 
       <p class="govuk-body">To avoid delaying your claim, do not write anything except the Freepost address on the envelope. You do not need a postcode or a stamp.</p>
 
-      <p class="govuk-body">Send copies as original documents cannot be sent back to you.</p> #}
-
-      {# --------- SCENARIO 5 Is Appointee; posting paper evidence docs SCENARIO 6 Wants to be Appointed; posting paper evidence docs --------- #}
+      <p class="govuk-body">Send copies as original documents cannot be sent back to you.</p>
 
     {% elif data['applying-someone-else'] == 'helping-someone' and data['best-describe'] == 'appointee' and data['supporting-documents-options'] == 'post' %}
 
-      <h2 class="govuk-heading-m">What you need to do</h2>
+      {# --------- SCENARIO 5 Is Appointee; posting paper evidence docs SCENARIO 6 Wants to be Appointed; posting paper evidence docs --------- #}
 
       {{ govukWarningText({
       text: "You have 14 days to post your supporting documents to us",
@@ -160,13 +135,13 @@
       <p class="govuk-body">Send copies as original documents cannot be sent back to you.</p>
     {% endif %}
 
-    {# --------- UNIVERSAL WHAT HAPPENS NEXT SECTION FOR SUPPORTING EVIDENCE AND APPLYING FOR SOMEONE ELSE --------- #}
+    {# --------- UNIVERSAL WHAT HAPPENS NEXT SECTION FOR SUPPORTING EVIDENCE --------- #}
 
-    {# <h2 class="govuk-heading-m">What happens next</h2>
+    <h2 class="govuk-heading-m">What happens next</h2>
 
     <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
     <p class="govuk-body">If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.</p>
-    <p class="govuk-body">You will be able to change this to a different account once they get Attendance Allowance.</p> #}
+    <p class="govuk-body">You will be able to change this to a different account once they get Attendance Allowance.</p>
 
     {# --------- END OF ALL SCENARIOS --------- #}
 
@@ -175,9 +150,8 @@
     {% if data['special-rules-declaration'] == 'yes' %}
       <p class="govuk-body">You will be contacted by phone or letter within 3 weeks.</p>
       <p class="govuk-body">This could be for more information or to explain when you can expect a decision.</p>
-    {% elif data['best-describe'] == 'powerOfAttorney' %}
-      <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
 
+    {% elif data['best-describe'] == 'powerOfAttorney' %}
       <p class="govuk-body">If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.</p>
       <p class="govuk-body">You will be able to change this to a different account once they get Attendance Allowance.</p>
 
@@ -186,31 +160,15 @@
       <p class="govuk-body">If we need more information we will ask for this by phone or letter.</p>
     {% endif %}
 
-    {# <p class="govuk-body">
+    <p class="govuk-body">
       If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.
     </p>
 
     <p class="govuk-body">
       You will be able to change this to a different account once they get Attendance Allowance.
-    </p> #}
-
-    {% if data['special-rules-declaration'] == 'yes' %}
-      <p class="govuk-body">You will be contacted by phone or letter within 3 weeks.</p>
-      <p class="govuk-body">This could be for more information or to explain when you can expect a decision.</p>
-
-      <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
-      <p class="govuk-body">If we need more information we will ask for this by phone or letter.</p>
-    {% endif %}
-
-    {# <p class="govuk-body">
-      If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.
     </p>
 
-    <p class="govuk-body">
-      You will be able to change this to a different account once they get Attendance Allowance.
-    </p> #}
-
-    {# {% if data['supporting-documents-options'] == 'post' %}
+    {% if data['supporting-documents-options'] == 'post' %}
 
       <h2 class="govuk-heading-m">What you need to do next</h2>
 
@@ -262,7 +220,7 @@
           Send copies as original documents cannot be sent back to you.
         </p>
 
-    {% endif %} #}
+    {% endif %}
 
     {% if data['best-describe'] == 'appointee' %}
 
