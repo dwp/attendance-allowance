@@ -4,7 +4,7 @@
 {% block form %}
 
   {% if data['applying-someone-else'] == 'individual' %}
-    {{ data | dump | safe }}
+    {# {{ data | dump | safe }} #}
 
     <div class="govuk-panel govuk-panel--confirmation">
       <h1 class="govuk-panel__title">Application complete</h1>
@@ -125,8 +125,25 @@
 
     {% elif data['best-describe'] == 'appointee' and data['supporting-documents-options'] == 'post' %}
 
-      <h2 class="govuk-heading-m">Scenario 6</h2>
+      <h2 class="govuk-heading-m">What you need to do</h2>
 
+      {{ govukWarningText({
+      text: "You have 14 days to post your supporting documents to us",
+      iconFallbackText: "Warning"
+      }) }}
+
+      <p class="govuk-body">include the claimant's National Insurance number with anything you send.</p>
+
+      <p class="govuk-body">Send your supporting documents to:</p>
+
+      <div class="govuk-inset-text">
+        Freepost<br>
+        Attendance Allowance
+      </div>
+
+      <p class="govuk-body">To avoid delaying the claim, do not write anything except the Freepost address on the envelope. You do not need a postcode or a stamp.</p>
+
+      <p class="govuk-body">Send copies as original documents cannot be sent back to you.</p>
     {% endif %}
 
     {# --------- END OF ALL SCENARIOS --------- #}
@@ -137,6 +154,18 @@
       <p class="govuk-body">You will be contacted by phone or letter within 3 weeks.</p>
       <p class="govuk-body">This could be for more information or to explain when you can expect a decision.</p>
     {% elif data['best-describe'] == 'powerOfAttorney' %}
+      <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
+
+      <p class="govuk-body">If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.</p>
+      <p class="govuk-body">You will be able to change this to a different account once they get Attendance Allowance.</p>
+
+    {% elif data['best-describe'] == 'appointed' %}
+      <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
+
+      <p class="govuk-body">If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.</p>
+      <p class="govuk-body">You will be able to change this to a different account once they get Attendance Allowance.</p>
+
+    {% elif data['best-describe'] == 'appointee' %}
       <p class="govuk-body">You should get a decision letter within 12 weeks.</p>
 
       <p class="govuk-body">If this application is successful, we will pay their Attendance Allowance into the same account as their State Pension.</p>

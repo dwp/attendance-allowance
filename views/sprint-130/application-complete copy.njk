@@ -125,8 +125,25 @@
 
     {% elif data['best-describe'] == 'appointee' and data['supporting-documents-options'] == 'post' %}
 
-      <h2 class="govuk-heading-m">Scenario 6</h2>
+      <h2 class="govuk-heading-m">What you need to do</h2>
 
+      {{ govukWarningText({
+      text: "You have 14 days to post your supporting documents to us",
+      iconFallbackText: "Warning"
+      }) }}
+
+      <p class="govuk-body">include the claimant's National Insurance number with anything you send.</p>
+
+      <p class="govuk-body">Send your supporting documents to:</p>
+
+      <div class="govuk-inset-text">
+        Freepost<br>
+        Attendance Allowance
+      </div>
+
+      <p class="govuk-body">To avoid delaying the claim, do not write anything except the Freepost address on the envelope. You do not need a postcode or a stamp.</p>
+
+      <p class="govuk-body">Send copies as original documents cannot be sent back to you.</p>
     {% endif %}
 
     {# --------- END OF ALL SCENARIOS --------- #}
