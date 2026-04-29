@@ -14,9 +14,9 @@
   "dependencies": {
     "accessible-autocomplete": "^2.0.4",
     "basic-auth": "^2.0.1",
-    "body-parser": "1.20.2",
+    "body-parser": "1.20.3",
     "commander": "11.1.0",
-    "express": "4.18.2",
+    "express": "4.20.0",
     "express-session": "1.17.3",
     "fuse.js": "^7.1.0",
     "govuk-frontend": "4.7.0",
