@@ -9,7 +9,7 @@ const config = {
   name: urls.aidsAdaptationsQuestion,
   previous: [
     {
-      page: urls.checkAnswersStartDate,
+      page: urls.supportingDocumentsAdded,
       condition: {
         field: urls.supportingDocumentsOptions,
         value: "upload-now",
@@ -17,7 +17,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersStartDate,
+      page: urls.supportingDocumentsPost,
       condition: {
         field: urls.supportingDocumentsOptions,
         value: "post",
@@ -30,7 +30,7 @@ const config = {
   ],
   next: [
     {
-      page: urls.checkAnswersStartDate,
+      page: urls.aidsAdaptationsReason,
       condition: {
         field: urls.aidsAdaptationsQuestion,
         value: "no",

@@ -2,7 +2,6 @@
 
 {% extends "v6.10.0-layouts/prototypeLayout.njk" %}
 
-
 {% block form %}
   {{ govukRadios({
     idPrefix: "residence-country",
@@ -46,8 +45,9 @@
       }
     ]
   }) }}
+
 {% endblock %}
 
 {% block postForm %}
-    {% include './macros/assisted-digital-details.njk' %}
+  {% include './macros/assisted-digital-details.njk' %}
 {% endblock %}

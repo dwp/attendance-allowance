@@ -18,7 +18,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersNight,
+      page: urls.turningOverNightFrequency,
       condition: {
         field: urls.nightDifficulties,
         value: ["nighttime-turning-over"],
@@ -26,7 +26,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersNight,
+      page: urls.bedPositionNight,
       condition: {
         field: urls.nightDifficulties,
         value: ["nighttime-getting-settled"],
@@ -34,7 +34,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersNight,
+      page: urls.toiletNight,
       condition: {
         field: urls.nightDifficulties,
         value: ["nighttime-cleaning-yourself"],
@@ -42,7 +42,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersNight,
+      page: urls.medicationTreatmentNight,
       condition: {
         field: urls.nightDifficulties,
         value: ["nighttime-medication"],
