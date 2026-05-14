@@ -22,7 +22,7 @@ const config = {
   ],
   next: [
     {
-      page: urls.healthConditions,
+      page: urls.specialRulesDeclaration,
       condition: {
         field: urls.applyingSomeoneElse,
         value: 'individual',

@@ -18,7 +18,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.bedDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-bed"],
@@ -26,7 +26,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.washDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-washing"],
@@ -34,7 +34,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.dressDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-dressing"],
@@ -42,7 +42,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.movingIndoorsDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-moving"],
@@ -50,7 +50,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.fallingOrStumbling,
       condition: {
         field: urls.dayDifficulties,
         value: ["stumbling-falling"],
@@ -58,7 +58,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.toiletDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-toilet"],
@@ -66,7 +66,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.eatDrinkDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-eating"],
@@ -74,7 +74,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.medicationTreatmentDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-medication"],
@@ -82,7 +82,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.socialActivitiesDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-hobbies"],
@@ -90,7 +90,7 @@ const config = {
       },
     },
     {
-      page: urls.checkAnswersDay,
+      page: urls.communicationDay,
       condition: {
         field: urls.dayDifficulties,
         value: ["daytime-communication"],

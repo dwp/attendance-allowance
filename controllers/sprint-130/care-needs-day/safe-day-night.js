@@ -26,18 +26,18 @@ const config = {
       },
     },
     {
-      page: urls.difficultiesStartDate,
+      page: urls.safeDayWhy,
       condition: {
-        page: urls.difficultiesStartDate,
+        page: urls.safeDayNight,
         field: "safe-day-night",
         value: ["day"],
         match: match.anyOne,
       },
     },
     {
-      page: urls.difficultiesStartDate,
+      page: urls.safeDayWhy,
       condition: {
-        page: urls.difficultiesStartDate,
+        page: urls.safeDayNight,
         field: "safe-day-night",
         value: ["night"],
         match: match.anyOne,
