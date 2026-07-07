@@ -1,0 +1,18 @@
+{% macro changeLink(value) %}
+  <form method="post" novalidate>
+    <input type="hidden" name="destination" value="{{value}}" />
+    <button class="govuk-link" style="
+      color: #1d70b8;
+      border: none;
+      background-color: transparent;
+      text-decoration: underline;
+      font-size: large;
+      font-family: GDS Transport,arial,sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      cursor: pointer;"
+    >
+      Change
+    </button>
+  </form>
+{% endmacro %}

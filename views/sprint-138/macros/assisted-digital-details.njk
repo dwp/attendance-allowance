@@ -1,0 +1,43 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% set details %}
+  <p class="govuk-body">
+    Telephone: 0800 731 0122
+    <br/> Telephone (Northern Ireland only): 0800 587 0912
+  </p>
+
+  <p class="govuk-body">
+    Textphone: 0800 731 0317
+    <br/> Textphone (Northern Ireland only): 0800 012 1574
+  </p>
+
+  <p class="govuk-body">
+    <a href='https://www.relayuk.bt.com' class="govuk-link">
+      Relay UK
+    </a> (if you cannot hear or speak on the
+    <br/>phone): 18001 then 0800 731 0122
+  </p>
+
+  <p class="govuk-body">
+    <a href='https://connect.interpreterslive.co.uk/vrs?ilc=DWP' class="govuk-link">
+      Video relay service
+    </a> for British Sign Language (BSL)
+    <br/>users <a href='https://www.youtube.com/watch?v=oELNMfAvDxw' class="govuk-link">(Check you can use the video relay service)</a>
+  </p>
+
+   <p class="govuk-body">
+    Monday to Friday, 8am to 6pm
+  </p>
+
+  <p class="govuk-body">
+    <a href='https://www.gov.uk/call-charges' class="govuk-link">
+      Find out about call charges
+    </a>
+  </p>
+
+{% endset %}
+
+{{ govukDetails({
+    summaryText: "Get help with your application",
+    html: details
+  }) }}
