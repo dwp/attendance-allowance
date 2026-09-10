@@ -10,28 +10,30 @@ const routeToNext = (req, res, activity, source, target, no307) => {
   }
   if (!req.session.data.activities?.includes(activity)) {
     delete req.session.data.validation;
-    if (no307) {
-      res.redirect(`${req.version}${target}`);
+    if (isAllowed) {
+        // If the URL is allowed, proceed with the redirect
+        res.redirect(url);
     } else {
-      res.redirect(307, `${req.version}${target}`);
+        res.status(400).send('Invalid redirect URL');
     }
+
   } else if (req.session.data[`${source}-submitted`]) {
     const hasValidationErrors = common.hasValidationErrorsForActivity(req, source);
     if (hasValidationErrors) {
-      res.redirect(`${req.version}${source}`);
+      res.redirect(url);
     } else {
       // For now we appear to need to force the array stuff frequently
       delete req.session.data.validation;
-      if (req.session.data['C-Y-A'] && req.session.data['C-Y-A'] === `${source}`) {
-        res.redirect(`${req.version}check-your-answers`);
-      } else if (no307) {
-        res.redirect(`${req.version}${target}`);
-      } else {
-        res.redirect(307, `${req.version}${target}`);
-      }
+      if (isAllowed) {
+        // If the URL is allowed, proceed with the redirect
+        res.redirect(url);
+    } else {
+        res.status(400).send('Invalid redirect URL');
+    }
+
     }
   } else {
-    res.redirect(`${req.version}${source}`);
+    res.redirect(url);
   }
 };
 

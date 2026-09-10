@@ -101,7 +101,7 @@ module.exports = (source, config, logic) => (req, res, next) => {
   if (!isValid) {
     //remove invalid stuff from session
     autoClearData(req, res, next);
-    return res.redirect(`${req.version}${source}`);
+    res.redirect(url);
   }
   clearHealthConditions(req, res, next);
   clearAidsAdaptations(req, res, next);

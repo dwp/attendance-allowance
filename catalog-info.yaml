@@ -10,11 +10,11 @@ metadata:
     gitlab.com/project-slug: dwp/user-centred-design/attendance-allowance-prototype
 
   labels:
-    dwp.gov.uk/version: unknown
+    dwp.gov.uk/version: 1.5.1
     dwp.gov.uk/license: unknown
 
-    dwp.gov.uk/last-verified.by: Neil Holroyd
-    dwp.gov.uk/last-verified.on: 2026-04-29
+    dwp.gov.uk/last-verified.by: Peter Kizito
+    dwp.gov.uk/last-verified.on: 2026-09-08
 
     dwp.gov.uk/open-source.approved: "false"
     dwp.gov.uk/open-source.location: "date"

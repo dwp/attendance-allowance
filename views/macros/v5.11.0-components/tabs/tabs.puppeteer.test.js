@@ -204,9 +204,7 @@ describe('/components/tabs', () => {
       it('should indicate the open state of the associated tab', async () => {
         await render(page, 'tabs', examples.default)
 
-        await page.evaluate(() => {
-          window.location.hash = '#past-week'
-        })
+        await page.evaluateOnNewDocument(safeUrl);
 
         const currentTabAriaSelected = await page.evaluate(() =>
           document.body
