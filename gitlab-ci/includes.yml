@@ -1,0 +1,10 @@
+include:
+  - project: dwp/engineering/pipeline-solutions/gitlab/functions
+    ref: 6.0.7
+    file:
+      - functions/base-mr.gitlab-ci.yml
+  - project: 'dwp/engineering/pipeline-solutions/gitlab/fragments/heroku-site-publish'
+    ref: 1-2-2
+    file: 'ci-include-heroku-site-publish.yml'
+
+

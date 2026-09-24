@@ -1,0 +1,4 @@
+heroku-site-publish:
+  extends: .heroku-site-publish-template
+  variables:
+    HEROKU_APP_NAME: attendance-allowance

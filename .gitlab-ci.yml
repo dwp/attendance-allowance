@@ -25,8 +25,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH
       when: always
 
-include:
-  - project: dwp/engineering/pipeline-solutions/gitlab/functions
-    ref: 6.0.7
-    file:
-      - functions/base-mr.gitlab-ci.yml
+include: 
+     - local: gitlab-ci/includes.yml 
+     - local: gitlab-ci/jobs.yml
+
