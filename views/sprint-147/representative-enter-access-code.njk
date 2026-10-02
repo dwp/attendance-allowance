@@ -1,0 +1,49 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v6.10.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+  <h1 class="govuk-heading-l">Enter the LPA access code</h1>
+
+  {{ govukInput({
+
+    errorMessage: data.validation['representative-enter-access-code'].error,
+    hint: {
+      text: "For example, V-AB12-CD34-EF56"
+    },
+  prefix: {
+    text: "V -"
+  },
+    id: "representative-enter-access-code",
+    name: "representative-enter-access-code",
+    classes: "govuk-input--width-10",
+    spellcheck: false,
+    value: data["representative-enter-access-code"]
+  }) }}
+
+  <div class="govuk-inset-text">
+    If you cannot generate a code you can continue to apply online. You can send your documents by post.
+  </div>
+{% endblock %}
+
+{% block formButton %}
+  <div class="govuk-button-group">
+    {{ govukButton({
+    text: "Continue"
+  }) }}
+
+    {{ govukButton({
+    text: "Continue without a code",
+    classes: "govuk-button--secondary",
+    href: "representative-address"
+  }) }}
+  </div>
+
+{% endblock %}
+
+{% block postForm %}
+
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

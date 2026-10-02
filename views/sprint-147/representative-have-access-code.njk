@@ -1,0 +1,48 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "v6.10.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+  <span class="govuk-caption-l">About {{ data['representative-first-name'] | capitalize }}</span>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Providing proof of lasting power of attorney (property and finance)</h1>
+
+  <div class="govuk-body">We need proof you have lasting power of attorney (LPA) for the person you are applying for.</div>
+
+  <p class="govuk-body">You can give us this by:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>sending your documents by post (originals or certified copies, we will send these back to you)</li>
+    <li>sharing an online summary of your LPA</li>
+  </ul>
+
+  <p class="govuk-body">To share an online summary you will need to sign in to the GOV.UK <a href="https://use-lasting-power-of-attorney.service.gov.uk/home" class="govuk-link" rel="noreferrer noopener" target="_blank">Use a lasting power of attorney service (opens in new tab)</a> to generate an access code. We will use the access code to view an online summary of yur LPA.</p>
+
+  {{ govukRadios({
+    idPrefix: "representative-have-access-code",
+    name: "representative-have-access-code",
+    fieldset: {
+      legend: {
+        text: "How do you want to give us proof of LPA?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: data.validation['representative-have-access-code'].error,
+    items: [
+      {
+        value: "no",
+        text: "I want to send documents in the post",
+        checked: true if data["representative-have-access-code"] === "no"
+      },
+      {
+        value: "yes",
+        text: "I want to share an online summary using an access code",
+        checked: true if data["representative-have-access-code"] === "yes"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block postForm %}
+  {% include './macros/assisted-digital-details.njk' %}
+{% endblock %}

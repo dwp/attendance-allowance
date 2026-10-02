@@ -1,5 +1,5 @@
-const express = require('express');
-const common = require('./activity-common');
+const express = require("express");
+const common = require("./activity-common");
 
 const router = express.Router();
 // Centralise how we move onwards (assuming validation wasn't an issue) for the activity screens
@@ -10,30 +10,34 @@ const routeToNext = (req, res, activity, source, target, no307) => {
   }
   if (!req.session.data.activities?.includes(activity)) {
     delete req.session.data.validation;
-    if (isAllowed) {
-        // If the URL is allowed, proceed with the redirect
-        res.redirect(url);
+    if (no307) {
+      res.redirect(`${req.version}${target}`);
     } else {
-        res.status(400).send('Invalid redirect URL');
+      res.redirect(307, `${req.version}${target}`);
     }
-
   } else if (req.session.data[`${source}-submitted`]) {
-    const hasValidationErrors = common.hasValidationErrorsForActivity(req, source);
+    const hasValidationErrors = common.hasValidationErrorsForActivity(
+      req,
+      source,
+    );
     if (hasValidationErrors) {
-      res.redirect(url);
+      res.redirect(`${req.version}${source}`);
     } else {
       // For now we appear to need to force the array stuff frequently
       delete req.session.data.validation;
-      if (isAllowed) {
-        // If the URL is allowed, proceed with the redirect
-        res.redirect(url);
-    } else {
-        res.status(400).send('Invalid redirect URL');
-    }
-
+      if (
+        req.session.data["C-Y-A"] &&
+        req.session.data["C-Y-A"] === `${source}`
+      ) {
+        res.redirect(`${req.version}check-your-answers`);
+      } else if (no307) {
+        res.redirect(`${req.version}${target}`);
+      } else {
+        res.redirect(307, `${req.version}${target}`);
+      }
     }
   } else {
-    res.redirect(url);
+    res.redirect(`${req.version}${source}`);
   }
 };
 

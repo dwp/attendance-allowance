@@ -1,0 +1,370 @@
+{% from "./change-link.njk" import changeLink %}
+{% from "./reword-date.njk" import rewordDate %}
+
+{% macro checkAnswersNightSection(data) %}
+
+	<section class="Your care needs during the night">
+		<h2 class="govuk-heading-m">
+			Difficulties you have during the night
+		</h2>
+		<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+			<div class="govuk-summary-list__row night-activities">
+				<dt class="govuk-summary-list__key">
+					Activities you have difficulty with
+				</dt>
+				<dd class="govuk-summary-list__value">
+					<ul class="govuk-list">
+						{% for item in data['night-difficulties'] %}
+							<li>
+								{{ item
+								| replace("nighttime-turning-over", "Turning over or changing position in bed")
+								| replace("nighttime-getting-settled", "Getting settled")
+								| replace("nighttime-cleaning-yourself", "Using the toilet or managing incontinence")
+								| replace("nighttime-medication", "Managing medication or treatment")
+								| replace("nighttime-none", "I do not have difficulties or need help during the night") }}
+							</li>
+						{% endfor %}
+					</ul>
+				</dd>
+				<dd class="govuk-summary-list__actions">
+					{{ changeLink('night-difficulties') }}
+				</dd>
+			</div>
+		</dl>
+	</section>
+	{% if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-turning-over") %}
+		<section class="Turning over or changing position in bed">
+			<h2 class="govuk-heading-m">
+				Turning over or changing position in bed
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row turning-over-night-frequency">
+					<dt class="govuk-summary-list__key">
+							Approximately, how many times a night do you need help to turn over or change position?
+						</dt>
+					<dd class="govuk-summary-list__value">
+						{{ data['night-frequency-1-bed']
+								| replace("once-a-night", "Once a night")
+								| replace("2-times-a-night", "2 times a night")
+								| replace("3-times-a-night-or-more", "3 times a night or more") }}
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('turning-over-night-frequency') }}
+					</dd>
+				</div>
+				{% if data['night-frequency-1-bed']==['once-a-night'] %}
+					<div class="govuk-summary-list__row turning-over-night-frequency">
+						<dt class="govuk-summary-list__key">
+							How long does it take to turn over or change position?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['turning-over-typically-how-long'] | capitalize }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('turning-over-night-frequency') }}
+						</dd>
+					</div>
+				{% endif %}
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-getting-settled") %}
+		<section class="Getting settled">
+			<h2 class="govuk-heading-m">
+				Getting settled in bed
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row getting-settled">
+					<dt class="govuk-summary-list__key">
+					What difficulty do you have getting settled in bed during the night?
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['bed-position-night'] %}
+								<li>
+									{{ item
+									| replace("bed-covers", "Getting my bed covers back on the bed if they fall off")
+									| replace("propped-up", "Getting propped up in bed")
+									| replace("something-else-bed", "Something else")
+									| replace("none","I do not have difficulty getting settled in bed during the night") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('bed-position-night') }}
+					</dd>
+				</div>
+				{% if data['bed-position-night'] != "none" %}
+					{% if data['something-else-explain-bed-night'] %}
+						<div class="govuk-summary-list__row bed-position-night">
+							<dt class="govuk-summary-list__key">
+											Tell us what difficulty you have getting settled in bed
+									</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['something-else-explain-bed-night'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('bed-position-night') }}
+							</dd>
+						</div>
+					{% endif %}
+					<div class="govuk-summary-list__row night-frequency-bed-position">
+						<dt class="govuk-summary-list__key">
+							Approximately, how many times a night do you have difficulty getting settled?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['night-frequency-bed-position']
+								| replace("once-a-night", "Once a night")
+								| replace("2-times-a-night", "2 times a night")
+								| replace("3-times-a-night-or-more", "3 times a night or more") }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('bed-position-night-frequency') }}
+						</dd>
+					</div>
+					{% if data['night-frequency-bed-position']==['once-a-night'] %}
+						<div class="govuk-summary-list__row night-frequency-bed-position">
+							<dt class="govuk-summary-list__key">
+											How long does it take to get settled in bed?
+									</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['bed-position-typically-how-long'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('night-frequency-bed-position') }}
+							</dd>
+						</div>
+					{% endif %}
+				{% endif %}
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-cleaning-yourself") %}
+		<section class="Toilet needs">
+			<h2 class="govuk-heading-m">
+				Toilet needs or managing incontinence
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row toilet-night">
+					<dt class="govuk-summary-list__key">
+					What difficulty do you have with your toilet needs during the night?
+					</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['toilet-night'] %}
+								<li>
+									{{ item
+									| replace("toilet-getting-to", "Getting to the toilet or commode")
+									| replace("toilet-urgent", "Needing the toilet urgently")
+									| replace("toilet-getting-on-off", "Getting on or off the toilet or commode")
+									| replace("toilet-cleaning-myself", "Cleaning myself after using the toilet or commode")
+									| replace("toilet-emptying", "Emptying and managing my stoma, catheter or similar")
+									| replace("managing-incontinence", "I have incontinence")
+									| replace("toilet-night-something-else", "Something else")
+									| replace("no-other-apply","I do not have difficulty getting settled in bed during the night") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('toliet-night') }}
+					</dd>
+				</div>
+				{% if data['toilet-night'] != "no-other-apply" %}
+					{% if data['something-else-explain-toilet'] %}
+						<div class="govuk-summary-list__row toilet-night">
+							<dt class="govuk-summary-list__key">
+												Tell us what difficulty you have with your toilet needs
+										</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['something-else-explain-toilet'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('toilet-night') }}
+							</dd>
+						</div>
+					{% endif %}
+					{% if data['toilet-night-why'] %}
+						<div class="govuk-summary-list__row toilet-night-why">
+							<dt class="govuk-summary-list__key">
+												How do you manage your toilet needs during the night?
+										</dt>
+							<dd class="govuk-summary-list__value">
+								<ul class="govuk-list">
+									{% for item in data['toilet-night-why'] %}
+										<li>
+											{{ item
+																				| replace("lean-on-sink-radiator", "I need to lean on something such as the sink or radiator")
+																				| replace("toilet-raised", "I can only use a toilet if it's raised")
+																				| replace("toilet-several-attempts", "It takes me several attempts to get on or off the toilet or commode")
+																				| replace("toilet-accident", "I have accidents because I cannot get there in time")
+																				| replace("toilet-safely", "I cannot get on or off the toilet safely")
+																				| replace("toilet-physical-assist", "Someone has to physically assist me")
+																				| replace("unable-to-manage", "I am unable to manage")
+																				| replace("toilet-night-why-something-else", "Something else")}}
+										</li>
+									{% endfor %}
+								</ul>
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('toilet-night-why') }}
+							</dd>
+						</div>
+					{% endif %}
+					{% if data['something-else-toilet-night-why-explain'] %}
+						<div class="govuk-summary-list__row toilet-night-why">
+							<dt class="govuk-summary-list__key">
+												Tell us how you manage your toilet needs
+										</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['something-else-toilet-night-why-explain'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('toilet-night-why') }}
+							</dd>
+						</div>
+					{% endif %}
+					<div class="govuk-summary-list__row night-frequency-2-loo">
+						<dt class="govuk-summary-list__key">
+										Approximately, how many times a night do you have difficulty with your toilet needs?
+								</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['night-frequency-2-loo']
+										| replace("once-a-night", "Once a night")
+										| replace("twice-a-night", "2 times a night")
+										| replace("three-or-more-a-night", "3 times a night or more") }}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('toilet-night-frequency') }}
+						</dd>
+					</div>
+					{% if data['night-frequency-2-loo']==['once-a-night'] %}
+						<div class="govuk-summary-list__row toilet-night-frequency">
+							<dt class="govuk-summary-list__key">
+											How long does it take to manage the difficulty you have with your toilet needs?
+									</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['toilet-typically-how-long'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('toilet-night-frequency') }}
+							</dd>
+						</div>
+					{% endif %}
+				{% endif %}
+			</dl>
+		</section>
+	{% endif %}
+	{% if data["night-difficulties"] and data["night-difficulties"].includes("nighttime-medication") %}
+		<section class="Medication or treatment during the night">
+			<h2 class="govuk-heading-m">
+				Medication or treatment
+			</h2>
+			<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+				<div class="govuk-summary-list__row medication-treatment-night">
+					<dt class="govuk-summary-list__key">
+					What medication or treatment do you have difficulty taking during the night?
+				</dt>
+					<dd class="govuk-summary-list__value">
+						<ul class="govuk-list">
+							{% for item in data['medication-treatment-night'] %}
+								<li>
+									{{ item
+									| replace("having-oxygen-therapy", "Having oxygen therapy")
+									| replace("cpap-mask", "Adjusting continuous positive airway pressure (CPAP) mask")
+									| replace("applying-cream", "Applying cream")
+									| replace("taking-medication", "Taking medication, for example, pain relief")
+									| replace("something-else-medication", "Something else")
+									| replace("no-other-apply", "I do not take medication or get treatment during the night") }}
+								</li>
+							{% endfor %}
+						</ul>
+					</dd>
+					<dd class="govuk-summary-list__actions">
+						{{ changeLink('medication-treatment-night') }}
+					</dd>
+				</div>
+				{% if data['medication-treatment-night'] != "no-other-apply" %}
+					{% if data['something-else-explain-medication-night'] %}
+						<div class="govuk-summary-list__row medication-treatment-night">
+							<dt class="govuk-summary-list__key">
+								Tell us what medication or treatment you have difficulty with during the night
+							</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['something-else-explain-medication-night'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('medication-treatment-night') }}
+							</dd>
+						</div>
+					{% endif %}
+					<div class="govuk-summary-list__row medication-treatment-night-why">
+						<dt class="govuk-summary-list__key">
+							How do you manage taking medication or getting treatment during the night?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							<ul class="govuk-list">
+								{% for item in data['medication-treatment-night-why'] %}
+									<li>
+										{{ item
+										| replace("long-time", "It takes me a long time to take the medication or treatment on my own")
+										| replace("someone-prepare", "Someone has to prepare the medication or treatment for me")
+										| replace("remind-encourage", "Someone has to remind or encourage me to take my medication or treatment")
+										| replace("help", "I cannot take the medication or treatment by myself")
+										| replace("medication-treatment-night-why-something-else", "Something else")
+										}}
+									</li>
+								{% endfor %}
+							</ul>
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('medication-treatment-night-why') }}
+						</dd>
+					</div>
+					{% if data['something-else-medication-treatment-night-why-explain'] %}
+						<div class="govuk-summary-list__row medication-treatment-night">
+							<dt class="govuk-summary-list__key">
+											Tell us how you manage taking your medication or getting treatment during the night
+									</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['something-else-medication-treatment-night-why-explain'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('medication-treatment-night-why') }}
+							</dd>
+						</div>
+					{% endif %}
+					<div class="govuk-summary-list__row medication-treatment-night-frequency">
+						<dt class="govuk-summary-list__key">
+						 Approximately, how many times a night do you have difficulty taking medication or getting treatment?
+						</dt>
+						<dd class="govuk-summary-list__value">
+							{{ data['medication-treatment-night-frequency']
+							| replace("once-a-night", "Once a night")
+							| replace("twice-a-night", "2 times a night")
+							| replace("three-or-more-a-night", "3 times a night or more")
+							}}
+						</dd>
+						<dd class="govuk-summary-list__actions">
+							{{ changeLink('medication-treatment-night-frequency') }}
+						</dd>
+					</div>
+					{% if data['medication-treatment-night-frequency']==['once-a-night'] %}
+						<div class="govuk-summary-list__row toilet-night-frequency">
+							<dt class="govuk-summary-list__key">
+								How long does it take you to take medication or get treatment?
+							</dt>
+							<dd class="govuk-summary-list__value">
+								{{ data['medication-typically-how-long'] | capitalize }}
+							</dd>
+							<dd class="govuk-summary-list__actions">
+								{{ changeLink('medication-treatment-night-frequency') }}
+							</dd>
+						</div>
+					{% endif %}
+				{% endif %}
+			</dl>
+		</section>
+	{% endif %}
+{% endmacro %}

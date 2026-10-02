@@ -1,0 +1,32 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "v6.10.0-layouts/prototypeLayout.njk" %}
+
+{% block form %}
+    <h1 class="govuk-heading-l">Renew a claim for Attendance Allowance</h1>
+
+    {% if locale == 'NI' %}
+        <p class="govuk-body">You will need to use the <a class="govuk-link" href="https://www.nidirect.gov.uk/articles/attendance-allowance#toc-4">paper claim form</a>
+        if you already get Attendance Allowance and want to renew your claim.</p>
+    {% else %}
+        <p class="govuk-body">You can renew your claim if you are currently getting Attendance Allowance and your award period is due to end in the next 12 weeks.</p>
+        <p class="govuk-body">The date your award is due to end is on the award letter and renewal letter we have sent to you.</p>
+        <p class="govuk-body">If your award period has ended or you have not claimed Attendance Allowance before you should <a class="govuk-link" href="claim-type?locale=GB">make a new claim</a>.</p>
+
+        {# {% include './macros/renew-digital-details.njk' %} #}
+
+    {% endif %}
+
+    <div class="govuk-button-group govuk-!-margin-top-7">
+        {{ govukButton({
+    text: "Continue"
+  }) }}
+
+        <a class="govuk-link" href="#">Cancel</a>
+    </div>
+{% endblock %}
+
+{% block formButton %}{% endblock %}
+
+{% block postForm %}{% endblock %}
